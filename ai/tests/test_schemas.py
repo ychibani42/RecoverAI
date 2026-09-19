@@ -8,25 +8,37 @@ from recovery_ia.schemas import ClinicalReport, NewPatientInput, PatientCase, Si
 
 def test_patient_case_from_dataset_record():
     record = {
-        "patient_id": "SYN-00001",
-        "age": 70,
-        "sex": "M",
-        "bmi": 27.3,
-        "activity_level": "sedentario",
-        "comorbidities": ["diabetes"],
-        "fracture_type": "humero_diafisis",
-        "fracture_label": "Fractura de diafisis humeral",
-        "severity": "I - simple",
-        "treatment_type": "conservador",
-        "protocol_id": "PROT-humero_diafisis-I-con",
-        "recovery_weeks": 10,
-        "outcome": "recuperacion_completa",
-        "diagnosis_note": "...",
-        "followup_note": "...",
-        "image_id": "SYN-00001.png",
+        "case_id": "CASE-0001",
+        "uuid": "f21e137a-e954-435f-9664-01db01ec4a1b",
+        "sexo": "Hombre",
+        "edad": 70,
+        "altura_cm": 175,
+        "peso_kg": 83.7,
+        "imc": 27.3,
+        "nivel_actividad": "sedentario",
+        "deportista": False,
+        "comorbilidades": ["diabetes"],
+        "fractura_tipo": "Fractura de diafisis humeral",
+        "fractura_zona": "Humero/Diafisis",
+        "gravedad": "leve",
+        "mecanismo_lesion": "caida accidental",
+        "tratamiento": "conservador",
+        "tratamiento_detalle": "inmovilizacion con cabestrillo y control radiografico periodico",
+        "diagnostico_texto": "...",
+        "hallazgos_imagen_texto": "...",
+        "plan_recuperacion_texto": "...",
+        "semanas_recuperacion_total": 10,
+        "semanas_estabilizacion": 4,
+        "semanas_fisioterapia": 6,
+        "hitos_recuperacion": [{"semana": 4, "hito": "inicio de carga progresiva"}],
+        "complicaciones": "ninguna",
+        "puntuacion_resultado": 90.0,
+        "imagen_radiografia": "xrays/CASE-0001.png",
+        "imagen_radiografia_tipo": "sintetica",
+        "imagen_radiografia_fuente": "Radiografia sintetica generada proceduralmente.",
     }
     case = PatientCase(**record)
-    assert case.patient_id == "SYN-00001"
+    assert case.case_id == "CASE-0001"
 
 
 def test_similar_case_query_defaults():

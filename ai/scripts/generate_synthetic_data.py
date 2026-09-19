@@ -3,12 +3,18 @@ Generador de dataset SINTÉTICO (100% inventado, no proviene de pacientes reales
 para prototipar el pipeline RAG de recovery-ia.
 
 Salidas:
-  data/raw/patients.json           -> casos de pacientes (estructurado + nota narrativa)
+  data/raw/patients.json           -> casos de pacientes (estructurado + notas narrativas)
   data/raw/patients.csv            -> misma info en formato tabular
-  data/raw/recovery_protocols.json -> catálogo de protocolos de recuperación por tipo/gravedad
-  data/images/{patient_id}.png     -> placeholder sintético de "radiografía" (patrón generado,
-                                       NO es una imagen médica real; sirve solo para probar
-                                       el pipeline de embeddings de imagen)
+  data/raw/recovery_protocols.json -> catálogo de protocolos de recuperación por tipo/gravedad/tratamiento
+  data/images/xrays/{case_id}.png  -> radiografía sintética (patrón generado, NO es una imagen
+                                       médica real) usada como imagen de entrenamiento y como
+                                       respaldo para los casos que no tienen una radiografía real
+                                       asignada
+
+Cuando la zona de la fractura tiene radiografías reales disponibles en
+data/images/xrays_reales/ (ver manifest_fuentes.json), una parte de los casos
+las usa como imagen principal (imagen_radiografia_tipo="real"); el resto usa
+la radiografía sintética generada aquí (imagen_radiografia_tipo="sintetica").
 
 Uso:
   py scripts/generate_synthetic_data.py --n 300 --seed 42
@@ -18,6 +24,7 @@ import argparse
 import csv
 import json
 import random
+import uuid
 from dataclasses import asdict, dataclass
 from pathlib import Path
 
@@ -25,53 +32,83 @@ from PIL import Image, ImageDraw
 
 ROOT = Path(__file__).resolve().parents[1]
 RAW_DIR = ROOT / "data" / "raw"
-IMG_DIR = ROOT / "data" / "images"
+IMAGES_DIR = ROOT / "data" / "images"
+SYNTHETIC_IMG_DIR = IMAGES_DIR / "xrays"
+REAL_IMG_DIR = IMAGES_DIR / "xrays_reales"
+REAL_MANIFEST_PATH = REAL_IMG_DIR / "manifest_fuentes.json"
 
 FRACTURE_TYPES = {
     "muneca_colles": {
         "label": "Fractura de radio distal (tipo Colles)",
+        "zona": "Muneca/Radio",
         "base_weeks": 7,
         "surgical_ratio": 0.35,
+        "real_zone": "muneca_radio",
+        "conservative_care": "inmovilizacion con yeso/ferula",
     },
     "humero_diafisis": {
         "label": "Fractura de diáfisis humeral",
+        "zona": "Humero/Diafisis",
         "base_weeks": 10,
         "surgical_ratio": 0.4,
+        "real_zone": None,
+        "conservative_care": "inmovilizacion con cabestrillo",
     },
     "femur_diafisis": {
         "label": "Fractura de diáfisis femoral",
+        "zona": "Femur/Diafisis",
         "base_weeks": 14,
         "surgical_ratio": 0.9,
+        "real_zone": None,
+        "conservative_care": "descarga progresiva con apoyo de muletas",
     },
     "cadera_cuello_femoral": {
         "label": "Fractura de cuello femoral (cadera)",
+        "zona": "Cadera/Cuello femoral",
         "base_weeks": 14,
         "surgical_ratio": 0.85,
+        "real_zone": None,
+        "conservative_care": "descarga progresiva con apoyo de muletas",
     },
     "tibia_perone": {
         "label": "Fractura de tibia y peroné",
+        "zona": "Tibia/Perone",
         "base_weeks": 13,
         "surgical_ratio": 0.55,
+        "real_zone": None,
+        "conservative_care": "inmovilizacion con yeso/ferula",
     },
     "tobillo_maleolar": {
         "label": "Fractura maleolar de tobillo",
+        "zona": "Tobillo",
         "base_weeks": 8,
         "surgical_ratio": 0.3,
+        "real_zone": "tobillo",
+        "conservative_care": "inmovilizacion con yeso/ferula",
     },
     "clavicula": {
         "label": "Fractura de clavícula",
+        "zona": "Clavicula",
         "base_weeks": 6,
         "surgical_ratio": 0.15,
+        "real_zone": None,
+        "conservative_care": "inmovilizacion con cabestrillo",
     },
     "vertebral_compresion": {
         "label": "Fractura vertebral por compresión",
+        "zona": "Columna vertebral",
         "base_weeks": 10,
         "surgical_ratio": 0.2,
+        "real_zone": None,
+        "conservative_care": "ortesis (corse) y reposo relativo",
     },
     "costilla": {
         "label": "Fractura costal",
+        "zona": "Costillas",
         "base_weeks": 5,
         "surgical_ratio": 0.02,
+        "real_zone": None,
+        "conservative_care": "analgesia y control respiratorio, sin inmovilizacion rigida",
     },
 }
 
@@ -112,14 +149,19 @@ def pick_fracture_type(rng: random.Random, age: int) -> str:
 
 SEVERITIES = ["I - simple", "II - desplazada", "III - conminuta"]
 SEVERITY_FACTOR = {"I - simple": 1.0, "II - desplazada": 1.15, "III - conminuta": 1.4}
+SEVERITY_TO_GRAVEDAD = {"I - simple": "leve", "II - desplazada": "moderada", "III - conminuta": "grave"}
 
 ACTIVITY_LEVELS = ["sedentario", "moderado", "deportista"]
 COMORBIDITIES_POOL = ["diabetes", "osteoporosis", "hipertension", "tabaquismo", "obesidad"]
 
-OUTCOME_LABELS = ["recuperacion_completa", "recuperacion_parcial_con_limitacion", "complicacion"]
-
-FIRST_NAMES_F = ["Maria", "Laura", "Ana", "Carmen", "Lucia", "Elena", "Sofia", "Isabel"]
-FIRST_NAMES_M = ["Javier", "Antonio", "Carlos", "Manuel", "David", "Pablo", "Jorge", "Miguel"]
+MECANISMOS_LESION = [
+    "caida accidental",
+    "accidente de trafico",
+    "sobrecarga por actividad repetitiva",
+    "caida desde altura",
+    "traumatismo directo durante actividad deportiva",
+    "caida en el hogar",
+]
 
 FOLLOWUP_PHRASES = [
     "Buena evolución clínica y radiológica en los controles sucesivos.",
@@ -140,34 +182,38 @@ COMPLICATION_PHRASES = [
 
 @dataclass
 class PatientCase:
-    patient_id: str
-    age: int
-    sex: str
-    height_cm: int
-    weight_kg: int
-    bmi: float
-    activity_level: str
-    comorbidities: str
-    fracture_type: str
-    fracture_label: str
-    fracture_side: str
-    severity: str
-    treatment_type: str
-    protocol_id: str
-    recovery_weeks: int
-    outcome: str
-    diagnosis_note: str
-    followup_note: str
-    image_id: str
-    lab_calcio_mg_dl: float
-    lab_vitamina_d_ng_ml: float
-    lab_hemoglobina_g_dl: float
-    lab_glucosa_mg_dl: float
-    lab_pcr_mg_l: float
-    lab_summary: str
+    case_id: str
+    uuid: str
+    sexo: str
+    edad: int
+    altura_cm: int
+    peso_kg: float
+    imc: float
+    nivel_actividad: str
+    deportista: bool
+    comorbilidades: list[str]
+    fractura_tipo: str
+    fractura_zona: str
+    gravedad: str
+    mecanismo_lesion: str
+    tratamiento: str
+    tratamiento_detalle: str
+    diagnostico_texto: str
+    hallazgos_imagen_texto: str
+    plan_recuperacion_texto: str
+    semanas_recuperacion_total: int
+    semanas_estabilizacion: int
+    semanas_fisioterapia: int
+    hitos_recuperacion: list[dict]
+    complicaciones: str
+    puntuacion_resultado: float
+    imagen_radiografia: str
+    imagen_radiografia_tipo: str
+    imagen_radiografia_fuente: str
+    imagen_radiografia_sintetica_original: str | None = None
 
 
-def make_bmi(height_cm: int, weight_kg: int) -> float:
+def make_bmi(height_cm: int, weight_kg: float) -> float:
     h = height_cm / 100
     return round(weight_kg / (h * h), 1)
 
@@ -186,7 +232,7 @@ def pick_comorbidities(rng: random.Random, age: int) -> list[str]:
     p = 0.15 if age < 50 else (0.35 if age < 70 else 0.55)
     pool = [c for c in COMORBIDITIES_POOL if age >= MIN_AGE_FOR_COMORBIDITY[c]]
     chosen = [c for c in pool if rng.random() < p]
-    return chosen
+    return chosen if chosen else ["ninguna relevante"]
 
 
 def compute_recovery_weeks(rng: random.Random, base_weeks: float, age: int,
@@ -231,77 +277,64 @@ def compute_outcome(rng: random.Random, age: int, comorbidities: list[str], seve
     return "recuperacion_completa"
 
 
-def generate_lab_results(rng: random.Random, age: int, comorbidities: list[str], severity: str,
-                          treatment_type: str) -> dict:
-    """Analítica de sangre sintética, con desviaciones ligadas a comorbilidades
-    y gravedad (p.ej. hipovitaminosis D en osteoporosis, PCR elevada en
-    fracturas graves/postquirúrgicas)."""
-    calcio = rng.uniform(8.6, 10.2)
-    vitamina_d = rng.uniform(25, 55)
-    hemoglobina = rng.uniform(12.5, 16.5)
-    glucosa = rng.uniform(75, 100)
-    pcr = rng.uniform(0.5, 4.0)
-
-    if "osteoporosis" in comorbidities:
-        vitamina_d -= rng.uniform(10, 20)
-        calcio -= rng.uniform(0.2, 0.6)
-    if "diabetes" in comorbidities:
-        glucosa += rng.uniform(40, 90)
-    if age >= 70:
-        hemoglobina -= rng.uniform(0.5, 1.8)
-    if severity == "III - conminuta" or treatment_type == "quirurgico":
-        pcr += rng.uniform(3, 15)
-
-    return {
-        "lab_calcio_mg_dl": round(max(6.0, calcio), 1),
-        "lab_vitamina_d_ng_ml": round(max(5.0, vitamina_d), 1),
-        "lab_hemoglobina_g_dl": round(max(8.0, hemoglobina), 1),
-        "lab_glucosa_mg_dl": round(glucosa, 1),
-        "lab_pcr_mg_l": round(pcr, 1),
-    }
+def compute_puntuacion_resultado(rng: random.Random, outcome: str) -> float:
+    if outcome == "complicacion":
+        return round(rng.uniform(20, 54), 1)
+    if outcome == "recuperacion_parcial_con_limitacion":
+        return round(rng.uniform(55, 84), 1)
+    return round(rng.uniform(85, 100), 1)
 
 
-def build_lab_summary(labs: dict) -> str:
-    flags = []
-    if labs["lab_vitamina_d_ng_ml"] < 20:
-        flags.append("déficit de vitamina D")
-    if labs["lab_calcio_mg_dl"] < 8.5:
-        flags.append("hipocalcemia leve")
-    if labs["lab_glucosa_mg_dl"] > 126:
-        flags.append("glucemia elevada")
-    if labs["lab_pcr_mg_l"] > 10:
-        flags.append("PCR elevada (marcador inflamatorio)")
-
-    flags_txt = f" Hallazgos relevantes: {', '.join(flags)}." if flags else " Sin hallazgos analíticos relevantes."
+def build_diagnostico_texto(sexo: str, edad: int, fractura_tipo: str, imc: float,
+                             nivel_actividad: str, mecanismo_lesion: str,
+                             comorbilidades: list[str]) -> str:
+    genero = "hombre" if sexo == "Hombre" else "mujer"
+    comorb_txt = ", ".join(comorbilidades)
     return (
-        f"Analítica: calcio {labs['lab_calcio_mg_dl']} mg/dl, vitamina D {labs['lab_vitamina_d_ng_ml']} ng/ml, "
-        f"hemoglobina {labs['lab_hemoglobina_g_dl']} g/dl, glucosa {labs['lab_glucosa_mg_dl']} mg/dl, "
-        f"PCR {labs['lab_pcr_mg_l']} mg/l.{flags_txt}"
+        f"{fractura_tipo} en paciente {genero} de {edad} anhos, IMC {imc}, "
+        f"nivel de actividad {nivel_actividad}. Mecanismo: {mecanismo_lesion}. "
+        f"Comorbilidades: {comorb_txt}."
     )
 
 
-def build_diagnosis_note(rng: random.Random, sex: str, age: int, fracture_label: str,
-                          side: str, severity: str, activity_level: str,
-                          comorbidities: list[str], bmi: float, lab_summary: str) -> str:
-    genero = "varón" if sex == "M" else "mujer"
-    comorb_txt = ", ".join(comorbidities) if comorbidities else "sin comorbilidades relevantes"
+def build_hallazgos_imagen_texto(fractura_tipo: str, fractura_zona: str, gravedad: str,
+                                  semanas_recuperacion_total: int) -> str:
+    desplazamiento = "sin" if gravedad == "leve" else "con"
     return (
-        f"Paciente {genero} de {age} años, IMC {bmi}, nivel de actividad física {activity_level}. "
-        f"Diagnóstico: {fracture_label}, lado {side}, gravedad {severity}. "
-        f"Antecedentes: {comorb_txt}. Estudio radiográfico compatible con el diagnóstico descrito. "
-        f"{lab_summary}"
+        f"Radiografia simple en proyecciones AP y lateral que confirma {fractura_tipo.lower()} "
+        f"a nivel de {fractura_zona.lower()}, {desplazamiento} desplazamiento significativo "
+        f"segun gravedad clasificada como '{gravedad}'. Control evolutivo a las 2, 6 y 12 semanas."
     )
 
 
-def build_followup_note(rng: random.Random, outcome: str) -> str:
+def build_plan_recuperacion_texto(tratamiento_detalle: str, semanas_estabilizacion: int,
+                                   semanas_fisioterapia: int, complicaciones: str) -> str:
+    return (
+        f"Tratamiento: {tratamiento_detalle}. Fase de estabilizacion de {semanas_estabilizacion} "
+        f"semanas seguida de progresion de fisioterapia de {semanas_fisioterapia} semanas "
+        "(movilizacion activa asistida, fortalecimiento progresivo y reincorporacion funcional). "
+        f"Complicaciones registradas: {complicaciones}."
+    )
+
+
+def build_hitos_recuperacion(semanas_estabilizacion: int, semanas_recuperacion_total: int) -> list[dict]:
+    return [
+        {"semana": 2, "hito": "primer control radiografico, retirada/ajuste de inmovilizacion parcial"},
+        {"semana": semanas_estabilizacion, "hito": "consolidacion clinica/radiologica inicial, inicio de carga progresiva"},
+        {"semana": semanas_recuperacion_total, "hito": "alta funcional o reincorporacion a actividad habitual"},
+    ]
+
+
+def build_complicaciones(rng: random.Random, outcome: str) -> str:
     if outcome == "complicacion":
         return rng.choice(COMPLICATION_PHRASES)
-    return rng.choice(FOLLOWUP_PHRASES)
+    return "ninguna"
 
 
-def make_synthetic_xray_image(path: Path, seed: int, fracture_label: str, size: int = 256) -> None:
-    """Genera una imagen PLACEHOLDER (patrón sintético, no una radiografía real)
-    únicamente para poder probar el pipeline de embeddings de imagen end-to-end."""
+def make_synthetic_xray_image(path: Path, seed: int, size: int = 256) -> None:
+    """Genera una imagen sintetica (patron generado, no una radiografia real)
+    para el pipeline de embeddings de imagen y como respaldo cuando no hay
+    una radiografia real disponible para la zona."""
     rng = random.Random(seed)
     img = Image.new("L", (size, size), color=10)
     draw = ImageDraw.Draw(img)
@@ -325,88 +358,156 @@ def make_synthetic_xray_image(path: Path, seed: int, fracture_label: str, size: 
     img.save(path)
 
 
+def load_real_images_manifest() -> dict:
+    if not REAL_MANIFEST_PATH.is_file():
+        return {}
+    return json.loads(REAL_MANIFEST_PATH.read_text(encoding="utf-8"))
+
+
+def pick_image(rng: random.Random, fx: dict, case_id: str, manifest: dict) -> dict:
+    """Elige la radiografia del caso: real (si hay disponibles para la zona,
+    con un 40% de probabilidad) o sintetica en su defecto. La sintetica
+    siempre se genera y se guarda, ya sea como imagen principal o como
+    'original' de respaldo de un caso con imagen real."""
+    real_zone = fx["real_zone"]
+    real_entries = manifest.get(real_zone, []) if real_zone else []
+
+    synthetic_rel_path = f"xrays/{case_id}.png"
+
+    if real_entries and rng.random() < 0.4:
+        entry = rng.choice(real_entries)
+        return {
+            "imagen_radiografia": f"xrays_reales/{entry['archivo']}",
+            "imagen_radiografia_sintetica_original": synthetic_rel_path,
+            "imagen_radiografia_tipo": "real",
+            "imagen_radiografia_fuente": (
+                "Radiografia real anonimizada de un dataset publico de rayos X. Reutilizada "
+                "entre varios casos sinteticos de la misma zona: no corresponde en exclusiva a "
+                "este paciente sintetico, solo ilustra el tipo de lesion de forma realista."
+            ),
+        }
+
+    return {
+        "imagen_radiografia": synthetic_rel_path,
+        "imagen_radiografia_sintetica_original": None,
+        "imagen_radiografia_tipo": "sintetica",
+        "imagen_radiografia_fuente": (
+            "Radiografia sintetica generada proceduralmente (no hay imagenes reales "
+            "identificables para esta zona en el dataset disponible)."
+        ),
+    }
+
+
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--n", type=int, default=300, help="numero de casos sinteticos a generar")
     parser.add_argument("--seed", type=int, default=42)
-    parser.add_argument("--skip-images", action="store_true", help="no generar imagenes placeholder")
+    parser.add_argument("--skip-images", action="store_true", help="no generar imagenes sinteticas")
     args = parser.parse_args()
 
     rng = random.Random(args.seed)
     RAW_DIR.mkdir(parents=True, exist_ok=True)
-    IMG_DIR.mkdir(parents=True, exist_ok=True)
+    SYNTHETIC_IMG_DIR.mkdir(parents=True, exist_ok=True)
+    manifest = load_real_images_manifest()
 
     cases: list[PatientCase] = []
 
     for i in range(1, args.n + 1):
-        patient_id = f"SYN-{i:05d}"
-        sex = rng.choice(["M", "F"])
-        age = rng.randint(8, 92)
-        height_cm = rng.randint(150, 195) if sex == "M" else rng.randint(145, 180)
-        weight_kg = rng.randint(45, 110)
-        bmi = make_bmi(height_cm, weight_kg)
-        activity_level = rng.choice(ACTIVITY_LEVELS)
-        comorbidities = pick_comorbidities(rng, age)
+        case_id = f"CASE-{i:04d}"
+        sexo = rng.choice(["Hombre", "Mujer"])
+        edad = rng.randint(8, 92)
+        altura_cm = rng.randint(150, 195) if sexo == "Hombre" else rng.randint(145, 180)
+        peso_kg = float(rng.randint(45, 110))
+        imc = make_bmi(altura_cm, peso_kg)
+        nivel_actividad = rng.choice(ACTIVITY_LEVELS)
+        deportista = nivel_actividad == "deportista"
+        comorbilidades = pick_comorbidities(rng, edad)
+        mecanismo_lesion = rng.choice(MECANISMOS_LESION)
 
-        fx_key = pick_fracture_type(rng, age)
+        fx_key = pick_fracture_type(rng, edad)
         fx = FRACTURE_TYPES[fx_key]
         severity = rng.choices(SEVERITIES, weights=[0.5, 0.35, 0.15])[0]
-        side = rng.choice(["izquierdo", "derecho"])
+        gravedad = SEVERITY_TO_GRAVEDAD[severity]
 
         is_surgical = rng.random() < fx["surgical_ratio"]
-        treatment_type = "quirurgico" if is_surgical else "conservador"
-        protocol_id = f"PROT-{fx_key}-{severity[0]}-{treatment_type[:3]}"
-
-        recovery_weeks = compute_recovery_weeks(
-            rng, fx["base_weeks"], age, comorbidities, activity_level, severity, bmi
+        tratamiento = "quirurgico" if is_surgical else "conservador"
+        tratamiento_detalle = (
+            "reduccion abierta y fijacion interna con control radiografico postoperatorio periodico"
+            if is_surgical
+            else f"{fx['conservative_care']} y control radiografico periodico"
         )
-        outcome = compute_outcome(rng, age, comorbidities, severity)
 
-        labs = generate_lab_results(rng, age, comorbidities, severity, treatment_type)
-        lab_summary = build_lab_summary(labs)
-
-        diagnosis_note = build_diagnosis_note(
-            rng, sex, age, fx["label"], side, severity, activity_level, comorbidities, bmi, lab_summary
+        semanas_recuperacion_total = compute_recovery_weeks(
+            rng, fx["base_weeks"], edad, comorbilidades, nivel_actividad, severity, imc
         )
-        followup_note = build_followup_note(rng, outcome)
+        semanas_estabilizacion = max(2, round(semanas_recuperacion_total * 0.4))
+        semanas_fisioterapia = max(1, semanas_recuperacion_total - semanas_estabilizacion)
 
-        image_id = f"{patient_id}.png"
+        outcome = compute_outcome(rng, edad, comorbilidades, severity)
+        complicaciones = build_complicaciones(rng, outcome)
+        puntuacion_resultado = compute_puntuacion_resultado(rng, outcome)
+
+        diagnostico_texto = build_diagnostico_texto(
+            sexo, edad, fx["label"], imc, nivel_actividad, mecanismo_lesion, comorbilidades
+        )
+        hallazgos_imagen_texto = build_hallazgos_imagen_texto(
+            fx["label"], fx["zona"], gravedad, semanas_recuperacion_total
+        )
+        plan_recuperacion_texto = build_plan_recuperacion_texto(
+            tratamiento_detalle, semanas_estabilizacion, semanas_fisioterapia, complicaciones
+        )
+        hitos_recuperacion = build_hitos_recuperacion(semanas_estabilizacion, semanas_recuperacion_total)
+
+        image_info = pick_image(rng, fx, case_id, manifest)
         if not args.skip_images:
-            make_synthetic_xray_image(IMG_DIR / image_id, seed=args.seed * 100000 + i, fracture_label=fx["label"])
+            make_synthetic_xray_image(SYNTHETIC_IMG_DIR / f"{case_id}.png", seed=args.seed * 100000 + i)
 
         cases.append(
             PatientCase(
-                patient_id=patient_id,
-                age=age,
-                sex=sex,
-                height_cm=height_cm,
-                weight_kg=weight_kg,
-                bmi=bmi,
-                activity_level=activity_level,
-                comorbidities=";".join(comorbidities),
-                fracture_type=fx_key,
-                fracture_label=fx["label"],
-                fracture_side=side,
-                severity=severity,
-                treatment_type=treatment_type,
-                protocol_id=protocol_id,
-                recovery_weeks=recovery_weeks,
-                outcome=outcome,
-                diagnosis_note=diagnosis_note,
-                followup_note=followup_note,
-                image_id=image_id,
-                lab_summary=lab_summary,
-                **labs,
+                case_id=case_id,
+                uuid=str(uuid.uuid4()),
+                sexo=sexo,
+                edad=edad,
+                altura_cm=altura_cm,
+                peso_kg=peso_kg,
+                imc=imc,
+                nivel_actividad=nivel_actividad,
+                deportista=deportista,
+                comorbilidades=comorbilidades,
+                fractura_tipo=fx["label"],
+                fractura_zona=fx["zona"],
+                gravedad=gravedad,
+                mecanismo_lesion=mecanismo_lesion,
+                tratamiento=tratamiento,
+                tratamiento_detalle=tratamiento_detalle,
+                diagnostico_texto=diagnostico_texto,
+                hallazgos_imagen_texto=hallazgos_imagen_texto,
+                plan_recuperacion_texto=plan_recuperacion_texto,
+                semanas_recuperacion_total=semanas_recuperacion_total,
+                semanas_estabilizacion=semanas_estabilizacion,
+                semanas_fisioterapia=semanas_fisioterapia,
+                hitos_recuperacion=hitos_recuperacion,
+                complicaciones=complicaciones,
+                puntuacion_resultado=puntuacion_resultado,
+                **image_info,
             )
         )
 
-    # patients.json
+    # patients.json (omite imagen_radiografia_sintetica_original cuando no aplica, en vez de null)
+    records = []
+    for c in cases:
+        record = asdict(c)
+        if record["imagen_radiografia_sintetica_original"] is None:
+            del record["imagen_radiografia_sintetica_original"]
+        records.append(record)
+
     with open(RAW_DIR / "patients.json", "w", encoding="utf-8") as f:
-        json.dump([asdict(c) for c in cases], f, ensure_ascii=False, indent=2)
+        json.dump(records, f, ensure_ascii=False, indent=2)
 
     # patients.csv
+    fieldnames = list(asdict(cases[0]).keys())
     with open(RAW_DIR / "patients.csv", "w", encoding="utf-8", newline="") as f:
-        writer = csv.DictWriter(f, fieldnames=list(asdict(cases[0]).keys()))
+        writer = csv.DictWriter(f, fieldnames=fieldnames)
         writer.writeheader()
         for c in cases:
             writer.writerow(asdict(c))
@@ -414,15 +515,16 @@ def main():
     # recovery_protocols.json: catalogo derivado combinando tipo+gravedad+tratamiento presentes en el dataset
     protocols = {}
     for c in cases:
-        if c.protocol_id in protocols:
+        protocol_id = f"PROT-{c.fractura_tipo}-{c.gravedad}-{c.tratamiento}"
+        if protocol_id in protocols:
             continue
-        fx = FRACTURE_TYPES[c.fracture_type]
-        protocols[c.protocol_id] = {
-            "protocol_id": c.protocol_id,
-            "fracture_type": c.fracture_type,
-            "fracture_label": fx["label"],
-            "severity": c.severity,
-            "treatment_type": c.treatment_type,
+        fx = next(v for v in FRACTURE_TYPES.values() if v["label"] == c.fractura_tipo)
+        protocols[protocol_id] = {
+            "protocol_id": protocol_id,
+            "fractura_tipo": c.fractura_tipo,
+            "fractura_zona": c.fractura_zona,
+            "gravedad": c.gravedad,
+            "tratamiento": c.tratamiento,
             "phases": [
                 {"phase": "inmovilizacion", "weeks": round(fx["base_weeks"] * 0.3)},
                 {"phase": "fisioterapia_fase_1_movilidad", "weeks": round(fx["base_weeks"] * 0.3)},
@@ -441,7 +543,7 @@ def main():
     print(f"Generados {len(cases)} casos sinteticos en {RAW_DIR}")
     print(f"Generados {len(protocols)} protocolos de recuperacion")
     if not args.skip_images:
-        print(f"Generadas {len(cases)} imagenes placeholder en {IMG_DIR}")
+        print(f"Generadas {len(cases)} imagenes sinteticas en {SYNTHETIC_IMG_DIR}")
 
 
 if __name__ == "__main__":

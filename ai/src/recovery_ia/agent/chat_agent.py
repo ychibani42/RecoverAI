@@ -25,10 +25,11 @@ no sustituye el criterio clinico del profesional.
 
 def _build_context(similar_cases: list[SimilarCaseResult]) -> str:
     return "\n\n".join(
-        f"Caso {r.case.patient_id} (similitud {r.similarity_score:.2f}): "
-        f"{r.case.diagnosis_note} Tratamiento: {r.case.treatment_type}, "
-        f"protocolo {r.case.protocol_id}, recuperacion {r.case.recovery_weeks} semanas, "
-        f"resultado: {r.case.outcome}. Seguimiento: {r.case.followup_note}"
+        f"Caso {r.case.case_id} (similitud {r.similarity_score:.2f}): "
+        f"{r.case.diagnostico_texto} Tratamiento: {r.case.tratamiento_detalle}, "
+        f"recuperacion {r.case.semanas_recuperacion_total} semanas "
+        f"(estabilizacion {r.case.semanas_estabilizacion}, fisioterapia {r.case.semanas_fisioterapia}), "
+        f"complicaciones: {r.case.complicaciones}. Plan: {r.case.plan_recuperacion_texto}"
         for r in similar_cases
     )
 

@@ -10,7 +10,7 @@ from .report import ClinicalReport
 class SimilarCaseRef(BaseModel):
     """Referencia ligera a un caso similar recuperado, tal como se archiva junto al informe."""
 
-    patient_id: str
+    case_id: str
     similarity_score: float
 
 
@@ -26,4 +26,4 @@ class ReportRecord(BaseModel):
 
 
 def case_ref_from(case: PatientCase, score: float) -> SimilarCaseRef:
-    return SimilarCaseRef(patient_id=case.patient_id, similarity_score=score)
+    return SimilarCaseRef(case_id=case.case_id, similarity_score=score)

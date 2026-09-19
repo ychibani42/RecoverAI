@@ -1,0 +1,172 @@
+{
+  "mano": [
+    {
+      "archivo": "real_mano_01.jpg",
+      "fuente_original": "0.jpg"
+    },
+    {
+      "archivo": "real_mano_02.jpg",
+      "fuente_original": "1 (1).jpg"
+    },
+    {
+      "archivo": "real_mano_03.jpg",
+      "fuente_original": "1.jpg"
+    },
+    {
+      "archivo": "real_mano_04.jpg",
+      "fuente_original": "10(1).jpg"
+    },
+    {
+      "archivo": "real_mano_05.jpg",
+      "fuente_original": "10.jpg"
+    },
+    {
+      "archivo": "real_mano_06.jpg",
+      "fuente_original": "100.jpg"
+    },
+    {
+      "archivo": "real_mano_07.jpg",
+      "fuente_original": "101.jpg"
+    },
+    {
+      "archivo": "real_mano_08.jpg",
+      "fuente_original": "102.jpg"
+    },
+    {
+      "archivo": "real_mano_09.jpg",
+      "fuente_original": "105.jpg"
+    },
+    {
+      "archivo": "real_mano_10.jpg",
+      "fuente_original": "106.jpg"
+    },
+    {
+      "archivo": "real_mano_11.jpg",
+      "fuente_original": "107.jpg"
+    },
+    {
+      "archivo": "real_mano_12.jpg",
+      "fuente_original": "108.jpg"
+    },
+    {
+      "archivo": "real_mano_13.jpg",
+      "fuente_original": "115.jpg"
+    },
+    {
+      "archivo": "real_mano_14.jpg",
+      "fuente_original": "112.jpg"
+    },
+    {
+      "archivo": "real_mano_15.jpg",
+      "fuente_original": "113.jpg"
+    }
+  ],
+  "muneca_escafoides": [
+    {
+      "archivo": "real_muneca_escafoides_01.jpg",
+      "fuente_original": "124.jpg"
+    },
+    {
+      "archivo": "real_muneca_escafoides_02.jpg",
+      "fuente_original": "170.jpg"
+    },
+    {
+      "archivo": "real_muneca_escafoides_03.jpg",
+      "fuente_original": "36.jpg"
+    },
+    {
+      "archivo": "real_muneca_escafoides_04.jpg",
+      "fuente_original": "38890tn.jpg"
+    },
+    {
+      "archivo": "real_muneca_escafoides_05.jpg",
+      "fuente_original": "79 (1).jpg"
+    },
+    {
+      "archivo": "real_muneca_escafoides_06.jpg",
+      "fuente_original": "90 (1).jpg"
+    }
+  ],
+  "muneca_radio": [
+    {
+      "archivo": "real_muneca_radio_01.jpg",
+      "fuente_original": "15ff6b9162cf7c04caad3fbd4f4a2e_gallery.jpg"
+    },
+    {
+      "archivo": "real_muneca_radio_02.jpg",
+      "fuente_original": "7-rotated3 (1).jpg"
+    },
+    {
+      "archivo": "real_muneca_radio_03.jpg",
+      "fuente_original": "8 (2).jpg"
+    },
+    {
+      "archivo": "real_muneca_radio_04.jpg",
+      "fuente_original": "81 (1).jpg"
+    },
+    {
+      "archivo": "real_muneca_radio_05.jpg",
+      "fuente_original": "82 (1).jpg"
+    },
+    {
+      "archivo": "real_muneca_radio_06.jpg",
+      "fuente_original": "92 (1).jpg"
+    },
+    {
+      "archivo": "real_muneca_radio_07.jpg",
+      "fuente_original": "94 (1).jpg"
+    }
+  ],
+  "pie_calcaneo": [
+    {
+      "archivo": "real_pie_calcaneo_01.jpg",
+      "fuente_original": "1b62e6fbfbc5a2f70c6af413189cfc82.jpg"
+    },
+    {
+      "archivo": "real_pie_calcaneo_02.jpg",
+      "fuente_original": "IMG0002473.jpg"
+    },
+    {
+      "archivo": "real_pie_calcaneo_03.jpg",
+      "fuente_original": "images26.jpg"
+    },
+    {
+      "archivo": "real_pie_calcaneo_04.jpg",
+      "fuente_original": "IMG0002347.jpg"
+    }
+  ],
+  "tobillo": [
+    {
+      "archivo": "real_tobillo_01.jpg",
+      "fuente_original": "IMG0002443.jpg"
+    },
+    {
+      "archivo": "real_tobillo_02.jpg",
+      "fuente_original": "Spiral-fracture-on-X-ray.jpg"
+    },
+    {
+      "archivo": "real_tobillo_03.jpg",
+      "fuente_original": "image1figure1edit01_1102610.jpg"
+    },
+    {
+      "archivo": "real_tobillo_04.jpg",
+      "fuente_original": "image2figure2edit11_1102614.jpg"
+    },
+    {
+      "archivo": "real_tobillo_05.jpg",
+      "fuente_original": "IMG0002436.jpg"
+    },
+    {
+      "archivo": "real_tobillo_06.jpg",
+      "fuente_original": "IMG0002472.jpg"
+    },
+    {
+      "archivo": "real_tobillo_07.jpg",
+      "fuente_original": "IMG0002476.jpg"
+    },
+    {
+      "archivo": "real_tobillo_08.jpg",
+      "fuente_original": "images4.jpg"
+    }
+  ]
+}

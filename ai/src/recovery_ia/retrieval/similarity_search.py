@@ -10,28 +10,14 @@ def _build_structured_filter(query: SimilarCaseQuery) -> Filter | None:
     busqueda semantica sobre la nota diagnostica."""
     conditions = []
 
-    if query.fracture_type:
-        conditions.append(FieldCondition(key="fracture_type", match=MatchValue(value=query.fracture_type)))
-    if query.sex:
-        conditions.append(FieldCondition(key="sex", match=MatchValue(value=query.sex)))
-    if query.age is not None:
-        conditions.append(FieldCondition(key="age", range=Range(gte=query.age - 10, lte=query.age + 10)))
-    if query.bmi is not None:
-        conditions.append(FieldCondition(key="bmi", range=Range(gte=query.bmi - 5, lte=query.bmi + 5)))
-    if query.lab_vitamina_d_ng_ml is not None:
-        conditions.append(
-            FieldCondition(
-                key="lab_vitamina_d_ng_ml",
-                range=Range(gte=query.lab_vitamina_d_ng_ml - 10, lte=query.lab_vitamina_d_ng_ml + 10),
-            )
-        )
-    if query.lab_glucosa_mg_dl is not None:
-        conditions.append(
-            FieldCondition(
-                key="lab_glucosa_mg_dl",
-                range=Range(gte=query.lab_glucosa_mg_dl - 30, lte=query.lab_glucosa_mg_dl + 30),
-            )
-        )
+    if query.fractura_tipo:
+        conditions.append(FieldCondition(key="fractura_tipo", match=MatchValue(value=query.fractura_tipo)))
+    if query.sexo:
+        conditions.append(FieldCondition(key="sexo", match=MatchValue(value=query.sexo)))
+    if query.edad is not None:
+        conditions.append(FieldCondition(key="edad", range=Range(gte=query.edad - 10, lte=query.edad + 10)))
+    if query.imc is not None:
+        conditions.append(FieldCondition(key="imc", range=Range(gte=query.imc - 5, lte=query.imc + 5)))
 
     return Filter(must=conditions) if conditions else None
 

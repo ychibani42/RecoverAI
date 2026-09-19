@@ -1,28 +1,42 @@
 from pydantic import BaseModel
 
 
+class RecoveryMilestone(BaseModel):
+    semana: int
+    hito: str
+
+
 class PatientCase(BaseModel):
     """Representa un caso clinico indexado en Qdrant (payload estructurado)."""
 
-    patient_id: str
-    age: int
-    sex: str
-    bmi: float
-    activity_level: str
-    comorbidities: list[str] = []
-    fracture_type: str
-    fracture_label: str
-    severity: str
-    treatment_type: str
-    protocol_id: str
-    recovery_weeks: int
-    outcome: str
-    diagnosis_note: str
-    followup_note: str
-    image_id: str | None = None
-    lab_calcio_mg_dl: float | None = None
-    lab_vitamina_d_ng_ml: float | None = None
-    lab_hemoglobina_g_dl: float | None = None
-    lab_glucosa_mg_dl: float | None = None
-    lab_pcr_mg_l: float | None = None
-    lab_summary: str | None = None
+    case_id: str
+    uuid: str
+    sexo: str
+    edad: int
+    altura_cm: int
+    peso_kg: float
+    imc: float
+    nivel_actividad: str
+    deportista: bool
+    comorbilidades: list[str] = []
+    fractura_tipo: str
+    fractura_zona: str
+    gravedad: str
+    mecanismo_lesion: str
+    tratamiento: str
+    tratamiento_detalle: str
+    diagnostico_texto: str
+    hallazgos_imagen_texto: str
+    plan_recuperacion_texto: str
+    semanas_recuperacion_total: int
+    semanas_estabilizacion: int
+    semanas_fisioterapia: int
+    hitos_recuperacion: list[RecoveryMilestone] = []
+    complicaciones: str
+    puntuacion_resultado: float
+    imagen_radiografia: str | None = None
+    imagen_radiografia_sintetica_original: str | None = None
+    imagen_radiografia_tipo: str | None = None
+    imagen_radiografia_fuente: str | None = None
+    # Resuelto por scripts/ingest_vector_db.py a partir de imagen_radiografia; no viene en patients.json.
+    image_path: str | None = None

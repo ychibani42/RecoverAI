@@ -1,10 +1,10 @@
 """Embedder de imagen para radiografias.
 
 Pendiente de decision: modelo de vision especializado en radiologia (p.ej. un
-checkpoint de tipo BiomedCLIP) frente a un CLIP generico. Con el dataset
-sintetico actual (data/images/*.png son placeholders, no radiografias reales)
-cualquier backbone de vision sirve para probar el pipeline end-to-end; la
-eleccion real de modelo se hace al integrar imagenes clinicas reales.
+checkpoint de tipo BiomedCLIP) frente a un CLIP generico. El dataset de
+entrenamiento vive en data/images/xrays/ (radiografias sinteticas a escala) y
+el de evaluacion en data/images/xrays_reales/ (radiografias reales); la
+eleccion real de modelo se hace al integrar y validar contra estas imagenes.
 """
 
 from pathlib import Path

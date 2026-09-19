@@ -34,13 +34,11 @@ class SimilarCaseQuery(BaseModel):
 
     free_text: str
     xray_image_path: str | None = None
-    age: int | None = None
-    sex: str | None = None
-    fracture_type: str | None = None
-    bmi: float | None = None
-    activity_level: str | None = None
-    lab_vitamina_d_ng_ml: float | None = None
-    lab_glucosa_mg_dl: float | None = None
+    edad: int | None = None
+    sexo: str | None = None
+    fractura_tipo: str | None = None
+    imc: float | None = None
+    nivel_actividad: str | None = None
     top_k: int = 5
 
 
