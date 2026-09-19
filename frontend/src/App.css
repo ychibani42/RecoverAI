@@ -769,6 +769,69 @@ footer svg {
   grid-column: 1 / -1;
 }
 
+.similar-cases-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.similar-case-item {
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--surface);
+  overflow: hidden;
+}
+
+.similar-case-item.expanded {
+  border-color: var(--brand);
+}
+
+.similar-case-toggle {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  color: var(--text);
+  font: inherit;
+}
+
+.similar-case-toggle:hover {
+  background: #f0faf9;
+}
+
+.similar-case-rank {
+  flex-shrink: 0;
+  font-weight: 700;
+  color: var(--brand-dark);
+  min-width: 26px;
+}
+
+.similar-case-summary {
+  flex: 1;
+  font-size: 0.86rem;
+  line-height: 1.4;
+}
+
+.similar-case-score {
+  flex-shrink: 0;
+  padding: 4px 10px;
+  font-size: 0.78rem;
+}
+
+.similar-case-item .patients-detail-grid {
+  padding: 16px 18px 20px;
+  background: #f0faf9;
+  border-top: 1px solid var(--border);
+}
+
 .patients-empty {
   text-align: center;
   color: var(--text-muted);

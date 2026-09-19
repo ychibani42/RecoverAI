@@ -1,16 +1,12 @@
-import json
-from pathlib import Path
-
 from fastapi import APIRouter
 
-router = APIRouter(prefix="/patients", tags=["patients"])
+from recovery_ia.storage import get_patients_collection
 
-DATASET_PATH = Path("data/patients.json")
+router = APIRouter(prefix="/patients", tags=["patients"])
 
 
 @router.get("")
 def list_patients() -> list[dict]:
-    """Dataset historico de pacientes sinteticos (data/patients.json), para visualizacion en el frontend."""
-    if not DATASET_PATH.exists():
-        return []
-    return json.loads(DATASET_PATH.read_text(encoding="utf-8"))
+    """Dataset historico de pacientes sinteticos (coleccion MongoDB `patients`,
+    cargada por scripts/ingest_mongo_patients.py), para visualizacion en el frontend."""
+    return [{k: v for k, v in doc.items() if k != "_id"} for doc in get_patients_collection().find()]

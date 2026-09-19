@@ -15,6 +15,7 @@ export default function App() {
   const { t } = useTranslation()
   const [view, setView] = useState('landing')
   const [report, setReport] = useState(null)
+  const [similarCases, setSimilarCases] = useState([])
   const [submitting, setSubmitting] = useState(false)
   const [error, setError] = useState('')
 
@@ -22,9 +23,11 @@ export default function App() {
     setSubmitting(true)
     setError('')
     setReport(null)
+    setSimilarCases([])
     try {
       const result = await requestReport({ reportText, files, topK })
-      setReport(result)
+      setReport(result.report)
+      setSimilarCases(result.similar_cases || [])
     } catch (err) {
       setError(t('app.errorApiContact', { message: err.message }))
     } finally {
@@ -108,7 +111,7 @@ export default function App() {
               <h2>{t('card.reportTitle')}</h2>
             </div>
             <p className="card-hint">{t('card.reportHint')}</p>
-            <ReportView report={report} loading={submitting} />
+            <ReportView report={report} similarCases={similarCases} loading={submitting} />
           </section>
         </main>
       )}

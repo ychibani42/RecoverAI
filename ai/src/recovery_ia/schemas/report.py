@@ -1,5 +1,7 @@
 from pydantic import BaseModel, Field
 
+from .query import SimilarCaseResult
+
 
 class ClinicalReport(BaseModel):
     """Informe final que devuelve el sistema para un paciente nuevo, generado
@@ -32,3 +34,12 @@ class ClinicalReport(BaseModel):
         description="Aviso de que es una orientacion de apoyo a la decision y no sustituye el criterio "
         "clinico del profesional ni constituye un diagnostico."
     )
+
+
+class ReportResponse(BaseModel):
+    """Respuesta completa del endpoint /cases/report: el informe clinico junto con
+    los casos similares recuperados de Qdrant en los que se basa, para poder
+    mostrarlos en la UI (mapa de vecinos mas proximos)."""
+
+    report: ClinicalReport
+    similar_cases: list[SimilarCaseResult]

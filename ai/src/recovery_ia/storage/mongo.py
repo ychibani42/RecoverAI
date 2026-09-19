@@ -24,3 +24,10 @@ def get_sms_reminders_collection() -> Collection:
     (dia anterior y mismo dia de la cita); el scheduler los consulta periodicamente."""
     settings = get_settings()
     return get_mongo_client()[settings.mongodb_db]["sms_reminders"]
+
+
+def get_patients_collection() -> Collection:
+    """Coleccion de MongoDB con el dataset historico de pacientes sinteticos
+    (cargado por scripts/ingest_mongo_patients.py), usada por /patients."""
+    settings = get_settings()
+    return get_mongo_client()[settings.mongodb_db][settings.mongodb_patients_collection]

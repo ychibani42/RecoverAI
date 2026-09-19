@@ -9,10 +9,13 @@ class Settings(BaseSettings):
     qdrant_url: str = "http://localhost:6333"
     qdrant_collection: str = "orthopedic_cases"
 
-    # Mongo guarda los RESULTADOS de salida (informes generados), no el dataset de entrada.
     mongodb_uri: str = "mongodb://localhost:27017"
     mongodb_db: str = "recovery_ia"
+    # Informes generados (RESULTADOS de salida) para cada consulta de paciente.
     mongodb_reports_collection: str = "reports"
+    # Dataset historico de pacientes sinteticos (ver scripts/ingest_mongo_patients.py),
+    # usado por /patients para la tabla de referencia en el frontend.
+    mongodb_patients_collection: str = "patients"
 
     nebius_api_key: str = ""
     llm_model: str = "Qwen/Qwen3-32B"
