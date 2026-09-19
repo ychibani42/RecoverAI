@@ -1,0 +1,495 @@
+[
+  {
+    "protocol_id": "PROT-muneca_colles-I-con",
+    "fracture_type": "muneca_colles",
+    "fracture_label": "Fractura de radio distal (tipo Colles)",
+    "severity": "I - simple",
+    "treatment_type": "conservador",
+    "phases": [
+      {
+        "phase": "inmovilizacion",
+        "weeks": 2
+      },
+      {
+        "phase": "fisioterapia_fase_1_movilidad",
+        "weeks": 2
+      },
+      {
+        "phase": "fisioterapia_fase_2_carga_progresiva",
+        "weeks": 2
+      },
+      {
+        "phase": "reincorporacion_actividad",
+        "weeks": 1
+      }
+    ],
+    "typical_total_weeks_range": [
+      6,
+      11
+    ]
+  },
+  {
+    "protocol_id": "PROT-vertebral_compresion-I-qui",
+    "fracture_type": "vertebral_compresion",
+    "fracture_label": "Fractura vertebral por compresión",
+    "severity": "I - simple",
+    "treatment_type": "quirurgico",
+    "phases": [
+      {
+        "phase": "inmovilizacion",
+        "weeks": 3
+      },
+      {
+        "phase": "fisioterapia_fase_1_movilidad",
+        "weeks": 3
+      },
+      {
+        "phase": "fisioterapia_fase_2_carga_progresiva",
+        "weeks": 2
+      },
+      {
+        "phase": "reincorporacion_actividad",
+        "weeks": 2
+      }
+    ],
+    "typical_total_weeks_range": [
+      8,
+      16
+    ]
+  },
+  {
+    "protocol_id": "PROT-clavicula-I-con",
+    "fracture_type": "clavicula",
+    "fracture_label": "Fractura de clavícula",
+    "severity": "I - simple",
+    "treatment_type": "conservador",
+    "phases": [
+      {
+        "phase": "inmovilizacion",
+        "weeks": 2
+      },
+      {
+        "phase": "fisioterapia_fase_1_movilidad",
+        "weeks": 2
+      },
+      {
+        "phase": "fisioterapia_fase_2_carga_progresiva",
+        "weeks": 2
+      },
+      {
+        "phase": "reincorporacion_actividad",
+        "weeks": 1
+      }
+    ],
+    "typical_total_weeks_range": [
+      5,
+      10
+    ]
+  },
+  {
+    "protocol_id": "PROT-tibia_perone-I-qui",
+    "fracture_type": "tibia_perone",
+    "fracture_label": "Fractura de tibia y peroné",
+    "severity": "II - desplazada",
+    "treatment_type": "quirurgico",
+    "phases": [
+      {
+        "phase": "inmovilizacion",
+        "weeks": 4
+      },
+      {
+        "phase": "fisioterapia_fase_1_movilidad",
+        "weeks": 4
+      },
+      {
+        "phase": "fisioterapia_fase_2_carga_progresiva",
+        "weeks": 3
+      },
+      {
+        "phase": "reincorporacion_actividad",
+        "weeks": 2
+      }
+    ],
+    "typical_total_weeks_range": [
+      10,
+      21
+    ]
+  },
+  {
+    "protocol_id": "PROT-tobillo_maleolar-I-con",
+    "fracture_type": "tobillo_maleolar",
+    "fracture_label": "Fractura maleolar de tobillo",
+    "severity": "I - simple",
+    "treatment_type": "conservador",
+    "phases": [
+      {
+        "phase": "inmovilizacion",
+        "weeks": 2
+      },
+      {
+        "phase": "fisioterapia_fase_1_movilidad",
+        "weeks": 2
+      },
+      {
+        "phase": "fisioterapia_fase_2_carga_progresiva",
+        "weeks": 2
+      },
+      {
+        "phase": "reincorporacion_actividad",
+        "weeks": 1
+      }
+    ],
+    "typical_total_weeks_range": [
+      6,
+      13
+    ]
+  },
+  {
+    "protocol_id": "PROT-tibia_perone-I-con",
+    "fracture_type": "tibia_perone",
+    "fracture_label": "Fractura de tibia y peroné",
+    "severity": "I - simple",
+    "treatment_type": "conservador",
+    "phases": [
+      {
+        "phase": "inmovilizacion",
+        "weeks": 4
+      },
+      {
+        "phase": "fisioterapia_fase_1_movilidad",
+        "weeks": 4
+      },
+      {
+        "phase": "fisioterapia_fase_2_carga_progresiva",
+        "weeks": 3
+      },
+      {
+        "phase": "reincorporacion_actividad",
+        "weeks": 2
+      }
+    ],
+    "typical_total_weeks_range": [
+      10,
+      21
+    ]
+  },
+  {
+    "protocol_id": "PROT-humero_diafisis-I-con",
+    "fracture_type": "humero_diafisis",
+    "fracture_label": "Fractura de diáfisis humeral",
+    "severity": "I - simple",
+    "treatment_type": "conservador",
+    "phases": [
+      {
+        "phase": "inmovilizacion",
+        "weeks": 3
+      },
+      {
+        "phase": "fisioterapia_fase_1_movilidad",
+        "weeks": 3
+      },
+      {
+        "phase": "fisioterapia_fase_2_carga_progresiva",
+        "weeks": 2
+      },
+      {
+        "phase": "reincorporacion_actividad",
+        "weeks": 2
+      }
+    ],
+    "typical_total_weeks_range": [
+      8,
+      16
+    ]
+  },
+  {
+    "protocol_id": "PROT-muneca_colles-I-qui",
+    "fracture_type": "muneca_colles",
+    "fracture_label": "Fractura de radio distal (tipo Colles)",
+    "severity": "III - conminuta",
+    "treatment_type": "quirurgico",
+    "phases": [
+      {
+        "phase": "inmovilizacion",
+        "weeks": 2
+      },
+      {
+        "phase": "fisioterapia_fase_1_movilidad",
+        "weeks": 2
+      },
+      {
+        "phase": "fisioterapia_fase_2_carga_progresiva",
+        "weeks": 2
+      },
+      {
+        "phase": "reincorporacion_actividad",
+        "weeks": 1
+      }
+    ],
+    "typical_total_weeks_range": [
+      6,
+      11
+    ]
+  },
+  {
+    "protocol_id": "PROT-vertebral_compresion-I-con",
+    "fracture_type": "vertebral_compresion",
+    "fracture_label": "Fractura vertebral por compresión",
+    "severity": "I - simple",
+    "treatment_type": "conservador",
+    "phases": [
+      {
+        "phase": "inmovilizacion",
+        "weeks": 3
+      },
+      {
+        "phase": "fisioterapia_fase_1_movilidad",
+        "weeks": 3
+      },
+      {
+        "phase": "fisioterapia_fase_2_carga_progresiva",
+        "weeks": 2
+      },
+      {
+        "phase": "reincorporacion_actividad",
+        "weeks": 2
+      }
+    ],
+    "typical_total_weeks_range": [
+      8,
+      16
+    ]
+  },
+  {
+    "protocol_id": "PROT-costilla-I-con",
+    "fracture_type": "costilla",
+    "fracture_label": "Fractura costal",
+    "severity": "I - simple",
+    "treatment_type": "conservador",
+    "phases": [
+      {
+        "phase": "inmovilizacion",
+        "weeks": 2
+      },
+      {
+        "phase": "fisioterapia_fase_1_movilidad",
+        "weeks": 2
+      },
+      {
+        "phase": "fisioterapia_fase_2_carga_progresiva",
+        "weeks": 1
+      },
+      {
+        "phase": "reincorporacion_actividad",
+        "weeks": 1
+      }
+    ],
+    "typical_total_weeks_range": [
+      4,
+      8
+    ]
+  },
+  {
+    "protocol_id": "PROT-humero_diafisis-I-qui",
+    "fracture_type": "humero_diafisis",
+    "fracture_label": "Fractura de diáfisis humeral",
+    "severity": "III - conminuta",
+    "treatment_type": "quirurgico",
+    "phases": [
+      {
+        "phase": "inmovilizacion",
+        "weeks": 3
+      },
+      {
+        "phase": "fisioterapia_fase_1_movilidad",
+        "weeks": 3
+      },
+      {
+        "phase": "fisioterapia_fase_2_carga_progresiva",
+        "weeks": 2
+      },
+      {
+        "phase": "reincorporacion_actividad",
+        "weeks": 2
+      }
+    ],
+    "typical_total_weeks_range": [
+      8,
+      16
+    ]
+  },
+  {
+    "protocol_id": "PROT-cadera_cuello_femoral-I-qui",
+    "fracture_type": "cadera_cuello_femoral",
+    "fracture_label": "Fractura de cuello femoral (cadera)",
+    "severity": "I - simple",
+    "treatment_type": "quirurgico",
+    "phases": [
+      {
+        "phase": "inmovilizacion",
+        "weeks": 4
+      },
+      {
+        "phase": "fisioterapia_fase_1_movilidad",
+        "weeks": 4
+      },
+      {
+        "phase": "fisioterapia_fase_2_carga_progresiva",
+        "weeks": 4
+      },
+      {
+        "phase": "reincorporacion_actividad",
+        "weeks": 2
+      }
+    ],
+    "typical_total_weeks_range": [
+      11,
+      22
+    ]
+  },
+  {
+    "protocol_id": "PROT-femur_diafisis-I-qui",
+    "fracture_type": "femur_diafisis",
+    "fracture_label": "Fractura de diáfisis femoral",
+    "severity": "II - desplazada",
+    "treatment_type": "quirurgico",
+    "phases": [
+      {
+        "phase": "inmovilizacion",
+        "weeks": 4
+      },
+      {
+        "phase": "fisioterapia_fase_1_movilidad",
+        "weeks": 4
+      },
+      {
+        "phase": "fisioterapia_fase_2_carga_progresiva",
+        "weeks": 4
+      },
+      {
+        "phase": "reincorporacion_actividad",
+        "weeks": 2
+      }
+    ],
+    "typical_total_weeks_range": [
+      11,
+      22
+    ]
+  },
+  {
+    "protocol_id": "PROT-cadera_cuello_femoral-I-con",
+    "fracture_type": "cadera_cuello_femoral",
+    "fracture_label": "Fractura de cuello femoral (cadera)",
+    "severity": "II - desplazada",
+    "treatment_type": "conservador",
+    "phases": [
+      {
+        "phase": "inmovilizacion",
+        "weeks": 4
+      },
+      {
+        "phase": "fisioterapia_fase_1_movilidad",
+        "weeks": 4
+      },
+      {
+        "phase": "fisioterapia_fase_2_carga_progresiva",
+        "weeks": 4
+      },
+      {
+        "phase": "reincorporacion_actividad",
+        "weeks": 2
+      }
+    ],
+    "typical_total_weeks_range": [
+      11,
+      22
+    ]
+  },
+  {
+    "protocol_id": "PROT-tobillo_maleolar-I-qui",
+    "fracture_type": "tobillo_maleolar",
+    "fracture_label": "Fractura maleolar de tobillo",
+    "severity": "II - desplazada",
+    "treatment_type": "quirurgico",
+    "phases": [
+      {
+        "phase": "inmovilizacion",
+        "weeks": 2
+      },
+      {
+        "phase": "fisioterapia_fase_1_movilidad",
+        "weeks": 2
+      },
+      {
+        "phase": "fisioterapia_fase_2_carga_progresiva",
+        "weeks": 2
+      },
+      {
+        "phase": "reincorporacion_actividad",
+        "weeks": 1
+      }
+    ],
+    "typical_total_weeks_range": [
+      6,
+      13
+    ]
+  },
+  {
+    "protocol_id": "PROT-femur_diafisis-I-con",
+    "fracture_type": "femur_diafisis",
+    "fracture_label": "Fractura de diáfisis femoral",
+    "severity": "II - desplazada",
+    "treatment_type": "conservador",
+    "phases": [
+      {
+        "phase": "inmovilizacion",
+        "weeks": 4
+      },
+      {
+        "phase": "fisioterapia_fase_1_movilidad",
+        "weeks": 4
+      },
+      {
+        "phase": "fisioterapia_fase_2_carga_progresiva",
+        "weeks": 4
+      },
+      {
+        "phase": "reincorporacion_actividad",
+        "weeks": 2
+      }
+    ],
+    "typical_total_weeks_range": [
+      11,
+      22
+    ]
+  },
+  {
+    "protocol_id": "PROT-clavicula-I-qui",
+    "fracture_type": "clavicula",
+    "fracture_label": "Fractura de clavícula",
+    "severity": "III - conminuta",
+    "treatment_type": "quirurgico",
+    "phases": [
+      {
+        "phase": "inmovilizacion",
+        "weeks": 2
+      },
+      {
+        "phase": "fisioterapia_fase_1_movilidad",
+        "weeks": 2
+      },
+      {
+        "phase": "fisioterapia_fase_2_carga_progresiva",
+        "weeks": 2
+      },
+      {
+        "phase": "reincorporacion_actividad",
+        "weeks": 1
+      }
+    ],
+    "typical_total_weeks_range": [
+      5,
+      10
+    ]
+  }
+]
