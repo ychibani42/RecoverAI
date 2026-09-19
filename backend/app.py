@@ -22,10 +22,7 @@ def health() -> dict:
     return {"status": "ok"}
 
 
-@app.api_route("/cases/{path:path}", methods=["GET", "POST"])
-async def proxy_cases(path: str, request: Request) -> Response:
-    """Forwards clinical case requests to the ai service."""
-    url = f"{AI_SERVICE_URL}/cases/{path}"
+async def _proxy(url: str, request: Request) -> Response:
     body = await request.body()
     try:
         async with httpx.AsyncClient(timeout=60) as client:
@@ -54,6 +51,18 @@ async def proxy_cases(path: str, request: Request) -> Response:
             if k.lower() not in {"content-length", "transfer-encoding", "connection"}
         },
     )
+
+
+@app.api_route("/cases/{path:path}", methods=["GET", "POST"])
+async def proxy_cases(path: str, request: Request) -> Response:
+    """Forwards clinical case requests to the ai service."""
+    return await _proxy(f"{AI_SERVICE_URL}/cases/{path}", request)
+
+
+@app.api_route("/patients", methods=["GET"])
+async def proxy_patients(request: Request) -> Response:
+    """Forwards the historical patients dataset request to the ai service."""
+    return await _proxy(f"{AI_SERVICE_URL}/patients", request)
 
 
 def run(host: str = "127.0.0.1", port: int = 8000):

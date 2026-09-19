@@ -17,3 +17,10 @@ def get_reports_collection() -> Collection:
     informe clinico generado, junto con la entrada del paciente que lo origino."""
     settings = get_settings()
     return get_mongo_client()[settings.mongodb_db][settings.mongodb_reports_collection]
+
+
+def get_patients_collection() -> Collection:
+    """Coleccion de MongoDB con el dataset historico de pacientes sinteticos
+    (cargado por scripts/ingest_mongo_patients.py), usada por /patients."""
+    settings = get_settings()
+    return get_mongo_client()[settings.mongodb_db][settings.mongodb_patients_collection]
