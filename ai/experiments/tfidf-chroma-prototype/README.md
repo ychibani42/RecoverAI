@@ -1,5 +1,11 @@
 # Ortho-RAG: buscador de casos similares para recuperacion ortopedica
 
+> **Estado**: prototipo temprano, standalone, offline (TF-IDF + ChromaDB en
+> lugar de Qdrant + embeddings reales). El servicio principal en desarrollo
+> vive en `ai/src/recovery_ia/` (FastAPI + Qdrant + LangChain); este
+> directorio se conserva como referencia/experimento, no como parte de ese
+> pipeline.
+
 Prototipo para el hackathon: indexa casos (sinteticos) de traumatologia en una
 base de datos vectorial y permite consultar "pacientes similares a este" con
 filtros clinicos + similitud semantica, devolviendo los protocolos de
