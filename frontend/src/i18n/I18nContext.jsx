@@ -1,7 +1,7 @@
 import { createContext, useCallback, useContext, useMemo, useState } from 'react'
 import { DEFAULT_LANGUAGE, LANGUAGES, TRANSLATIONS } from './translations'
 
-const STORAGE_KEY = 'recovery-ia-lang'
+const STORAGE_KEY = 'recover-ia-lang'
 const LANGUAGE_CODES = LANGUAGES.map((l) => l.code)
 
 function detectInitialLanguage() {

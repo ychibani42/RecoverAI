@@ -26,6 +26,7 @@ const es = {
   footer: {
     disclaimer:
       'Esta herramienta ofrece una orientación de apoyo a la decisión basada en casos históricos similares. No constituye un diagnóstico médico ni sustituye el criterio clínico del profesional sanitario.',
+    poweredBy: 'Infraestructura y cómputo GPU en la nube por',
   },
   landing: {
     heroTitlePrefix: 'Apoyo a la decisión clínica para',
@@ -34,12 +35,17 @@ const es = {
       'Encuentra casos similares en el histórico del departamento y genera, en segundos, un informe de apoyo basado en evidencia mediante búsqueda aumentada por generación (RAG).',
     ctaEnter: 'Entrar a la herramienta',
     howItWorks: 'Cómo funciona',
-    illustrationAlt: 'Radiografía de muñeca con fractura señalada y panel de análisis clínico',
-    illustrationLabLabel: 'Vitamina D',
-    illustrationLabValue: '16 ng/ml',
+    illustrationAlt: 'Radiografía de tibia y peroné con fractura señalada y panel de análisis clínico',
     illustrationMatches: '8 casos similares encontrados',
+    featureChipScanning: 'Escaneando historial',
+    featureChipMatch: '94% de similitud',
+    featureChipFilters: 'Edad · IMC · Fractura',
+    featureChipNeighbors: '12 casos más cercanos',
+    featureChipSources: '6 casos analizados',
+    featureChipReady: 'Informe listo',
+    featureReportBadge: 'Protocolo · 6 sem',
     partnersTitle: 'Partners',
-    partnersHint: 'Tecnologías y colaboradores que hacen posible recovery-ia.',
+    partnersHint: 'Tecnologías y colaboradores que hacen posible Recover IA.',
     partnersComingSoon: 'Próximamente más partners',
     features: [
       {
@@ -48,13 +54,13 @@ const es = {
           'Indexa radiografías, diagnósticos y atributos del paciente para encontrar los casos históricos más parecidos.',
       },
       {
-        title: 'Motor de similitud vectorial',
+        title: 'Comparación precisa y personalizada',
         description:
-          'Base de datos vectorial con embeddings clínicos y filtros estructurados por edad, IMC o tipo de fractura.',
+          'El sistema compara automáticamente cada caso con miles de historiales clínicos, teniendo en cuenta datos como la edad, el peso o el tipo de fractura para encontrar los más parecidos.',
       },
       {
-        title: 'Informe generado por IA',
-        description: 'Claude sintetiza los protocolos y plazos de recuperación de los casos más relevantes.',
+        title: 'Informe generado automáticamente',
+        description: 'La plataforma sintetiza los protocolos y plazos de recuperación de los casos más relevantes.',
       },
     ],
     partners: [
@@ -67,11 +73,8 @@ const es = {
   form: {
     sampleReport:
       'Paciente varón de 68 años, IMC 28.4, nivel de actividad física moderado. Antecedentes de diabetes tipo 2 y osteoporosis. Diagnóstico: fractura de radio distal (tipo Colles) en muñeca izquierda, gravedad II - desplazada. Estudio radiográfico compatible con el diagnóstico. Se plantea tratamiento y valoración de plazo de recuperación.',
-    sampleLabs: 'Calcio 8.3 mg/dl, Vitamina D 16 ng/ml, Hemoglobina 12.8 g/dl, Glucosa 158 mg/dl, PCR 6 mg/l.',
     reportLabel: 'Informe médico',
     reportPlaceholder: 'Ej: Varón de 70 años, fractura de húmero, IMC 27, no deportista, antecedente de diabetes...',
-    labsLabel: 'Análisis clínicos (opcional)',
-    labsPlaceholder: 'Ej: Calcio 8.9 mg/dl, Vitamina D 18 ng/ml, Glucosa 145 mg/dl, PCR 12 mg/l',
     filesLabel: 'Archivos de diagnóstico (opcional)',
     topKLabel: 'Casos similares a comparar',
     submitLoading: 'Generando informe…',
@@ -92,6 +95,56 @@ const es = {
     ok: 'API conectada',
     down: 'API no disponible (arranca el backend en el puerto 8000)',
     checking: 'Comprobando conexión con la API…',
+  },
+  patients: {
+    navLabel: 'Pacientes',
+    title: 'Histórico de pacientes',
+    hint: 'Consulta los casos históricos registrados y usados para la búsqueda de casos similares.',
+    searchPlaceholder: 'Buscar por caso, sexo, fractura, gravedad, tratamiento, mecanismo…',
+    count: '{count} pacientes',
+    loading: 'Cargando pacientes…',
+    error: 'Error al cargar los pacientes: {message}',
+    noResults: 'No se han encontrado pacientes con ese criterio.',
+    prev: 'Anterior',
+    next: 'Siguiente',
+    pageInfo: 'Página {page} de {pages}',
+    filterAllSeverity: 'Todas las gravedades',
+    filterAllTreatment: 'Todos los tratamientos',
+    expandRow: 'Ver detalle',
+    collapseRow: 'Ocultar detalle',
+    yes: 'Sí',
+    no: 'No',
+    columns: {
+      caseId: 'Caso',
+      sex: 'Sexo',
+      age: 'Edad',
+      imc: 'IMC',
+      activityLevel: 'Actividad',
+      fracture: 'Fractura',
+      zone: 'Zona',
+      severity: 'Gravedad',
+      mechanism: 'Mecanismo',
+      treatment: 'Tratamiento',
+      complications: 'Complicaciones',
+      score: 'Puntuación',
+      recoveryWeeks: 'Semanas recup.',
+      details: 'Detalle',
+    },
+    detail: {
+      anthropometry: 'Antropometría',
+      height: 'Altura',
+      weight: 'Peso',
+      athlete: 'Deportista',
+      comorbidities: 'Comorbilidades',
+      treatmentDetail: 'Detalle del tratamiento',
+      diagnosis: 'Diagnóstico',
+      imagingFindings: 'Hallazgos de imagen',
+      recoveryPlan: 'Plan de recuperación',
+      recoveryBreakdown: 'Estabilización {stabilization} sem. + fisioterapia {physio} sem.',
+      milestones: 'Hitos de recuperación',
+      milestoneWeek: 'Semana {week}',
+      none: 'Sin datos',
+    },
   },
   dropzone: {
     hint: 'Radiografías, informes de laboratorio u otras pruebas — arrastra o haz clic para seleccionar',
@@ -119,6 +172,7 @@ const en = {
   footer: {
     disclaimer:
       'This tool provides decision-support guidance based on similar historical cases. It does not constitute a medical diagnosis and does not replace the clinical judgment of a healthcare professional.',
+    poweredBy: 'Cloud infrastructure and GPU compute by',
   },
   landing: {
     heroTitlePrefix: 'Clinical decision support for',
@@ -127,12 +181,17 @@ const en = {
       'Find similar cases in the department’s history and generate, in seconds, an evidence-based support report using retrieval-augmented generation (RAG).',
     ctaEnter: 'Enter the tool',
     howItWorks: 'How it works',
-    illustrationAlt: 'Wrist X-ray with a highlighted fracture and a clinical analysis panel',
-    illustrationLabLabel: 'Vitamin D',
-    illustrationLabValue: '16 ng/ml',
+    illustrationAlt: 'Tibia and fibula X-ray with a highlighted fracture and a clinical analysis panel',
     illustrationMatches: '8 similar cases found',
+    featureChipScanning: 'Scanning history',
+    featureChipMatch: '94% similarity',
+    featureChipFilters: 'Age · BMI · Fracture',
+    featureChipNeighbors: '12 nearest cases',
+    featureChipSources: '6 cases analyzed',
+    featureChipReady: 'Report ready',
+    featureReportBadge: 'Protocol · 6 wks',
     partnersTitle: 'Partners',
-    partnersHint: 'Technologies and collaborators that make recovery-ia possible.',
+    partnersHint: 'Technologies and collaborators that make Recover IA possible.',
     partnersComingSoon: 'More partners coming soon',
     features: [
       {
@@ -140,12 +199,13 @@ const en = {
         description: 'Indexes X-rays, diagnoses, and patient attributes to find the most similar historical cases.',
       },
       {
-        title: 'Vector similarity engine',
-        description: 'Vector database with clinical embeddings and structured filters by age, BMI, or fracture type.',
+        title: 'Precise, personalized comparison',
+        description:
+          'The system automatically compares each case with thousands of clinical records, taking into account details like age, weight, and fracture type to find the closest matches.',
       },
       {
-        title: 'AI-generated report',
-        description: 'Claude synthesizes the protocols and recovery timelines from the most relevant cases.',
+        title: 'Automatically generated report',
+        description: 'The platform synthesizes the protocols and recovery timelines from the most relevant cases.',
       },
     ],
     partners: [
@@ -158,11 +218,8 @@ const en = {
   form: {
     sampleReport:
       '68-year-old male patient, BMI 28.4, moderate physical activity level. History of type 2 diabetes and osteoporosis. Diagnosis: distal radius fracture (Colles type) in the left wrist, grade II - displaced. Radiographic study consistent with the diagnosis. Treatment and recovery timeline assessment are being considered.',
-    sampleLabs: 'Calcium 8.3 mg/dl, Vitamin D 16 ng/ml, Hemoglobin 12.8 g/dl, Glucose 158 mg/dl, CRP 6 mg/l.',
     reportLabel: 'Medical report',
     reportPlaceholder: 'E.g.: 70-year-old male, humerus fracture, BMI 27, non-athlete, history of diabetes...',
-    labsLabel: 'Lab results (optional)',
-    labsPlaceholder: 'E.g.: Calcium 8.9 mg/dl, Vitamin D 18 ng/ml, Glucose 145 mg/dl, CRP 12 mg/l',
     filesLabel: 'Diagnostic files (optional)',
     topKLabel: 'Similar cases to compare',
     submitLoading: 'Generating report…',
@@ -210,6 +267,7 @@ const fr = {
   footer: {
     disclaimer:
       'Cet outil fournit une orientation d’aide à la décision basée sur des cas historiques similaires. Il ne constitue pas un diagnostic médical et ne remplace pas le jugement clinique du professionnel de santé.',
+    poweredBy: 'Infrastructure et calcul GPU dans le cloud par',
   },
   landing: {
     heroTitlePrefix: 'Aide à la décision clinique pour la',
@@ -218,12 +276,17 @@ const fr = {
       'Trouvez des cas similaires dans l’historique du service et générez, en quelques secondes, un rapport d’aide fondé sur des preuves grâce à la génération augmentée par récupération (RAG).',
     ctaEnter: 'Accéder à l’outil',
     howItWorks: 'Comment ça marche',
-    illustrationAlt: 'Radiographie du poignet avec une fracture signalée et un panneau d’analyse clinique',
-    illustrationLabLabel: 'Vitamine D',
-    illustrationLabValue: '16 ng/ml',
+    illustrationAlt: 'Radiographie du tibia et du péroné avec une fracture signalée et un panneau d’analyse clinique',
     illustrationMatches: '8 cas similaires trouvés',
+    featureChipScanning: 'Analyse de l’historique',
+    featureChipMatch: '94 % de similarité',
+    featureChipFilters: 'Âge · IMC · Fracture',
+    featureChipNeighbors: '12 cas les plus proches',
+    featureChipSources: '6 cas analysés',
+    featureChipReady: 'Rapport prêt',
+    featureReportBadge: 'Protocole · 6 sem',
     partnersTitle: 'Partenaires',
-    partnersHint: 'Technologies et collaborateurs qui rendent recovery-ia possible.',
+    partnersHint: 'Technologies et collaborateurs qui rendent Recover IA possible.',
     partnersComingSoon: 'D’autres partenaires bientôt disponibles',
     features: [
       {
@@ -232,13 +295,13 @@ const fr = {
           'Indexe les radiographies, les diagnostics et les caractéristiques du patient pour trouver les cas historiques les plus similaires.',
       },
       {
-        title: 'Moteur de similarité vectorielle',
+        title: 'Comparaison précise et personnalisée',
         description:
-          'Base de données vectorielle avec embeddings cliniques et filtres structurés par âge, IMC ou type de fracture.',
+          "Le système compare automatiquement chaque cas à des milliers de dossiers cliniques, en tenant compte de données comme l'âge, le poids ou le type de fracture, pour trouver les cas les plus proches.",
       },
       {
-        title: 'Rapport généré par IA',
-        description: 'Claude synthétise les protocoles et délais de récupération des cas les plus pertinents.',
+        title: 'Rapport généré automatiquement',
+        description: 'La plateforme synthétise les protocoles et délais de récupération des cas les plus pertinents.',
       },
     ],
     partners: [
@@ -251,11 +314,8 @@ const fr = {
   form: {
     sampleReport:
       'Patient de sexe masculin, 68 ans, IMC 28,4, niveau d’activité physique modéré. Antécédents de diabète de type 2 et d’ostéoporose. Diagnostic : fracture du radius distal (type Colles) au poignet gauche, gravité II - déplacée. Étude radiographique compatible avec le diagnostic. Traitement et évaluation du délai de récupération à l’étude.',
-    sampleLabs: 'Calcium 8,3 mg/dl, Vitamine D 16 ng/ml, Hémoglobine 12,8 g/dl, Glucose 158 mg/dl, CRP 6 mg/l.',
     reportLabel: 'Rapport médical',
     reportPlaceholder: 'Ex : homme de 70 ans, fracture de l’humérus, IMC 27, non sportif, antécédent de diabète...',
-    labsLabel: 'Analyses cliniques (optionnel)',
-    labsPlaceholder: 'Ex : Calcium 8,9 mg/dl, Vitamine D 18 ng/ml, Glucose 145 mg/dl, CRP 12 mg/l',
     filesLabel: 'Fichiers de diagnostic (optionnel)',
     topKLabel: 'Cas similaires à comparer',
     submitLoading: 'Génération du rapport…',
@@ -303,6 +363,7 @@ const ca = {
   footer: {
     disclaimer:
       'Aquesta eina ofereix una orientació de suport a la decisió basada en casos històrics similars. No constitueix un diagnòstic mèdic ni substitueix el criteri clínic del professional sanitari.',
+    poweredBy: 'Infraestructura i còmput GPU al núvol per',
   },
   landing: {
     heroTitlePrefix: 'Suport a la decisió clínica per a la',
@@ -311,12 +372,17 @@ const ca = {
       'Troba casos similars a l’històric del departament i genera, en segons, un informe de suport basat en evidència mitjançant cerca augmentada per generació (RAG).',
     ctaEnter: 'Entra a l’eina',
     howItWorks: 'Com funciona',
-    illustrationAlt: 'Radiografia del canell amb una fractura assenyalada i un panell d’anàlisi clínica',
-    illustrationLabLabel: 'Vitamina D',
-    illustrationLabValue: '16 ng/ml',
+    illustrationAlt: 'Radiografia de tíbia i peroné amb una fractura assenyalada i un panell d’anàlisi clínica',
     illustrationMatches: '8 casos similars trobats',
+    featureChipScanning: 'Escanejant l’històric',
+    featureChipMatch: '94% de similitud',
+    featureChipFilters: 'Edat · IMC · Fractura',
+    featureChipNeighbors: '12 casos més propers',
+    featureChipSources: '6 casos analitzats',
+    featureChipReady: 'Informe llest',
+    featureReportBadge: 'Protocol · 6 set',
     partnersTitle: 'Partners',
-    partnersHint: 'Tecnologies i col·laboradors que fan possible recovery-ia.',
+    partnersHint: 'Tecnologies i col·laboradors que fan possible Recover IA.',
     partnersComingSoon: 'Properament més partners',
     features: [
       {
@@ -325,13 +391,13 @@ const ca = {
           'Indexa radiografies, diagnòstics i atributs del pacient per trobar els casos històrics més semblants.',
       },
       {
-        title: 'Motor de similitud vectorial',
+        title: 'Comparació precisa i personalitzada',
         description:
-          'Base de dades vectorial amb embeddings clínics i filtres estructurats per edat, IMC o tipus de fractura.',
+          "El sistema compara automàticament cada cas amb milers d'historials clínics, tenint en compte dades com l'edat, el pes o el tipus de fractura per trobar els més semblants.",
       },
       {
-        title: 'Informe generat per IA',
-        description: 'Claude sintetitza els protocols i terminis de recuperació dels casos més rellevants.',
+        title: 'Informe generat automàticament',
+        description: 'La plataforma sintetitza els protocols i terminis de recuperació dels casos més rellevants.',
       },
     ],
     partners: [
@@ -344,11 +410,8 @@ const ca = {
   form: {
     sampleReport:
       'Pacient home de 68 anys, IMC 28,4, nivell d’activitat física moderat. Antecedents de diabetis tipus 2 i osteoporosi. Diagnòstic: fractura de radi distal (tipus Colles) al canell esquerre, gravetat II - desplaçada. Estudi radiogràfic compatible amb el diagnòstic. Es planteja tractament i valoració del termini de recuperació.',
-    sampleLabs: 'Calci 8,3 mg/dl, Vitamina D 16 ng/ml, Hemoglobina 12,8 g/dl, Glucosa 158 mg/dl, PCR 6 mg/l.',
     reportLabel: 'Informe mèdic',
     reportPlaceholder: 'Ex: Home de 70 anys, fractura d’húmer, IMC 27, no esportista, antecedent de diabetis...',
-    labsLabel: 'Analítiques clíniques (opcional)',
-    labsPlaceholder: 'Ex: Calci 8,9 mg/dl, Vitamina D 18 ng/ml, Glucosa 145 mg/dl, PCR 12 mg/l',
     filesLabel: 'Arxius de diagnòstic (opcional)',
     topKLabel: 'Casos similars a comparar',
     submitLoading: 'Generant informe…',
@@ -396,6 +459,7 @@ const de = {
   footer: {
     disclaimer:
       'Dieses Tool bietet eine Entscheidungsunterstützung auf Basis ähnlicher historischer Fälle. Es stellt keine medizinische Diagnose dar und ersetzt nicht die klinische Beurteilung durch medizinisches Fachpersonal.',
+    poweredBy: 'Cloud-Infrastruktur und GPU-Rechenleistung von',
   },
   landing: {
     heroTitlePrefix: 'Klinische Entscheidungsunterstützung für die',
@@ -404,12 +468,17 @@ const de = {
       'Finde ähnliche Fälle im Verlauf der Abteilung und erstelle in Sekunden einen evidenzbasierten Unterstützungsbericht mithilfe von Retrieval-Augmented Generation (RAG).',
     ctaEnter: 'Zum Tool',
     howItWorks: 'So funktioniert es',
-    illustrationAlt: 'Handgelenk-Röntgenbild mit markiertem Bruch und einem klinischen Analyse-Panel',
-    illustrationLabLabel: 'Vitamin D',
-    illustrationLabValue: '16 ng/ml',
+    illustrationAlt: 'Röntgenbild von Schienbein und Wadenbein mit markiertem Bruch und einem klinischen Analyse-Panel',
     illustrationMatches: '8 ähnliche Fälle gefunden',
+    featureChipScanning: 'Verlauf wird gescannt',
+    featureChipMatch: '94 % Übereinstimmung',
+    featureChipFilters: 'Alter · BMI · Fraktur',
+    featureChipNeighbors: '12 ähnlichste Fälle',
+    featureChipSources: '6 Fälle analysiert',
+    featureChipReady: 'Bericht fertig',
+    featureReportBadge: 'Protokoll · 6 Wo.',
     partnersTitle: 'Partner',
-    partnersHint: 'Technologien und Partner, die recovery-ia möglich machen.',
+    partnersHint: 'Technologien und Partner, die Recover IA möglich machen.',
     partnersComingSoon: 'Weitere Partner folgen in Kürze',
     features: [
       {
@@ -418,13 +487,13 @@ const de = {
           'Indexiert Röntgenbilder, Diagnosen und Patientenmerkmale, um die ähnlichsten historischen Fälle zu finden.',
       },
       {
-        title: 'Vektor-Ähnlichkeits-Engine',
+        title: 'Präziser, individueller Vergleich',
         description:
-          'Vektordatenbank mit klinischen Embeddings und strukturierten Filtern nach Alter, BMI oder Frakturtyp.',
+          'Das System vergleicht jeden Fall automatisch mit Tausenden klinischer Datensätze und berücksichtigt dabei Angaben wie Alter, Gewicht oder Frakturtyp, um die ähnlichsten Fälle zu finden.',
       },
       {
-        title: 'KI-generierter Bericht',
-        description: 'Claude fasst die Protokolle und Genesungszeiten der relevantesten Fälle zusammen.',
+        title: 'Automatisch generierter Bericht',
+        description: 'Die Plattform fasst die Protokolle und Genesungszeiten der relevantesten Fälle zusammen.',
       },
     ],
     partners: [
@@ -437,11 +506,8 @@ const de = {
   form: {
     sampleReport:
       'Männlicher Patient, 68 Jahre, BMI 28,4, mäßige körperliche Aktivität. Vorgeschichte von Typ-2-Diabetes und Osteoporose. Diagnose: distale Radiusfraktur (Colles-Typ) am linken Handgelenk, Schweregrad II - disloziert. Röntgenbefund passend zur Diagnose. Behandlung und Einschätzung der Genesungsdauer werden geprüft.',
-    sampleLabs: 'Kalzium 8,3 mg/dl, Vitamin D 16 ng/ml, Hämoglobin 12,8 g/dl, Glukose 158 mg/dl, CRP 6 mg/l.',
     reportLabel: 'Arztbericht',
     reportPlaceholder: 'Z. B.: Mann, 70 Jahre, Humerusfraktur, BMI 27, kein Sportler, Diabetes in der Vorgeschichte...',
-    labsLabel: 'Laborwerte (optional)',
-    labsPlaceholder: 'Z. B.: Kalzium 8,9 mg/dl, Vitamin D 18 ng/ml, Glukose 145 mg/dl, CRP 12 mg/l',
     filesLabel: 'Diagnosedateien (optional)',
     topKLabel: 'Zu vergleichende ähnliche Fälle',
     submitLoading: 'Bericht wird erstellt…',

@@ -9,13 +9,10 @@ export async function checkHealth() {
   return true
 }
 
-export async function requestReport({ reportText, labText, files, topK }) {
+export async function requestReport({ reportText, files, topK }) {
   const formData = new FormData()
   formData.append('medical_report_text', reportText)
   formData.append('top_k', String(topK || 5))
-  if (labText) {
-    formData.append('lab_results_text', labText)
-  }
   files.forEach((file) => formData.append('additional_files', file))
 
   const res = await fetch(`${API_BASE}/cases/report`, {
@@ -28,5 +25,14 @@ export async function requestReport({ reportText, labText, files, topK }) {
     throw new Error(detail || `Error ${res.status}`)
   }
 
+  return res.json()
+}
+
+export async function getPatients() {
+  const res = await fetch(`${API_BASE}/patients`, { signal: AbortSignal.timeout(10000) })
+  if (!res.ok) {
+    const detail = await res.text()
+    throw new Error(detail || `Error ${res.status}`)
+  }
   return res.json()
 }

@@ -6,7 +6,7 @@ services:
       - "6333:6333"   # REST / dashboard (http://localhost:6333/dashboard)
       - "6334:6334"   # gRPC
     volumes:
-      - ./ai/data/qdrant_storage:/qdrant/storage
+      - ./data/qdrant_storage:/qdrant/storage
 
   mongo:
     image: mongo:7
@@ -14,28 +14,31 @@ services:
     ports:
       - "27017:27017"
     volumes:
-      - ./ai/data/mongo_data:/data/db
+      - ./data/mongo_data:/data/db
 
-  ai:
-    build: ./ai
-    container_name: recovery-ia-ai
+  backend:
+    build: .
+    container_name: recovery-ia-backend
+    command: uv run uvicorn recovery_ia.api.main:app --host 0.0.0.0 --port 8000 --reload
     env_file:
-      - ./ai/.env
+      - .env
     environment:
       QDRANT_URL: http://qdrant:6333
       MONGODB_URI: mongodb://mongo:27017
     ports:
-      - "8001:8001"
+      - "8000:8000"
+    volumes:
+      - ./data:/app/data
     depends_on:
       - qdrant
       - mongo
-
-  backend:
-    build: ./backend
-    container_name: recovery-ia-backend
-    environment:
-      AI_SERVICE_URL: http://ai:8001
-    ports:
-      - "8000:8000"
-    depends_on:
-      - ai
+    develop:
+      watch:
+        - action: sync
+          path: ./src
+          target: /app/src
+        - action: sync
+          path: ./scripts
+          target: /app/scripts
+        - action: rebuild
+          path: pyproject.toml
