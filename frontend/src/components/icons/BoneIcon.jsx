@@ -16,7 +16,7 @@ export default function BoneIcon(props) {
       <circle cx="16.66" cy="3.96" r="2.5" fill="currentColor" />
       <polyline
         points="13.84,13.84 12.21,13.06 11.79,10.94 10.16,10.16"
-        stroke="var(--brand-glow, #2dd4bf)"
+        stroke="var(--brand-glow, #f5a08c)"
         strokeWidth="1.15"
         strokeLinecap="round"
         strokeLinejoin="round"

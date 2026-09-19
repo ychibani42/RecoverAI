@@ -78,7 +78,7 @@ header.topbar {
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  box-shadow: 0 4px 14px rgba(15, 109, 99, 0.25);
+  box-shadow: 0 4px 14px rgba(156, 49, 56, 0.25);
 }
 
 .logo-mark svg {
@@ -236,7 +236,7 @@ input[type='number'] {
   font-size: 0.92rem;
   font-family: inherit;
   color: var(--text);
-  background: #f0faf9;
+  background: #fdf1f0;
   resize: vertical;
 }
 
@@ -329,7 +329,7 @@ input:focus {
   transition:
     border-color 0.15s,
     background 0.15s;
-  background: #f0faf9;
+  background: #fdf1f0;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -376,7 +376,7 @@ button.primary {
   font-size: 0.92rem;
   font-weight: 600;
   cursor: pointer;
-  box-shadow: 0 4px 14px rgba(13, 148, 136, 0.28);
+  box-shadow: 0 4px 14px rgba(226, 85, 90, 0.28);
   transition:
     transform 0.15s,
     box-shadow 0.15s;
@@ -389,11 +389,11 @@ button.primary svg {
 
 button.primary:hover {
   transform: translateY(-1px);
-  box-shadow: 0 6px 18px rgba(13, 148, 136, 0.35);
+  box-shadow: 0 6px 18px rgba(226, 85, 90, 0.35);
 }
 
 button.primary:disabled {
-  background: #a4bbb9;
+  background: #c2a19f;
   box-shadow: none;
   cursor: not-allowed;
   transform: none;
@@ -820,7 +820,7 @@ button.ghost:hover {
   border: 1px solid var(--border);
   border-radius: 10px;
   padding: 8px 12px;
-  background: #f0faf9;
+  background: #fdf1f0;
 }
 
 .patients-search svg {
@@ -876,11 +876,11 @@ button.ghost:hover {
 }
 
 .patients-table tbody tr:hover {
-  background: #f0faf9;
+  background: #fdf1f0;
 }
 
 .patients-table tbody tr.expanded {
-  background: #e6f7f5;
+  background: #f8dedc;
 }
 
 .patients-row-toggle {
@@ -908,7 +908,7 @@ button.ghost:hover {
 
 .patients-detail-row td {
   white-space: normal;
-  background: #f0faf9;
+  background: #fdf1f0;
   padding: 20px 24px !important;
 }
 
@@ -980,7 +980,7 @@ button.ghost:hover {
 }
 
 .similar-case-toggle:hover {
-  background: #f0faf9;
+  background: #fdf1f0;
 }
 
 .similar-case-rank {
@@ -1004,7 +1004,7 @@ button.ghost:hover {
 
 .similar-case-item .patients-detail-grid {
   padding: 16px 18px 20px;
-  background: #f0faf9;
+  background: #fdf1f0;
   border-top: 1px solid var(--border);
 }
 
@@ -1121,7 +1121,9 @@ button.ghost:hover {
   align-items: center;
   justify-content: center;
   padding: 32px 20px;
-  background: linear-gradient(135deg, var(--brand-dark), var(--brand) 55%, var(--brand-glow));
+  background:
+    linear-gradient(135deg, rgba(156, 49, 56, 0.55), rgba(156, 49, 56, 0.35)),
+    url('./assets/backgound.webp') center center / cover no-repeat;
 }
 
 .login-page-top {
@@ -1180,7 +1182,7 @@ button.ghost:hover {
   font-size: 0.92rem;
   font-family: inherit;
   color: var(--text);
-  background: #f0faf9;
+  background: #fdf1f0;
 }
 
 .login-card input:focus {
