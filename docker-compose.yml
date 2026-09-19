@@ -19,6 +19,7 @@ services:
   backend:
     build: .
     container_name: recovery-ia-backend
+    command: uv run uvicorn recovery_ia.api.main:app --host 0.0.0.0 --port 8000 --reload
     env_file:
       - .env
     environment:
@@ -26,6 +27,18 @@ services:
       MONGODB_URI: mongodb://mongo:27017
     ports:
       - "8000:8000"
+    volumes:
+      - ./data:/app/data
     depends_on:
       - qdrant
       - mongo
+    develop:
+      watch:
+        - action: sync
+          path: ./src
+          target: /app/src
+        - action: sync
+          path: ./scripts
+          target: /app/scripts
+        - action: rebuild
+          path: pyproject.toml

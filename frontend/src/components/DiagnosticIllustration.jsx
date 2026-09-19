@@ -1,4 +1,4 @@
-import { CheckCircle2, FlaskConical } from 'lucide-react'
+import { CheckCircle2 } from 'lucide-react'
 import { useTranslation } from '../i18n/I18nContext'
 
 export default function DiagnosticIllustration() {
@@ -67,16 +67,6 @@ export default function DiagnosticIllustration() {
           <animate attributeName="y" values="10;270;10" dur="4.5s" repeatCount="indefinite" />
         </rect>
       </svg>
-
-      <div className="diagnostic-chip diagnostic-chip-lab">
-        <span className="diagnostic-chip-icon">
-          <FlaskConical />
-        </span>
-        <div>
-          <strong>{t('landing.illustrationLabLabel')}</strong>
-          <span>{t('landing.illustrationLabValue')}</span>
-        </div>
-      </div>
 
       <div className="diagnostic-chip diagnostic-chip-match">
         <span className="diagnostic-chip-icon diagnostic-chip-icon-ok">

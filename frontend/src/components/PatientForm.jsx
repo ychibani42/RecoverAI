@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { AlertCircle, FileText, FlaskConical, Sparkles, Wand2 } from 'lucide-react'
+import { AlertCircle, FileText, Sparkles, Wand2 } from 'lucide-react'
 import { useTranslation } from '../i18n/I18nContext'
 import FileDropzone from './FileDropzone'
 import StatusPill from './StatusPill'
@@ -7,14 +7,12 @@ import StatusPill from './StatusPill'
 export default function PatientForm({ onSubmit, submitting, error }) {
   const { t } = useTranslation()
   const [reportText, setReportText] = useState('')
-  const [labText, setLabText] = useState('')
   const [files, setFiles] = useState([])
   const [topK, setTopK] = useState(5)
   const [validationError, setValidationError] = useState('')
 
   const useSample = () => {
     setReportText(t('form.sampleReport'))
-    setLabText(t('form.sampleLabs'))
   }
 
   const handleSubmit = (e) => {
@@ -25,7 +23,7 @@ export default function PatientForm({ onSubmit, submitting, error }) {
       return
     }
     setValidationError('')
-    onSubmit({ reportText: trimmed, labText: labText.trim(), files, topK })
+    onSubmit({ reportText: trimmed, files, topK })
   }
 
   return (
@@ -41,20 +39,6 @@ export default function PatientForm({ onSubmit, submitting, error }) {
           value={reportText}
           onChange={(e) => setReportText(e.target.value)}
           placeholder={t('form.reportPlaceholder')}
-        />
-      </div>
-
-      <div className="field">
-        <label htmlFor="lab-text">
-          <FlaskConical />
-          {t('form.labsLabel')}
-        </label>
-        <textarea
-          id="lab-text"
-          rows={3}
-          value={labText}
-          onChange={(e) => setLabText(e.target.value)}
-          placeholder={t('form.labsPlaceholder')}
         />
       </div>
 

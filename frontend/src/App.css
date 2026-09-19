@@ -122,6 +122,22 @@ header.topbar::after {
   height: 14px;
 }
 
+.topbar-nav-btn {
+  cursor: pointer;
+  font: inherit;
+  transition: background 0.15s ease;
+}
+
+.topbar-nav-btn:hover {
+  background: rgba(255, 255, 255, 0.22);
+}
+
+.topbar-nav-btn.active {
+  background: white;
+  color: var(--brand-dark);
+  border-color: white;
+}
+
 main {
   max-width: 1080px;
   margin: 0 auto;
@@ -547,4 +563,235 @@ footer svg {
   flex-shrink: 0;
   margin-top: 1px;
   color: var(--brand);
+}
+
+.patients-main {
+  display: block;
+  width: 100%;
+  max-width: none;
+  margin: 0;
+  padding: 32px 40px;
+  box-sizing: border-box;
+}
+
+@media (max-width: 640px) {
+  .patients-main {
+    padding: 20px;
+  }
+}
+
+.patients-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 18px;
+  flex-wrap: wrap;
+}
+
+.patients-filters {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.patients-filters select {
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 8px 10px;
+  font-size: 0.85rem;
+  color: var(--text);
+  background: var(--surface);
+}
+
+.patients-search {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+  max-width: 360px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 8px 12px;
+  background: #fbfaff;
+}
+
+.patients-search svg {
+  width: 16px;
+  height: 16px;
+  color: var(--text-muted);
+  flex-shrink: 0;
+}
+
+.patients-search input {
+  border: none;
+  outline: none;
+  background: transparent;
+  width: 100%;
+  font-size: 0.9rem;
+  color: var(--text);
+}
+
+.patients-count {
+  color: var(--text-muted);
+  font-size: 0.82rem;
+  white-space: nowrap;
+}
+
+.patients-table-wrap {
+  overflow-x: auto;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+}
+
+.patients-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.86rem;
+}
+
+.patients-table th,
+.patients-table td {
+  text-align: left;
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--border);
+  white-space: nowrap;
+}
+
+.patients-table th {
+  background: var(--brand-light);
+  color: var(--brand-dark);
+  font-weight: 700;
+  font-size: 0.76rem;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+
+.patients-table tbody tr:hover {
+  background: #fbfaff;
+}
+
+.patients-table tbody tr.expanded {
+  background: #f5f3ff;
+}
+
+.patients-row-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--surface);
+  color: var(--text-muted);
+  cursor: pointer;
+}
+
+.patients-row-toggle:hover {
+  border-color: var(--brand);
+  color: var(--brand-dark);
+}
+
+.patients-row-toggle svg {
+  width: 14px;
+  height: 14px;
+}
+
+.patients-detail-row td {
+  white-space: normal;
+  background: #fbfaff;
+  padding: 20px 24px !important;
+}
+
+.patients-detail-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 18px 28px;
+}
+
+.patients-detail-section h4 {
+  margin: 0 0 6px;
+  font-size: 0.76rem;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  color: var(--brand-dark);
+}
+
+.patients-detail-section p {
+  margin: 0;
+  font-size: 0.86rem;
+  line-height: 1.5;
+  color: var(--text);
+}
+
+.patients-detail-section ul {
+  margin: 0;
+  padding-left: 18px;
+  font-size: 0.86rem;
+  line-height: 1.6;
+  color: var(--text);
+}
+
+.patients-detail-full {
+  grid-column: 1 / -1;
+}
+
+.patients-empty {
+  text-align: center;
+  color: var(--text-muted);
+  padding: 24px !important;
+}
+
+.patients-table .badge {
+  padding: 4px 10px;
+  font-size: 0.78rem;
+  text-transform: capitalize;
+}
+
+.patients-table .severity-grave {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+.patients-table .severity-moderada {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.patients-table .severity-leve {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.patients-pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 18px;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.patients-pagination button {
+  border: 1px solid var(--border);
+  background: var(--surface);
+  border-radius: 8px;
+  padding: 6px 14px;
+  font-size: 0.85rem;
+  color: var(--text);
+  cursor: pointer;
+}
+
+.patients-pagination button:hover:not(:disabled) {
+  border-color: var(--brand);
+  color: var(--brand-dark);
+}
+
+.patients-pagination button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
 }

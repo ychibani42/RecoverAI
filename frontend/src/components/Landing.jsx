@@ -1,6 +1,7 @@
 import { ArrowRight, Bone, Brain, Database, ScanSearch, ShieldCheck } from 'lucide-react'
 import { useTranslation } from '../i18n/I18nContext'
 import DiagnosticIllustration from './DiagnosticIllustration'
+import { FEATURE_ILLUSTRATIONS } from './FeatureIllustrations'
 import LanguageSelector from './LanguageSelector'
 
 const FEATURE_ICONS = [ScanSearch, Database, Brain]
@@ -53,13 +54,20 @@ export default function Landing({ onEnter }) {
           <div className="landing-features">
             {features.map(({ title, description }, i) => {
               const Icon = FEATURE_ICONS[i]
+              const Illustration = FEATURE_ILLUSTRATIONS[i]
               return (
-                <div className="landing-feature-card" key={title}>
-                  <span className="card-icon">
-                    <Icon />
-                  </span>
-                  <h3>{title}</h3>
-                  <p>{description}</p>
+                <div className={`landing-feature-row${i % 2 === 1 ? ' is-reverse' : ''}`} key={title}>
+                  <div className="landing-feature-visual">
+                    <Illustration title={title} />
+                  </div>
+                  <div className="landing-feature-content">
+                    <span className="landing-feature-step">0{i + 1}</span>
+                    <span className="card-icon">
+                      <Icon />
+                    </span>
+                    <h3>{title}</h3>
+                    <p>{description}</p>
+                  </div>
                 </div>
               )
             })}

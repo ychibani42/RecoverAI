@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from recovery_ia.api.routes import query
+from recovery_ia.api.routes import patients, query
 
 app = FastAPI(
     title="recovery-ia",
@@ -16,6 +16,7 @@ app.add_middleware(
 )
 
 app.include_router(query.router)
+app.include_router(patients.router)
 
 
 @app.get("/health")
