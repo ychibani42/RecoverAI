@@ -9,10 +9,11 @@ export async function checkHealth() {
   return true
 }
 
-export async function requestReport({ reportText, files, topK }) {
+export async function requestReport({ reportText, files, topK, language }) {
   const formData = new FormData()
   formData.append('medical_report_text', reportText)
   formData.append('top_k', String(topK || 5))
+  formData.append('language', language || 'es')
   files.forEach((file) => formData.append('additional_files', file))
 
   const res = await fetch(`${API_BASE}/cases/report`, {
@@ -41,6 +42,11 @@ export async function sendAppointmentSms({ phone, weeks }) {
   }
 
   return res.json()
+}
+
+export function imageUrl(relativePath) {
+  if (!relativePath) return null
+  return `${API_BASE}/images/${relativePath}`
 }
 
 export async function getPatients() {

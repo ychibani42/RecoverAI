@@ -21,6 +21,7 @@ class NewPatientInput(BaseModel):
     xray_image_path: str | None = None
     additional_file_paths: list[str] = []
     top_k: int = 5
+    language: str = "es"
 
 
 class SimilarCaseQuery(BaseModel):
@@ -40,6 +41,7 @@ class SimilarCaseQuery(BaseModel):
     imc: float | None = None
     nivel_actividad: str | None = None
     top_k: int = 5
+    language: str = "es"
 
 
 class SimilarCaseResult(BaseModel):

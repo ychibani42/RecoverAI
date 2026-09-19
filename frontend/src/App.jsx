@@ -12,7 +12,7 @@ import { useTranslation } from './i18n/I18nContext'
 import { requestReport } from './lib/api'
 
 export default function App() {
-  const { t } = useTranslation()
+  const { t, language } = useTranslation()
   const [view, setView] = useState('landing')
   const [report, setReport] = useState(null)
   const [similarCases, setSimilarCases] = useState([])
@@ -25,7 +25,7 @@ export default function App() {
     setReport(null)
     setSimilarCases([])
     try {
-      const result = await requestReport({ reportText, files, topK })
+      const result = await requestReport({ reportText, files, topK, language })
       setReport(result.report)
       setSimilarCases(result.similar_cases || [])
     } catch (err) {

@@ -2,6 +2,7 @@ from contextlib import asynccontextmanager
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
 
 from recovery_ia.api.routes import patients, query, sms
 from recovery_ia.sms import start_reminder_scheduler
@@ -30,6 +31,10 @@ app.add_middleware(
 app.include_router(query.router)
 app.include_router(patients.router)
 app.include_router(sms.router)
+
+# Sirve las radiografias indexadas (data/images/xrays, xrays_reales) para que
+# el frontend pueda mostrarlas junto a los casos similares recuperados.
+app.mount("/images", StaticFiles(directory="data/images"), name="images")
 
 
 @app.get("/health")

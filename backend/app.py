@@ -65,6 +65,12 @@ async def proxy_patients(request: Request) -> Response:
     return await _proxy(f"{AI_SERVICE_URL}/patients", request)
 
 
+@app.api_route("/images/{path:path}", methods=["GET"])
+async def proxy_images(path: str, request: Request) -> Response:
+    """Forwards x-ray image requests to the ai service's static file mount."""
+    return await _proxy(f"{AI_SERVICE_URL}/images/{path}", request)
+
+
 def run(host: str = "127.0.0.1", port: int = 8000):
     import uvicorn
 

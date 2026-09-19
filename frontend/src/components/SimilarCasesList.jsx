@@ -1,5 +1,6 @@
 import { ChevronDown, ChevronRight } from 'lucide-react'
 import { Fragment, useState } from 'react'
+import { imageUrl } from '../lib/api'
 import { useTranslation } from '../i18n/I18nContext'
 
 export default function SimilarCasesList({ cases }) {
@@ -45,6 +46,16 @@ export default function SimilarCasesList({ cases }) {
 
                 {isExpanded && (
                   <div className="patients-detail-grid">
+                    {p.imagen_radiografia && (
+                      <div className="patients-detail-section">
+                        <h4>{t('report.radiograph')}</h4>
+                        <img
+                          className="similar-case-xray"
+                          src={imageUrl(p.imagen_radiografia)}
+                          alt={t('report.radiograph')}
+                        />
+                      </div>
+                    )}
                     <div className="patients-detail-section">
                       <h4>{t('patients.detail.anthropometry')}</h4>
                       <p>
