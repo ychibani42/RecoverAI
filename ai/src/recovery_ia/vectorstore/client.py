@@ -31,7 +31,7 @@ def get_vectorstore() -> QdrantVectorStore:
     con filtros estructurados via metadata (edad, tipo_fractura, imc, ...)."""
     settings = get_settings()
     embedder = get_text_embedder()
-    ensure_collection(len(embedder.embed_query("")))
+    ensure_collection(len(embedder.embed_query("probe")))
     return QdrantVectorStore(
         client=get_qdrant_client(),
         collection_name=settings.qdrant_collection,

@@ -11,6 +11,8 @@ data/kaggle_raw/*
 !data/kaggle_raw/README.md
 data/xray_images/
 data/mongo_data/
+ai/data/qdrant_storage/
+ai/data/mongo_data/
 .pytest_cache/
 .ruff_cache/
 *.egg-info/
