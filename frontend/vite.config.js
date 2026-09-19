@@ -6,6 +6,7 @@ export default defineConfig({
   plugins: [react()],
   server: {
     port: 8080,
+    allowedHosts: ['.ngrok-free.app'],
   },
   preview: {
     port: 8080,
