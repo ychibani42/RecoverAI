@@ -1,2 +1,16 @@
 __pycache__/
 *.pyc
+.venv/
+venv/
+.env
+data/processed/*.parquet
+data/qdrant_storage/
+data/uploads/
+data/kaggle_raw/*
+!data/kaggle_raw/.gitkeep
+!data/kaggle_raw/README.md
+data/xray_images/
+data/mongo_data/
+.pytest_cache/
+.ruff_cache/
+*.egg-info/

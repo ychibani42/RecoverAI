@@ -1,122 +1,101 @@
 import { useState } from 'react'
-import heroImg from './assets/hero.png'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
+import { ArrowLeft, Bone, ClipboardList, Database, ShieldCheck, Sparkles, UserPlus } from 'lucide-react'
 import './App.css'
+import './Landing.css'
+import Landing from './components/Landing'
+import LanguageSelector from './components/LanguageSelector'
+import PatientForm from './components/PatientForm'
+import ReportView from './components/ReportView'
+import { useTranslation } from './i18n/I18nContext'
+import { requestReport } from './lib/api'
 
-function App() {
-  const [count, setCount] = useState(0)
+export default function App() {
+  const { t } = useTranslation()
+  const [view, setView] = useState('landing')
+  const [report, setReport] = useState(null)
+  const [submitting, setSubmitting] = useState(false)
+  const [error, setError] = useState('')
+
+  const handleSubmit = async ({ reportText, labText, files, topK }) => {
+    setSubmitting(true)
+    setError('')
+    setReport(null)
+    try {
+      const result = await requestReport({ reportText, labText, files, topK })
+      setReport(result)
+    } catch (err) {
+      setError(t('app.errorApiContact', { message: err.message }))
+    } finally {
+      setSubmitting(false)
+    }
+  }
+
+  if (view === 'landing') {
+    return <Landing onEnter={() => setView('workspace')} />
+  }
 
   return (
     <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
+      <header className="topbar">
+        <div className="topbar-inner">
+          <button type="button" className="back-link" onClick={() => setView('landing')}>
+            <ArrowLeft />
+          </button>
+          <div className="logo-mark">
+            <Bone />
+          </div>
+          <div>
+            <h1>recovery-ia</h1>
+            <p>{t('app.subtitle')}</p>
+          </div>
+          <div className="topbar-lang">
+            <LanguageSelector />
+          </div>
         </div>
-        <div>
-          <h1>Get started</h1>
-          <p>
-            Edit <code>src/App.jsx</code> and save to test <code>HMR</code>
-          </p>
+        <div className="topbar-badges">
+          <span className="topbar-badge">
+            <Database />
+            {t('app.badgeVector')}
+          </span>
+          <span className="topbar-badge">
+            <Sparkles />
+            {t('app.badgeStack')}
+          </span>
+          <span className="topbar-badge">
+            <ShieldCheck />
+            {t('app.badgeSupport')}
+          </span>
         </div>
-        <button
-          type="button"
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
-        </button>
-      </section>
+      </header>
 
-      <div className="ticks"></div>
+      <main>
+        <section className="card">
+          <div className="card-header">
+            <span className="card-icon">
+              <UserPlus />
+            </span>
+            <h2>{t('card.newPatientTitle')}</h2>
+          </div>
+          <p className="card-hint">{t('card.newPatientHint')}</p>
+          <PatientForm onSubmit={handleSubmit} submitting={submitting} error={error} />
+        </section>
 
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
-        </div>
-      </section>
+        <section className="card">
+          <div className="card-header">
+            <span className="card-icon">
+              <ClipboardList />
+            </span>
+            <h2>{t('card.reportTitle')}</h2>
+          </div>
+          <p className="card-hint">{t('card.reportHint')}</p>
+          <ReportView report={report} loading={submitting} />
+        </section>
+      </main>
 
-      <div className="ticks"></div>
-      <section id="spacer"></section>
+      <footer>
+        <ShieldCheck />
+        <span>{t('footer.disclaimer')}</span>
+      </footer>
     </>
   )
 }
-
-export default App

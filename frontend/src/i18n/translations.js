@@ -1,0 +1,474 @@
+export const LANGUAGES = [
+  { code: 'es', label: 'Español' },
+  { code: 'en', label: 'English' },
+  { code: 'fr', label: 'Français' },
+  { code: 'ca', label: 'Català' },
+  { code: 'de', label: 'Deutsch' },
+]
+
+export const DEFAULT_LANGUAGE = 'es'
+
+const es = {
+  app: {
+    subtitle: 'Apoyo a la decisión clínica para recuperación ortopédica · búsqueda de casos similares (RAG)',
+    badgeStack: 'Claude',
+    badgeVector: 'Búsqueda vectorial',
+    badgeSupport: 'Apoyo a la decisión, no diagnóstico',
+    errorApiContact: 'Error al contactar con la API: {message}. Comprueba que el backend (puerto 8000) y la base de datos vectorial estén en marcha.',
+  },
+  card: {
+    newPatientTitle: 'Nuevo paciente',
+    newPatientHint:
+      'Introduce el informe médico y, opcionalmente, análisis clínicos y archivos de diagnóstico (radiografías, analíticas...). El sistema buscará casos históricos similares y generará un informe de apoyo.',
+    reportTitle: 'Informe clínico',
+    reportHint: 'Generado a partir de los casos históricos más parecidos indexados en la base de datos vectorial.',
+  },
+  footer: {
+    disclaimer:
+      'Esta herramienta ofrece una orientación de apoyo a la decisión basada en casos históricos similares. No constituye un diagnóstico médico ni sustituye el criterio clínico del profesional sanitario.',
+  },
+  landing: {
+    heroTitlePrefix: 'Apoyo a la decisión clínica para',
+    heroTitleHighlight: 'recuperación ortopédica',
+    heroSubtitle:
+      'Encuentra casos similares en el histórico del departamento y genera, en segundos, un informe de apoyo basado en evidencia mediante búsqueda aumentada por generación (RAG).',
+    ctaEnter: 'Entrar a la herramienta',
+    howItWorks: 'Cómo funciona',
+    illustrationAlt: 'Radiografía de muñeca con fractura señalada y panel de análisis clínico',
+    illustrationLabLabel: 'Vitamina D',
+    illustrationLabValue: '16 ng/ml',
+    illustrationMatches: '8 casos similares encontrados',
+    partnersTitle: 'Partners',
+    partnersHint: 'Tecnologías y colaboradores que hacen posible recovery-ia.',
+    partnersComingSoon: 'Próximamente más partners',
+    features: [
+      {
+        title: 'Búsqueda de casos similares',
+        description:
+          'Indexa radiografías, diagnósticos y atributos del paciente para encontrar los casos históricos más parecidos.',
+      },
+      {
+        title: 'Motor de similitud vectorial',
+        description:
+          'Base de datos vectorial con embeddings clínicos y filtros estructurados por edad, IMC o tipo de fractura.',
+      },
+      {
+        title: 'Informe generado por IA',
+        description: 'Claude sintetiza los protocolos y plazos de recuperación de los casos más relevantes.',
+      },
+    ],
+    partners: [
+      {
+        name: 'Nebius',
+        description: 'Infraestructura y cómputo GPU en la nube',
+      },
+    ],
+  },
+  form: {
+    sampleReport:
+      'Paciente varón de 68 años, IMC 28.4, nivel de actividad física moderado. Antecedentes de diabetes tipo 2 y osteoporosis. Diagnóstico: fractura de radio distal (tipo Colles) en muñeca izquierda, gravedad II - desplazada. Estudio radiográfico compatible con el diagnóstico. Se plantea tratamiento y valoración de plazo de recuperación.',
+    sampleLabs: 'Calcio 8.3 mg/dl, Vitamina D 16 ng/ml, Hemoglobina 12.8 g/dl, Glucosa 158 mg/dl, PCR 6 mg/l.',
+    reportLabel: 'Informe médico',
+    reportPlaceholder: 'Ej: Varón de 70 años, fractura de húmero, IMC 27, no deportista, antecedente de diabetes...',
+    labsLabel: 'Análisis clínicos (opcional)',
+    labsPlaceholder: 'Ej: Calcio 8.9 mg/dl, Vitamina D 18 ng/ml, Glucosa 145 mg/dl, PCR 12 mg/l',
+    filesLabel: 'Archivos de diagnóstico (opcional)',
+    topKLabel: 'Casos similares a comparar',
+    submitLoading: 'Generando informe…',
+    submitIdle: 'Generar informe',
+    useSample: 'Usar ejemplo',
+    validationReportRequired: 'Introduce el informe médico del paciente.',
+  },
+  report: {
+    loading: 'Buscando casos similares y redactando el informe…',
+    empty: 'Aún no se ha generado ningún informe. Completa el formulario y pulsa "Generar informe".',
+    summary: 'Resumen de casos similares',
+    treatment: 'Tratamiento recomendado',
+    recoveryTime: 'Tiempo de recuperación estimado',
+    diet: 'Dieta recomendada',
+    habits: 'Hábitos de salud recomendados',
+  },
+  status: {
+    ok: 'API conectada',
+    down: 'API no disponible (arranca el backend en el puerto 8000)',
+    checking: 'Comprobando conexión con la API…',
+  },
+  dropzone: {
+    hint: 'Radiografías, informes de laboratorio u otras pruebas — arrastra o haz clic para seleccionar',
+  },
+  language: {
+    selectorLabel: 'Idioma',
+  },
+}
+
+const en = {
+  app: {
+    subtitle: 'Clinical decision support for orthopedic recovery · similar case search (RAG)',
+    badgeStack: 'Claude',
+    badgeVector: 'Vector search',
+    badgeSupport: 'Decision support, not diagnosis',
+    errorApiContact: 'Error contacting the API: {message}. Check that the backend (port 8000) and the vector database are running.',
+  },
+  card: {
+    newPatientTitle: 'New patient',
+    newPatientHint:
+      'Enter the medical report and, optionally, lab results and diagnostic files (X-rays, lab tests...). The system will search for similar historical cases and generate a support report.',
+    reportTitle: 'Clinical report',
+    reportHint: 'Generated from the most similar historical cases indexed in the vector database.',
+  },
+  footer: {
+    disclaimer:
+      'This tool provides decision-support guidance based on similar historical cases. It does not constitute a medical diagnosis and does not replace the clinical judgment of a healthcare professional.',
+  },
+  landing: {
+    heroTitlePrefix: 'Clinical decision support for',
+    heroTitleHighlight: 'orthopedic recovery',
+    heroSubtitle:
+      'Find similar cases in the department’s history and generate, in seconds, an evidence-based support report using retrieval-augmented generation (RAG).',
+    ctaEnter: 'Enter the tool',
+    howItWorks: 'How it works',
+    illustrationAlt: 'Wrist X-ray with a highlighted fracture and a clinical analysis panel',
+    illustrationLabLabel: 'Vitamin D',
+    illustrationLabValue: '16 ng/ml',
+    illustrationMatches: '8 similar cases found',
+    partnersTitle: 'Partners',
+    partnersHint: 'Technologies and collaborators that make recovery-ia possible.',
+    partnersComingSoon: 'More partners coming soon',
+    features: [
+      {
+        title: 'Similar case search',
+        description: 'Indexes X-rays, diagnoses, and patient attributes to find the most similar historical cases.',
+      },
+      {
+        title: 'Vector similarity engine',
+        description: 'Vector database with clinical embeddings and structured filters by age, BMI, or fracture type.',
+      },
+      {
+        title: 'AI-generated report',
+        description: 'Claude synthesizes the protocols and recovery timelines from the most relevant cases.',
+      },
+    ],
+    partners: [
+      {
+        name: 'Nebius',
+        description: 'Cloud infrastructure and GPU compute',
+      },
+    ],
+  },
+  form: {
+    sampleReport:
+      '68-year-old male patient, BMI 28.4, moderate physical activity level. History of type 2 diabetes and osteoporosis. Diagnosis: distal radius fracture (Colles type) in the left wrist, grade II - displaced. Radiographic study consistent with the diagnosis. Treatment and recovery timeline assessment are being considered.',
+    sampleLabs: 'Calcium 8.3 mg/dl, Vitamin D 16 ng/ml, Hemoglobin 12.8 g/dl, Glucose 158 mg/dl, CRP 6 mg/l.',
+    reportLabel: 'Medical report',
+    reportPlaceholder: 'E.g.: 70-year-old male, humerus fracture, BMI 27, non-athlete, history of diabetes...',
+    labsLabel: 'Lab results (optional)',
+    labsPlaceholder: 'E.g.: Calcium 8.9 mg/dl, Vitamin D 18 ng/ml, Glucose 145 mg/dl, CRP 12 mg/l',
+    filesLabel: 'Diagnostic files (optional)',
+    topKLabel: 'Similar cases to compare',
+    submitLoading: 'Generating report…',
+    submitIdle: 'Generate report',
+    useSample: 'Use example',
+    validationReportRequired: 'Enter the patient’s medical report.',
+  },
+  report: {
+    loading: 'Searching for similar cases and drafting the report…',
+    empty: 'No report has been generated yet. Fill in the form and click "Generate report".',
+    summary: 'Summary of similar cases',
+    treatment: 'Recommended treatment',
+    recoveryTime: 'Estimated recovery time',
+    diet: 'Recommended diet',
+    habits: 'Recommended health habits',
+  },
+  status: {
+    ok: 'API connected',
+    down: 'API unavailable (start the backend on port 8000)',
+    checking: 'Checking API connection…',
+  },
+  dropzone: {
+    hint: 'X-rays, lab reports, or other tests — drag and drop or click to select',
+  },
+  language: {
+    selectorLabel: 'Language',
+  },
+}
+
+const fr = {
+  app: {
+    subtitle: 'Aide à la décision clinique pour la récupération orthopédique · recherche de cas similaires (RAG)',
+    badgeStack: 'Claude',
+    badgeVector: 'Recherche vectorielle',
+    badgeSupport: 'Aide à la décision, pas un diagnostic',
+    errorApiContact: 'Erreur lors de la connexion à l’API : {message}. Vérifiez que le backend (port 8000) et la base de données vectorielle sont bien démarrés.',
+  },
+  card: {
+    newPatientTitle: 'Nouveau patient',
+    newPatientHint:
+      'Saisissez le rapport médical et, éventuellement, des analyses cliniques et des fichiers de diagnostic (radiographies, analyses...). Le système recherchera des cas historiques similaires et générera un rapport d’aide à la décision.',
+    reportTitle: 'Rapport clinique',
+    reportHint: 'Généré à partir des cas historiques les plus similaires indexés dans la base de données vectorielle.',
+  },
+  footer: {
+    disclaimer:
+      'Cet outil fournit une orientation d’aide à la décision basée sur des cas historiques similaires. Il ne constitue pas un diagnostic médical et ne remplace pas le jugement clinique du professionnel de santé.',
+  },
+  landing: {
+    heroTitlePrefix: 'Aide à la décision clinique pour la',
+    heroTitleHighlight: 'récupération orthopédique',
+    heroSubtitle:
+      'Trouvez des cas similaires dans l’historique du service et générez, en quelques secondes, un rapport d’aide fondé sur des preuves grâce à la génération augmentée par récupération (RAG).',
+    ctaEnter: 'Accéder à l’outil',
+    howItWorks: 'Comment ça marche',
+    illustrationAlt: 'Radiographie du poignet avec une fracture signalée et un panneau d’analyse clinique',
+    illustrationLabLabel: 'Vitamine D',
+    illustrationLabValue: '16 ng/ml',
+    illustrationMatches: '8 cas similaires trouvés',
+    partnersTitle: 'Partenaires',
+    partnersHint: 'Technologies et collaborateurs qui rendent recovery-ia possible.',
+    partnersComingSoon: 'D’autres partenaires bientôt disponibles',
+    features: [
+      {
+        title: 'Recherche de cas similaires',
+        description:
+          'Indexe les radiographies, les diagnostics et les caractéristiques du patient pour trouver les cas historiques les plus similaires.',
+      },
+      {
+        title: 'Moteur de similarité vectorielle',
+        description:
+          'Base de données vectorielle avec embeddings cliniques et filtres structurés par âge, IMC ou type de fracture.',
+      },
+      {
+        title: 'Rapport généré par IA',
+        description: 'Claude synthétise les protocoles et délais de récupération des cas les plus pertinents.',
+      },
+    ],
+    partners: [
+      {
+        name: 'Nebius',
+        description: 'Infrastructure et calcul GPU dans le cloud',
+      },
+    ],
+  },
+  form: {
+    sampleReport:
+      'Patient de sexe masculin, 68 ans, IMC 28,4, niveau d’activité physique modéré. Antécédents de diabète de type 2 et d’ostéoporose. Diagnostic : fracture du radius distal (type Colles) au poignet gauche, gravité II - déplacée. Étude radiographique compatible avec le diagnostic. Traitement et évaluation du délai de récupération à l’étude.',
+    sampleLabs: 'Calcium 8,3 mg/dl, Vitamine D 16 ng/ml, Hémoglobine 12,8 g/dl, Glucose 158 mg/dl, CRP 6 mg/l.',
+    reportLabel: 'Rapport médical',
+    reportPlaceholder: 'Ex : homme de 70 ans, fracture de l’humérus, IMC 27, non sportif, antécédent de diabète...',
+    labsLabel: 'Analyses cliniques (optionnel)',
+    labsPlaceholder: 'Ex : Calcium 8,9 mg/dl, Vitamine D 18 ng/ml, Glucose 145 mg/dl, CRP 12 mg/l',
+    filesLabel: 'Fichiers de diagnostic (optionnel)',
+    topKLabel: 'Cas similaires à comparer',
+    submitLoading: 'Génération du rapport…',
+    submitIdle: 'Générer le rapport',
+    useSample: 'Utiliser l’exemple',
+    validationReportRequired: 'Saisissez le rapport médical du patient.',
+  },
+  report: {
+    loading: 'Recherche de cas similaires et rédaction du rapport…',
+    empty: 'Aucun rapport n’a encore été généré. Remplissez le formulaire et cliquez sur « Générer le rapport ».',
+    summary: 'Résumé des cas similaires',
+    treatment: 'Traitement recommandé',
+    recoveryTime: 'Durée de récupération estimée',
+    diet: 'Régime alimentaire recommandé',
+    habits: 'Habitudes de santé recommandées',
+  },
+  status: {
+    ok: 'API connectée',
+    down: 'API indisponible (démarrez le backend sur le port 8000)',
+    checking: 'Vérification de la connexion à l’API…',
+  },
+  dropzone: {
+    hint: 'Radiographies, rapports de laboratoire ou autres examens — glissez-déposez ou cliquez pour sélectionner',
+  },
+  language: {
+    selectorLabel: 'Langue',
+  },
+}
+
+const ca = {
+  app: {
+    subtitle: 'Suport a la decisió clínica per a la recuperació ortopèdica · cerca de casos similars (RAG)',
+    badgeStack: 'Claude',
+    badgeVector: 'Cerca vectorial',
+    badgeSupport: 'Suport a la decisió, no diagnòstic',
+    errorApiContact: 'Error en contactar amb l’API: {message}. Comprova que el backend (port 8000) i la base de dades vectorial estiguin en marxa.',
+  },
+  card: {
+    newPatientTitle: 'Nou pacient',
+    newPatientHint:
+      'Introdueix l’informe mèdic i, opcionalment, analítiques clíniques i arxius de diagnòstic (radiografies, analítiques...). El sistema cercarà casos històrics similars i generarà un informe de suport.',
+    reportTitle: 'Informe clínic',
+    reportHint: 'Generat a partir dels casos històrics més semblants indexats a la base de dades vectorial.',
+  },
+  footer: {
+    disclaimer:
+      'Aquesta eina ofereix una orientació de suport a la decisió basada en casos històrics similars. No constitueix un diagnòstic mèdic ni substitueix el criteri clínic del professional sanitari.',
+  },
+  landing: {
+    heroTitlePrefix: 'Suport a la decisió clínica per a la',
+    heroTitleHighlight: 'recuperació ortopèdica',
+    heroSubtitle:
+      'Troba casos similars a l’històric del departament i genera, en segons, un informe de suport basat en evidència mitjançant cerca augmentada per generació (RAG).',
+    ctaEnter: 'Entra a l’eina',
+    howItWorks: 'Com funciona',
+    illustrationAlt: 'Radiografia del canell amb una fractura assenyalada i un panell d’anàlisi clínica',
+    illustrationLabLabel: 'Vitamina D',
+    illustrationLabValue: '16 ng/ml',
+    illustrationMatches: '8 casos similars trobats',
+    partnersTitle: 'Partners',
+    partnersHint: 'Tecnologies i col·laboradors que fan possible recovery-ia.',
+    partnersComingSoon: 'Properament més partners',
+    features: [
+      {
+        title: 'Cerca de casos similars',
+        description:
+          'Indexa radiografies, diagnòstics i atributs del pacient per trobar els casos històrics més semblants.',
+      },
+      {
+        title: 'Motor de similitud vectorial',
+        description:
+          'Base de dades vectorial amb embeddings clínics i filtres estructurats per edat, IMC o tipus de fractura.',
+      },
+      {
+        title: 'Informe generat per IA',
+        description: 'Claude sintetitza els protocols i terminis de recuperació dels casos més rellevants.',
+      },
+    ],
+    partners: [
+      {
+        name: 'Nebius',
+        description: 'Infraestructura i còmput GPU al núvol',
+      },
+    ],
+  },
+  form: {
+    sampleReport:
+      'Pacient home de 68 anys, IMC 28,4, nivell d’activitat física moderat. Antecedents de diabetis tipus 2 i osteoporosi. Diagnòstic: fractura de radi distal (tipus Colles) al canell esquerre, gravetat II - desplaçada. Estudi radiogràfic compatible amb el diagnòstic. Es planteja tractament i valoració del termini de recuperació.',
+    sampleLabs: 'Calci 8,3 mg/dl, Vitamina D 16 ng/ml, Hemoglobina 12,8 g/dl, Glucosa 158 mg/dl, PCR 6 mg/l.',
+    reportLabel: 'Informe mèdic',
+    reportPlaceholder: 'Ex: Home de 70 anys, fractura d’húmer, IMC 27, no esportista, antecedent de diabetis...',
+    labsLabel: 'Analítiques clíniques (opcional)',
+    labsPlaceholder: 'Ex: Calci 8,9 mg/dl, Vitamina D 18 ng/ml, Glucosa 145 mg/dl, PCR 12 mg/l',
+    filesLabel: 'Arxius de diagnòstic (opcional)',
+    topKLabel: 'Casos similars a comparar',
+    submitLoading: 'Generant informe…',
+    submitIdle: 'Generar informe',
+    useSample: 'Fer servir l’exemple',
+    validationReportRequired: 'Introdueix l’informe mèdic del pacient.',
+  },
+  report: {
+    loading: 'Cercant casos similars i redactant l’informe…',
+    empty: 'Encara no s’ha generat cap informe. Completa el formulari i prem "Generar informe".',
+    summary: 'Resum de casos similars',
+    treatment: 'Tractament recomanat',
+    recoveryTime: 'Temps de recuperació estimat',
+    diet: 'Dieta recomanada',
+    habits: 'Hàbits de salut recomanats',
+  },
+  status: {
+    ok: 'API connectada',
+    down: 'API no disponible (arrenca el backend al port 8000)',
+    checking: 'Comprovant la connexió amb l’API…',
+  },
+  dropzone: {
+    hint: 'Radiografies, informes de laboratori o altres proves — arrossega o fes clic per seleccionar',
+  },
+  language: {
+    selectorLabel: 'Idioma',
+  },
+}
+
+const de = {
+  app: {
+    subtitle: 'Klinische Entscheidungsunterstützung für die orthopädische Genesung · Suche nach ähnlichen Fällen (RAG)',
+    badgeStack: 'Claude',
+    badgeVector: 'Vektorsuche',
+    badgeSupport: 'Entscheidungsunterstützung, keine Diagnose',
+    errorApiContact: 'Fehler beim Kontaktieren der API: {message}. Prüfe, ob das Backend (Port 8000) und die Vektordatenbank laufen.',
+  },
+  card: {
+    newPatientTitle: 'Neuer Patient',
+    newPatientHint:
+      'Gib den Arztbericht und optional Laborwerte sowie Diagnosedateien (Röntgenbilder, Laboranalysen...) ein. Das System sucht nach ähnlichen historischen Fällen und erstellt einen Unterstützungsbericht.',
+    reportTitle: 'Klinischer Bericht',
+    reportHint: 'Erstellt anhand der ähnlichsten historischen Fälle, die in der Vektordatenbank indexiert sind.',
+  },
+  footer: {
+    disclaimer:
+      'Dieses Tool bietet eine Entscheidungsunterstützung auf Basis ähnlicher historischer Fälle. Es stellt keine medizinische Diagnose dar und ersetzt nicht die klinische Beurteilung durch medizinisches Fachpersonal.',
+  },
+  landing: {
+    heroTitlePrefix: 'Klinische Entscheidungsunterstützung für die',
+    heroTitleHighlight: 'orthopädische Genesung',
+    heroSubtitle:
+      'Finde ähnliche Fälle im Verlauf der Abteilung und erstelle in Sekunden einen evidenzbasierten Unterstützungsbericht mithilfe von Retrieval-Augmented Generation (RAG).',
+    ctaEnter: 'Zum Tool',
+    howItWorks: 'So funktioniert es',
+    illustrationAlt: 'Handgelenk-Röntgenbild mit markiertem Bruch und einem klinischen Analyse-Panel',
+    illustrationLabLabel: 'Vitamin D',
+    illustrationLabValue: '16 ng/ml',
+    illustrationMatches: '8 ähnliche Fälle gefunden',
+    partnersTitle: 'Partner',
+    partnersHint: 'Technologien und Partner, die recovery-ia möglich machen.',
+    partnersComingSoon: 'Weitere Partner folgen in Kürze',
+    features: [
+      {
+        title: 'Suche nach ähnlichen Fällen',
+        description:
+          'Indexiert Röntgenbilder, Diagnosen und Patientenmerkmale, um die ähnlichsten historischen Fälle zu finden.',
+      },
+      {
+        title: 'Vektor-Ähnlichkeits-Engine',
+        description:
+          'Vektordatenbank mit klinischen Embeddings und strukturierten Filtern nach Alter, BMI oder Frakturtyp.',
+      },
+      {
+        title: 'KI-generierter Bericht',
+        description: 'Claude fasst die Protokolle und Genesungszeiten der relevantesten Fälle zusammen.',
+      },
+    ],
+    partners: [
+      {
+        name: 'Nebius',
+        description: 'Cloud-Infrastruktur und GPU-Rechenleistung',
+      },
+    ],
+  },
+  form: {
+    sampleReport:
+      'Männlicher Patient, 68 Jahre, BMI 28,4, mäßige körperliche Aktivität. Vorgeschichte von Typ-2-Diabetes und Osteoporose. Diagnose: distale Radiusfraktur (Colles-Typ) am linken Handgelenk, Schweregrad II - disloziert. Röntgenbefund passend zur Diagnose. Behandlung und Einschätzung der Genesungsdauer werden geprüft.',
+    sampleLabs: 'Kalzium 8,3 mg/dl, Vitamin D 16 ng/ml, Hämoglobin 12,8 g/dl, Glukose 158 mg/dl, CRP 6 mg/l.',
+    reportLabel: 'Arztbericht',
+    reportPlaceholder: 'Z. B.: Mann, 70 Jahre, Humerusfraktur, BMI 27, kein Sportler, Diabetes in der Vorgeschichte...',
+    labsLabel: 'Laborwerte (optional)',
+    labsPlaceholder: 'Z. B.: Kalzium 8,9 mg/dl, Vitamin D 18 ng/ml, Glukose 145 mg/dl, CRP 12 mg/l',
+    filesLabel: 'Diagnosedateien (optional)',
+    topKLabel: 'Zu vergleichende ähnliche Fälle',
+    submitLoading: 'Bericht wird erstellt…',
+    submitIdle: 'Bericht erstellen',
+    useSample: 'Beispiel verwenden',
+    validationReportRequired: 'Gib den Arztbericht des Patienten ein.',
+  },
+  report: {
+    loading: 'Ähnliche Fälle werden gesucht und der Bericht wird erstellt…',
+    empty: 'Es wurde noch kein Bericht erstellt. Fülle das Formular aus und klicke auf „Bericht erstellen“.',
+    summary: 'Zusammenfassung ähnlicher Fälle',
+    treatment: 'Empfohlene Behandlung',
+    recoveryTime: 'Geschätzte Genesungsdauer',
+    diet: 'Empfohlene Ernährung',
+    habits: 'Empfohlene Gesundheitsgewohnheiten',
+  },
+  status: {
+    ok: 'API verbunden',
+    down: 'API nicht verfügbar (starte das Backend auf Port 8000)',
+    checking: 'Verbindung zur API wird geprüft…',
+  },
+  dropzone: {
+    hint: 'Röntgenbilder, Laborberichte oder andere Untersuchungen — ziehen und ablegen oder klicken zum Auswählen',
+  },
+  language: {
+    selectorLabel: 'Sprache',
+  },
+}
+
+export const TRANSLATIONS = { es, en, fr, ca, de }
