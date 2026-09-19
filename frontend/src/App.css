@@ -70,7 +70,7 @@ header.topbar::after {
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  box-shadow: 0 4px 14px rgba(76, 29, 149, 0.25);
+  box-shadow: 0 4px 14px rgba(15, 109, 99, 0.25);
 }
 
 .logo-mark svg {
@@ -224,7 +224,7 @@ input[type='number'] {
   font-size: 0.92rem;
   font-family: inherit;
   color: var(--text);
-  background: #fbfaff;
+  background: #f0faf9;
   resize: vertical;
 }
 
@@ -259,7 +259,7 @@ input:focus {
   transition:
     border-color 0.15s,
     background 0.15s;
-  background: #fbfaff;
+  background: #f0faf9;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -306,7 +306,7 @@ button.primary {
   font-size: 0.92rem;
   font-weight: 600;
   cursor: pointer;
-  box-shadow: 0 4px 14px rgba(124, 58, 237, 0.28);
+  box-shadow: 0 4px 14px rgba(13, 148, 136, 0.28);
   transition:
     transform 0.15s,
     box-shadow 0.15s;
@@ -319,11 +319,11 @@ button.primary svg {
 
 button.primary:hover {
   transform: translateY(-1px);
-  box-shadow: 0 6px 18px rgba(124, 58, 237, 0.35);
+  box-shadow: 0 6px 18px rgba(13, 148, 136, 0.35);
 }
 
 button.primary:disabled {
-  background: #ada6c2;
+  background: #a4bbb9;
   box-shadow: none;
   cursor: not-allowed;
   transform: none;
@@ -614,7 +614,7 @@ footer svg {
   border: 1px solid var(--border);
   border-radius: 10px;
   padding: 8px 12px;
-  background: #fbfaff;
+  background: #f0faf9;
 }
 
 .patients-search svg {
@@ -670,11 +670,11 @@ footer svg {
 }
 
 .patients-table tbody tr:hover {
-  background: #fbfaff;
+  background: #f0faf9;
 }
 
 .patients-table tbody tr.expanded {
-  background: #f5f3ff;
+  background: #e6f7f5;
 }
 
 .patients-row-toggle {
@@ -702,7 +702,7 @@ footer svg {
 
 .patients-detail-row td {
   white-space: normal;
-  background: #fbfaff;
+  background: #f0faf9;
   padding: 20px 24px !important;
 }
 

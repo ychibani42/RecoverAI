@@ -1,7 +1,8 @@
 import { useState } from 'react'
-import { ArrowLeft, Bone, ClipboardList, ShieldCheck, UserPlus, Users } from 'lucide-react'
+import { ArrowLeft, ClipboardList, ShieldCheck, UserPlus, Users } from 'lucide-react'
 import './App.css'
 import './Landing.css'
+import BoneIcon from './components/icons/BoneIcon'
 import Landing from './components/Landing'
 import LanguageSelector from './components/LanguageSelector'
 import PatientForm from './components/PatientForm'
@@ -43,10 +44,10 @@ export default function App() {
             <ArrowLeft />
           </button>
           <div className="logo-mark">
-            <Bone />
+            <BoneIcon />
           </div>
           <div>
-            <h1>recovery-ia</h1>
+            <h1>Recover IA</h1>
             <p>{t('app.subtitle')}</p>
           </div>
           <div className="topbar-lang">

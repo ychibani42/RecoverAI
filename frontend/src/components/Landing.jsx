@@ -1,7 +1,9 @@
-import { ArrowRight, Bone, Brain, Database, ScanSearch, ShieldCheck } from 'lucide-react'
+import { ArrowRight, Brain, Database, ScanSearch, ShieldCheck } from 'lucide-react'
 import { useTranslation } from '../i18n/I18nContext'
 import DiagnosticIllustration from './DiagnosticIllustration'
 import { FEATURE_ILLUSTRATIONS } from './FeatureIllustrations'
+import BoneIcon from './icons/BoneIcon'
+import NebiusLogo from './icons/NebiusLogo'
 import LanguageSelector from './LanguageSelector'
 
 const FEATURE_ICONS = [ScanSearch, Database, Brain]
@@ -20,9 +22,9 @@ export default function Landing({ onEnter }) {
           <div className="landing-hero-text">
             <div className="landing-logo">
               <span className="logo-mark">
-                <Bone />
+                <BoneIcon />
               </span>
-              <span className="landing-logo-text">recovery-ia</span>
+              <span className="landing-logo-text">Recover IA</span>
             </div>
 
             <h1>
@@ -76,8 +78,17 @@ export default function Landing({ onEnter }) {
       </main>
 
       <footer className="landing-footer">
-        <ShieldCheck />
-        <span>{t('footer.disclaimer')}</span>
+        <div className="landing-footer-row">
+          <ShieldCheck />
+          <span>{t('footer.disclaimer')}</span>
+        </div>
+        <div className="landing-footer-row landing-footer-credit">
+          <span>{t('footer.poweredBy')}</span>
+          <span className="landing-footer-brand">
+            <NebiusLogo />
+            Nebius
+          </span>
+        </div>
       </footer>
     </div>
   )

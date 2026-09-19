@@ -26,6 +26,7 @@ const es = {
   footer: {
     disclaimer:
       'Esta herramienta ofrece una orientación de apoyo a la decisión basada en casos históricos similares. No constituye un diagnóstico médico ni sustituye el criterio clínico del profesional sanitario.',
+    poweredBy: 'Infraestructura y cómputo GPU en la nube por',
   },
   landing: {
     heroTitlePrefix: 'Apoyo a la decisión clínica para',
@@ -34,17 +35,17 @@ const es = {
       'Encuentra casos similares en el histórico del departamento y genera, en segundos, un informe de apoyo basado en evidencia mediante búsqueda aumentada por generación (RAG).',
     ctaEnter: 'Entrar a la herramienta',
     howItWorks: 'Cómo funciona',
-    illustrationAlt: 'Radiografía de muñeca con fractura señalada y panel de análisis clínico',
+    illustrationAlt: 'Radiografía de tibia y peroné con fractura señalada y panel de análisis clínico',
     illustrationMatches: '8 casos similares encontrados',
     featureChipScanning: 'Escaneando historial',
     featureChipMatch: '94% de similitud',
     featureChipFilters: 'Edad · IMC · Fractura',
-    featureChipNeighbors: '12 vecinos más cercanos',
+    featureChipNeighbors: '12 casos más cercanos',
     featureChipSources: '6 casos analizados',
     featureChipReady: 'Informe listo',
     featureReportBadge: 'Protocolo · 6 sem',
     partnersTitle: 'Partners',
-    partnersHint: 'Tecnologías y colaboradores que hacen posible recovery-ia.',
+    partnersHint: 'Tecnologías y colaboradores que hacen posible Recover IA.',
     partnersComingSoon: 'Próximamente más partners',
     features: [
       {
@@ -53,9 +54,9 @@ const es = {
           'Indexa radiografías, diagnósticos y atributos del paciente para encontrar los casos históricos más parecidos.',
       },
       {
-        title: 'Motor de similitud vectorial',
+        title: 'Comparación precisa y personalizada',
         description:
-          'Base de datos vectorial con embeddings clínicos y filtros estructurados por edad, IMC o tipo de fractura.',
+          'El sistema compara automáticamente cada caso con miles de historiales clínicos, teniendo en cuenta datos como la edad, el peso o el tipo de fractura para encontrar los más parecidos.',
       },
       {
         title: 'Informe generado automáticamente',
@@ -171,6 +172,7 @@ const en = {
   footer: {
     disclaimer:
       'This tool provides decision-support guidance based on similar historical cases. It does not constitute a medical diagnosis and does not replace the clinical judgment of a healthcare professional.',
+    poweredBy: 'Cloud infrastructure and GPU compute by',
   },
   landing: {
     heroTitlePrefix: 'Clinical decision support for',
@@ -179,17 +181,17 @@ const en = {
       'Find similar cases in the department’s history and generate, in seconds, an evidence-based support report using retrieval-augmented generation (RAG).',
     ctaEnter: 'Enter the tool',
     howItWorks: 'How it works',
-    illustrationAlt: 'Wrist X-ray with a highlighted fracture and a clinical analysis panel',
+    illustrationAlt: 'Tibia and fibula X-ray with a highlighted fracture and a clinical analysis panel',
     illustrationMatches: '8 similar cases found',
     featureChipScanning: 'Scanning history',
     featureChipMatch: '94% similarity',
     featureChipFilters: 'Age · BMI · Fracture',
-    featureChipNeighbors: '12 nearest neighbors',
+    featureChipNeighbors: '12 nearest cases',
     featureChipSources: '6 cases analyzed',
     featureChipReady: 'Report ready',
     featureReportBadge: 'Protocol · 6 wks',
     partnersTitle: 'Partners',
-    partnersHint: 'Technologies and collaborators that make recovery-ia possible.',
+    partnersHint: 'Technologies and collaborators that make Recover IA possible.',
     partnersComingSoon: 'More partners coming soon',
     features: [
       {
@@ -197,8 +199,9 @@ const en = {
         description: 'Indexes X-rays, diagnoses, and patient attributes to find the most similar historical cases.',
       },
       {
-        title: 'Vector similarity engine',
-        description: 'Vector database with clinical embeddings and structured filters by age, BMI, or fracture type.',
+        title: 'Precise, personalized comparison',
+        description:
+          'The system automatically compares each case with thousands of clinical records, taking into account details like age, weight, and fracture type to find the closest matches.',
       },
       {
         title: 'Automatically generated report',
@@ -264,6 +267,7 @@ const fr = {
   footer: {
     disclaimer:
       'Cet outil fournit une orientation d’aide à la décision basée sur des cas historiques similaires. Il ne constitue pas un diagnostic médical et ne remplace pas le jugement clinique du professionnel de santé.',
+    poweredBy: 'Infrastructure et calcul GPU dans le cloud par',
   },
   landing: {
     heroTitlePrefix: 'Aide à la décision clinique pour la',
@@ -272,17 +276,17 @@ const fr = {
       'Trouvez des cas similaires dans l’historique du service et générez, en quelques secondes, un rapport d’aide fondé sur des preuves grâce à la génération augmentée par récupération (RAG).',
     ctaEnter: 'Accéder à l’outil',
     howItWorks: 'Comment ça marche',
-    illustrationAlt: 'Radiographie du poignet avec une fracture signalée et un panneau d’analyse clinique',
+    illustrationAlt: 'Radiographie du tibia et du péroné avec une fracture signalée et un panneau d’analyse clinique',
     illustrationMatches: '8 cas similaires trouvés',
     featureChipScanning: 'Analyse de l’historique',
     featureChipMatch: '94 % de similarité',
     featureChipFilters: 'Âge · IMC · Fracture',
-    featureChipNeighbors: '12 voisins les plus proches',
+    featureChipNeighbors: '12 cas les plus proches',
     featureChipSources: '6 cas analysés',
     featureChipReady: 'Rapport prêt',
     featureReportBadge: 'Protocole · 6 sem',
     partnersTitle: 'Partenaires',
-    partnersHint: 'Technologies et collaborateurs qui rendent recovery-ia possible.',
+    partnersHint: 'Technologies et collaborateurs qui rendent Recover IA possible.',
     partnersComingSoon: 'D’autres partenaires bientôt disponibles',
     features: [
       {
@@ -291,9 +295,9 @@ const fr = {
           'Indexe les radiographies, les diagnostics et les caractéristiques du patient pour trouver les cas historiques les plus similaires.',
       },
       {
-        title: 'Moteur de similarité vectorielle',
+        title: 'Comparaison précise et personnalisée',
         description:
-          'Base de données vectorielle avec embeddings cliniques et filtres structurés par âge, IMC ou type de fracture.',
+          "Le système compare automatiquement chaque cas à des milliers de dossiers cliniques, en tenant compte de données comme l'âge, le poids ou le type de fracture, pour trouver les cas les plus proches.",
       },
       {
         title: 'Rapport généré automatiquement',
@@ -359,6 +363,7 @@ const ca = {
   footer: {
     disclaimer:
       'Aquesta eina ofereix una orientació de suport a la decisió basada en casos històrics similars. No constitueix un diagnòstic mèdic ni substitueix el criteri clínic del professional sanitari.',
+    poweredBy: 'Infraestructura i còmput GPU al núvol per',
   },
   landing: {
     heroTitlePrefix: 'Suport a la decisió clínica per a la',
@@ -367,17 +372,17 @@ const ca = {
       'Troba casos similars a l’històric del departament i genera, en segons, un informe de suport basat en evidència mitjançant cerca augmentada per generació (RAG).',
     ctaEnter: 'Entra a l’eina',
     howItWorks: 'Com funciona',
-    illustrationAlt: 'Radiografia del canell amb una fractura assenyalada i un panell d’anàlisi clínica',
+    illustrationAlt: 'Radiografia de tíbia i peroné amb una fractura assenyalada i un panell d’anàlisi clínica',
     illustrationMatches: '8 casos similars trobats',
     featureChipScanning: 'Escanejant l’històric',
     featureChipMatch: '94% de similitud',
     featureChipFilters: 'Edat · IMC · Fractura',
-    featureChipNeighbors: '12 veïns més propers',
+    featureChipNeighbors: '12 casos més propers',
     featureChipSources: '6 casos analitzats',
     featureChipReady: 'Informe llest',
     featureReportBadge: 'Protocol · 6 set',
     partnersTitle: 'Partners',
-    partnersHint: 'Tecnologies i col·laboradors que fan possible recovery-ia.',
+    partnersHint: 'Tecnologies i col·laboradors que fan possible Recover IA.',
     partnersComingSoon: 'Properament més partners',
     features: [
       {
@@ -386,9 +391,9 @@ const ca = {
           'Indexa radiografies, diagnòstics i atributs del pacient per trobar els casos històrics més semblants.',
       },
       {
-        title: 'Motor de similitud vectorial',
+        title: 'Comparació precisa i personalitzada',
         description:
-          'Base de dades vectorial amb embeddings clínics i filtres estructurats per edat, IMC o tipus de fractura.',
+          "El sistema compara automàticament cada cas amb milers d'historials clínics, tenint en compte dades com l'edat, el pes o el tipus de fractura per trobar els més semblants.",
       },
       {
         title: 'Informe generat automàticament',
@@ -454,6 +459,7 @@ const de = {
   footer: {
     disclaimer:
       'Dieses Tool bietet eine Entscheidungsunterstützung auf Basis ähnlicher historischer Fälle. Es stellt keine medizinische Diagnose dar und ersetzt nicht die klinische Beurteilung durch medizinisches Fachpersonal.',
+    poweredBy: 'Cloud-Infrastruktur und GPU-Rechenleistung von',
   },
   landing: {
     heroTitlePrefix: 'Klinische Entscheidungsunterstützung für die',
@@ -462,17 +468,17 @@ const de = {
       'Finde ähnliche Fälle im Verlauf der Abteilung und erstelle in Sekunden einen evidenzbasierten Unterstützungsbericht mithilfe von Retrieval-Augmented Generation (RAG).',
     ctaEnter: 'Zum Tool',
     howItWorks: 'So funktioniert es',
-    illustrationAlt: 'Handgelenk-Röntgenbild mit markiertem Bruch und einem klinischen Analyse-Panel',
+    illustrationAlt: 'Röntgenbild von Schienbein und Wadenbein mit markiertem Bruch und einem klinischen Analyse-Panel',
     illustrationMatches: '8 ähnliche Fälle gefunden',
     featureChipScanning: 'Verlauf wird gescannt',
     featureChipMatch: '94 % Übereinstimmung',
     featureChipFilters: 'Alter · BMI · Fraktur',
-    featureChipNeighbors: '12 nächste Nachbarn',
+    featureChipNeighbors: '12 ähnlichste Fälle',
     featureChipSources: '6 Fälle analysiert',
     featureChipReady: 'Bericht fertig',
     featureReportBadge: 'Protokoll · 6 Wo.',
     partnersTitle: 'Partner',
-    partnersHint: 'Technologien und Partner, die recovery-ia möglich machen.',
+    partnersHint: 'Technologien und Partner, die Recover IA möglich machen.',
     partnersComingSoon: 'Weitere Partner folgen in Kürze',
     features: [
       {
@@ -481,9 +487,9 @@ const de = {
           'Indexiert Röntgenbilder, Diagnosen und Patientenmerkmale, um die ähnlichsten historischen Fälle zu finden.',
       },
       {
-        title: 'Vektor-Ähnlichkeits-Engine',
+        title: 'Präziser, individueller Vergleich',
         description:
-          'Vektordatenbank mit klinischen Embeddings und strukturierten Filtern nach Alter, BMI oder Frakturtyp.',
+          'Das System vergleicht jeden Fall automatisch mit Tausenden klinischer Datensätze und berücksichtigt dabei Angaben wie Alter, Gewicht oder Frakturtyp, um die ähnlichsten Fälle zu finden.',
       },
       {
         title: 'Automatisch generierter Bericht',
