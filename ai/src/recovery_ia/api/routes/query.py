@@ -11,6 +11,7 @@ from recovery_ia.schemas import (
     ClinicalReport,
     NewPatientInput,
     ReportRecord,
+    ReportResponse,
     SimilarCaseQuery,
     SimilarCaseResult,
     case_ref_from,
@@ -45,7 +46,7 @@ def similar_cases(query: SimilarCaseQuery) -> list[SimilarCaseResult]:
     return find_similar_cases(query)
 
 
-@router.post("/report", response_model=ClinicalReport)
+@router.post("/report", response_model=ReportResponse)
 async def report(
     medical_report_text: str = Form(..., description="Informe medico del paciente en texto libre"),
     lab_results_text: str | None = Form(
@@ -56,7 +57,7 @@ async def report(
         default=[], description="Otros archivos de diagnostico: informes de laboratorio, otras pruebas de imagen..."
     ),
     top_k: int = Form(default=5),
-) -> ClinicalReport:
+) -> ReportResponse:
     """Pipeline completo: informe medico + analitica (opcional) + archivos de
     diagnostico (radiografia u otros) de un paciente nuevo -> extraccion de
     factores -> casos similares en Qdrant -> informe clinico con tratamiento,
@@ -83,7 +84,7 @@ async def report(
     )
     clinical_report, similar = generate_report_from_patient_input(patient_input)
     _save_report_record(patient_input, clinical_report, similar)
-    return clinical_report
+    return ReportResponse(report=clinical_report, similar_cases=similar)
 
 
 @router.get("/reports", response_model=list[ReportRecord])
