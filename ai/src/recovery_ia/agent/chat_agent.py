@@ -43,6 +43,9 @@ LANGUAGE_NAMES = {
     "fr": "français",
     "ca": "català",
     "de": "Deutsch",
+    "eu": "euskera",
+    "gl": "galego",
+    "pt": "português",
 }
 
 

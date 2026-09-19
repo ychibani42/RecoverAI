@@ -18,7 +18,7 @@ export default function SimilarCasesList({ cases }) {
       <div className="report-section-header">
         <h3>{t('report.similarCasesTitle')}</h3>
       </div>
-      <p className="card-hint">{t('report.similarCasesHint', { count: cases.length })}</p>
+      <p className="card-hint">{t('report.similarCasesHint')}</p>
 
       <ul className="similar-cases-list">
         {cases.map(({ case: p, similarity_score: score, final_score: finalScore }, index) => {

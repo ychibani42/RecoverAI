@@ -58,10 +58,41 @@ export function FlagDE({ title = 'Deutsch' }) {
   )
 }
 
+export function FlagEU({ title = 'Euskera' }) {
+  return (
+    <FlagBase title={title}>
+      <rect width="30" height="20" fill="#D52B1E" />
+      <path d="M0,0 30,20 M30,0 0,20" stroke="#009B48" strokeWidth="4" />
+      <path d="M15,0 15,20 M0,10 30,10" stroke="#FFF" strokeWidth="6" />
+    </FlagBase>
+  )
+}
+
+export function FlagGL({ title = 'Galego' }) {
+  return (
+    <FlagBase title={title}>
+      <rect width="30" height="20" fill="#FFF" />
+      <path d="M0,0 L30,20" stroke="#0090C8" strokeWidth="7" />
+    </FlagBase>
+  )
+}
+
+export function FlagPT({ title = 'Português' }) {
+  return (
+    <FlagBase title={title}>
+      <rect width="30" height="20" fill="#FF0000" />
+      <rect width="12" height="20" fill="#046A38" />
+    </FlagBase>
+  )
+}
+
 export const FLAGS = {
   es: FlagES,
   en: FlagGB,
   fr: FlagFR,
   ca: FlagCA,
   de: FlagDE,
+  eu: FlagEU,
+  gl: FlagGL,
+  pt: FlagPT,
 }
