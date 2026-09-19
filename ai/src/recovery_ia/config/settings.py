@@ -30,6 +30,18 @@ class Settings(BaseSettings):
     vonage_api_secret: str = ""
     vonage_sms_from: str = "RecoverIA"
 
+    # Dictado por voz del informe medico (Speech-to-Text de SLNG, modelo
+    # Deepgram Nova 3)
+    slng_api_key: str = ""
+    slng_region: str = "eu-west"
+
+    # Autenticacion del profesional que usa la herramienta (login unico, sin
+    # gestion de usuarios). Cambiar en produccion via variables de entorno.
+    admin_username: str = "admin"
+    admin_password: str = "admin"
+    auth_secret_key: str = "change-me-in-production"
+    auth_token_ttl_hours: int = 12
+
 
 @lru_cache
 def get_settings() -> Settings:

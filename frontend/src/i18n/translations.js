@@ -26,7 +26,7 @@ const es = {
   footer: {
     disclaimer:
       'Esta herramienta ofrece una orientación de apoyo a la decisión basada en casos históricos similares. No constituye un diagnóstico médico ni sustituye el criterio clínico del profesional sanitario.',
-    poweredBy: 'Infraestructura y cómputo GPU en la nube por',
+    techBy: 'Con la tecnología de',
   },
   landing: {
     heroTitlePrefix: 'Apoyo a la decisión clínica para',
@@ -81,6 +81,11 @@ const es = {
     submitIdle: 'Generar informe',
     useSample: 'Usar ejemplo',
     validationReportRequired: 'Introduce el informe médico del paciente.',
+    dictationStart: 'Dictar',
+    dictationStop: 'Detener',
+    dictationTranscribing: 'Transcribiendo…',
+    dictationError: 'No se ha podido transcribir el audio. Inténtalo de nuevo.',
+    dictationPermissionError: 'No se ha podido acceder al micrófono.',
   },
   report: {
     loading: 'Buscando casos similares y redactando el informe…',
@@ -108,6 +113,13 @@ const es = {
     smsValidationPhone: 'Introduce un teléfono válido.',
     smsError: 'Error al enviar el SMS: {message}',
     smsSuccess: 'Cita programada para el {date}. Se enviará un recordatorio el día anterior y el mismo día.',
+    neighborsMapButton: 'Ver mapa de vecinos',
+    neighborsMapHide: 'Ocultar mapa de vecinos',
+    neighborsMapTitle: 'Mapa de casos similares',
+    neighborsMapHint:
+      'Cada punto es un caso similar; cuanto más cerca del centro, mayor coincidencia con el paciente actual.',
+    neighborsMapPatient: 'Paciente',
+    neighborsMapClose: 'Cerrar detalle',
   },
   status: {
     ok: 'API conectada',
@@ -170,6 +182,17 @@ const es = {
   language: {
     selectorLabel: 'Idioma',
   },
+  auth: {
+    title: 'Acceso profesional',
+    subtitle: 'Introduce tus credenciales para acceder a la herramienta.',
+    usernameLabel: 'Usuario',
+    passwordLabel: 'Contraseña',
+    submitIdle: 'Iniciar sesión',
+    submitLoading: 'Accediendo…',
+    invalidCredentials: 'Usuario o contraseña incorrectos.',
+    genericError: 'Error al iniciar sesión: {message}',
+    logout: 'Cerrar sesión',
+  },
 }
 
 const en = {
@@ -190,7 +213,7 @@ const en = {
   footer: {
     disclaimer:
       'This tool provides decision-support guidance based on similar historical cases. It does not constitute a medical diagnosis and does not replace the clinical judgment of a healthcare professional.',
-    poweredBy: 'Cloud infrastructure and GPU compute by',
+    techBy: 'Powered by',
   },
   landing: {
     heroTitlePrefix: 'Clinical decision support for',
@@ -244,6 +267,11 @@ const en = {
     submitIdle: 'Generate report',
     useSample: 'Use example',
     validationReportRequired: 'Enter the patient’s medical report.',
+    dictationStart: 'Dictate',
+    dictationStop: 'Stop',
+    dictationTranscribing: 'Transcribing…',
+    dictationError: 'Could not transcribe the audio. Please try again.',
+    dictationPermissionError: 'Could not access the microphone.',
   },
   report: {
     loading: 'Searching for similar cases and drafting the report…',
@@ -271,6 +299,13 @@ const en = {
     smsValidationPhone: 'Enter a valid phone number.',
     smsError: 'Error sending the SMS: {message}',
     smsSuccess: 'Appointment scheduled for {date}. A reminder will be sent the day before and on the day itself.',
+    neighborsMapButton: 'View neighbors map',
+    neighborsMapHide: 'Hide neighbors map',
+    neighborsMapTitle: 'Similar cases map',
+    neighborsMapHint:
+      'Each point is a similar case; the closer to the center, the closer the match to the current patient.',
+    neighborsMapPatient: 'Patient',
+    neighborsMapClose: 'Close detail',
   },
   status: {
     ok: 'API connected',
@@ -282,6 +317,17 @@ const en = {
   },
   language: {
     selectorLabel: 'Language',
+  },
+  auth: {
+    title: 'Professional access',
+    subtitle: 'Enter your credentials to access the tool.',
+    usernameLabel: 'Username',
+    passwordLabel: 'Password',
+    submitIdle: 'Sign in',
+    submitLoading: 'Signing in…',
+    invalidCredentials: 'Incorrect username or password.',
+    genericError: 'Error signing in: {message}',
+    logout: 'Sign out',
   },
 }
 
@@ -303,7 +349,7 @@ const fr = {
   footer: {
     disclaimer:
       'Cet outil fournit une orientation d’aide à la décision basée sur des cas historiques similaires. Il ne constitue pas un diagnostic médical et ne remplace pas le jugement clinique du professionnel de santé.',
-    poweredBy: 'Infrastructure et calcul GPU dans le cloud par',
+    techBy: 'Avec la technologie de',
   },
   landing: {
     heroTitlePrefix: 'Aide à la décision clinique pour la',
@@ -358,6 +404,11 @@ const fr = {
     submitIdle: 'Générer le rapport',
     useSample: 'Utiliser l’exemple',
     validationReportRequired: 'Saisissez le rapport médical du patient.',
+    dictationStart: 'Dicter',
+    dictationStop: 'Arrêter',
+    dictationTranscribing: 'Transcription…',
+    dictationError: 'Impossible de transcrire l’audio. Réessayez.',
+    dictationPermissionError: 'Impossible d’accéder au microphone.',
   },
   report: {
     loading: 'Recherche de cas similaires et rédaction du rapport…',
@@ -385,6 +436,13 @@ const fr = {
     smsValidationPhone: 'Saisissez un numéro de téléphone valide.',
     smsError: 'Erreur lors de l’envoi du SMS : {message}',
     smsSuccess: 'Rendez-vous programmé pour le {date}. Un rappel sera envoyé la veille et le jour même.',
+    neighborsMapButton: 'Voir la carte des cas voisins',
+    neighborsMapHide: 'Masquer la carte des cas voisins',
+    neighborsMapTitle: 'Carte des cas similaires',
+    neighborsMapHint:
+      'Chaque point est un cas similaire ; plus il est proche du centre, plus la correspondance avec le patient actuel est forte.',
+    neighborsMapPatient: 'Patient',
+    neighborsMapClose: 'Fermer le détail',
   },
   status: {
     ok: 'API connectée',
@@ -396,6 +454,17 @@ const fr = {
   },
   language: {
     selectorLabel: 'Langue',
+  },
+  auth: {
+    title: 'Accès professionnel',
+    subtitle: 'Saisissez vos identifiants pour accéder à l’outil.',
+    usernameLabel: 'Utilisateur',
+    passwordLabel: 'Mot de passe',
+    submitIdle: 'Se connecter',
+    submitLoading: 'Connexion…',
+    invalidCredentials: 'Utilisateur ou mot de passe incorrect.',
+    genericError: 'Erreur de connexion : {message}',
+    logout: 'Se déconnecter',
   },
 }
 
@@ -417,7 +486,7 @@ const ca = {
   footer: {
     disclaimer:
       'Aquesta eina ofereix una orientació de suport a la decisió basada en casos històrics similars. No constitueix un diagnòstic mèdic ni substitueix el criteri clínic del professional sanitari.',
-    poweredBy: 'Infraestructura i còmput GPU al núvol per',
+    techBy: 'Amb la tecnologia de',
   },
   landing: {
     heroTitlePrefix: 'Suport a la decisió clínica per a la',
@@ -472,6 +541,11 @@ const ca = {
     submitIdle: 'Generar informe',
     useSample: 'Fer servir l’exemple',
     validationReportRequired: 'Introdueix l’informe mèdic del pacient.',
+    dictationStart: 'Dictar',
+    dictationStop: 'Aturar',
+    dictationTranscribing: 'Transcrivint…',
+    dictationError: 'No s’ha pogut transcriure l’àudio. Torna-ho a provar.',
+    dictationPermissionError: 'No s’ha pogut accedir al micròfon.',
   },
   report: {
     loading: 'Cercant casos similars i redactant l’informe…',
@@ -499,6 +573,13 @@ const ca = {
     smsValidationPhone: 'Introdueix un telèfon vàlid.',
     smsError: 'Error en enviar l’SMS: {message}',
     smsSuccess: 'Cita programada per al {date}. S’enviarà un recordatori el dia abans i el mateix dia.',
+    neighborsMapButton: 'Veure el mapa de veïns',
+    neighborsMapHide: 'Amagar el mapa de veïns',
+    neighborsMapTitle: 'Mapa de casos similars',
+    neighborsMapHint:
+      'Cada punt és un cas similar; com més a prop del centre, més coincidència amb el pacient actual.',
+    neighborsMapPatient: 'Pacient',
+    neighborsMapClose: 'Tancar el detall',
   },
   status: {
     ok: 'API connectada',
@@ -510,6 +591,17 @@ const ca = {
   },
   language: {
     selectorLabel: 'Idioma',
+  },
+  auth: {
+    title: 'Accés professional',
+    subtitle: 'Introdueix les teves credencials per accedir a l’eina.',
+    usernameLabel: 'Usuari',
+    passwordLabel: 'Contrasenya',
+    submitIdle: 'Iniciar sessió',
+    submitLoading: 'Accedint…',
+    invalidCredentials: 'Usuari o contrasenya incorrectes.',
+    genericError: 'Error en iniciar sessió: {message}',
+    logout: 'Tancar sessió',
   },
 }
 
@@ -531,7 +623,7 @@ const de = {
   footer: {
     disclaimer:
       'Dieses Tool bietet eine Entscheidungsunterstützung auf Basis ähnlicher historischer Fälle. Es stellt keine medizinische Diagnose dar und ersetzt nicht die klinische Beurteilung durch medizinisches Fachpersonal.',
-    poweredBy: 'Cloud-Infrastruktur und GPU-Rechenleistung von',
+    techBy: 'Mit der Technologie von',
   },
   landing: {
     heroTitlePrefix: 'Klinische Entscheidungsunterstützung für die',
@@ -586,6 +678,11 @@ const de = {
     submitIdle: 'Bericht erstellen',
     useSample: 'Beispiel verwenden',
     validationReportRequired: 'Gib den Arztbericht des Patienten ein.',
+    dictationStart: 'Diktieren',
+    dictationStop: 'Stopp',
+    dictationTranscribing: 'Wird transkribiert…',
+    dictationError: 'Audio konnte nicht transkribiert werden. Bitte erneut versuchen.',
+    dictationPermissionError: 'Kein Zugriff auf das Mikrofon möglich.',
   },
   report: {
     loading: 'Ähnliche Fälle werden gesucht und der Bericht wird erstellt…',
@@ -613,6 +710,13 @@ const de = {
     smsValidationPhone: 'Gib eine gültige Telefonnummer ein.',
     smsError: 'Fehler beim Senden der SMS: {message}',
     smsSuccess: 'Termin geplant für {date}. Eine Erinnerung wird am Vortag und am selben Tag gesendet.',
+    neighborsMapButton: 'Nachbarn-Karte anzeigen',
+    neighborsMapHide: 'Nachbarn-Karte ausblenden',
+    neighborsMapTitle: 'Karte ähnlicher Fälle',
+    neighborsMapHint:
+      'Jeder Punkt ist ein ähnlicher Fall; je näher am Zentrum, desto größer die Übereinstimmung mit dem aktuellen Patienten.',
+    neighborsMapPatient: 'Patient',
+    neighborsMapClose: 'Detail schließen',
   },
   status: {
     ok: 'API verbunden',
@@ -624,6 +728,17 @@ const de = {
   },
   language: {
     selectorLabel: 'Sprache',
+  },
+  auth: {
+    title: 'Zugang für Fachpersonal',
+    subtitle: 'Gib deine Zugangsdaten ein, um das Tool zu nutzen.',
+    usernameLabel: 'Benutzername',
+    passwordLabel: 'Passwort',
+    submitIdle: 'Anmelden',
+    submitLoading: 'Anmeldung läuft…',
+    invalidCredentials: 'Benutzername oder Passwort falsch.',
+    genericError: 'Fehler bei der Anmeldung: {message}',
+    logout: 'Abmelden',
   },
 }
 

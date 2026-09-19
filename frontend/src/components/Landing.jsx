@@ -1,22 +1,28 @@
-import { ArrowRight, Brain, Database, ScanSearch, ShieldCheck } from 'lucide-react'
+import { ArrowRight, Brain, Database, LogOut, ScanSearch, ShieldCheck } from 'lucide-react'
 import { useTranslation } from '../i18n/I18nContext'
 import DiagnosticIllustration from './DiagnosticIllustration'
 import { FEATURE_ILLUSTRATIONS } from './FeatureIllustrations'
+import Footer from './Footer'
 import BoneIcon from './icons/BoneIcon'
-import NebiusLogo from './icons/NebiusLogo'
 import LanguageSelector from './LanguageSelector'
 
 const FEATURE_ICONS = [ScanSearch, Database, Brain]
 
-export default function Landing({ onEnter }) {
+export default function Landing({ onEnter, onLogout }) {
   const { t } = useTranslation()
   const features = t('landing.features')
 
   return (
     <div className="landing">
       <header className="landing-hero">
+        <div className="landing-hero-decor" aria-hidden="true"></div>
         <div className="landing-hero-top">
           <LanguageSelector />
+          {onLogout && (
+            <button type="button" className="back-link" title={t('auth.logout')} onClick={onLogout}>
+              <LogOut />
+            </button>
+          )}
         </div>
         <div className="landing-hero-inner">
           <div className="landing-hero-text">
@@ -77,19 +83,7 @@ export default function Landing({ onEnter }) {
         </section>
       </main>
 
-      <footer className="landing-footer">
-        <div className="landing-footer-row">
-          <ShieldCheck />
-          <span>{t('footer.disclaimer')}</span>
-        </div>
-        <div className="landing-footer-row landing-footer-credit">
-          <span>{t('footer.poweredBy')}</span>
-          <span className="landing-footer-brand">
-            <NebiusLogo />
-            Nebius
-          </span>
-        </div>
-      </footer>
+      <Footer />
     </div>
   )
 }

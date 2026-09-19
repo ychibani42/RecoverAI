@@ -1,23 +1,44 @@
-import { useState } from 'react'
-import { ArrowLeft, ClipboardList, ShieldCheck, UserPlus, Users } from 'lucide-react'
+import { useEffect, useState } from 'react'
+import { ArrowLeft, ClipboardList, LogOut, UserPlus, Users } from 'lucide-react'
 import './App.css'
 import './Landing.css'
 import BoneIcon from './components/icons/BoneIcon'
+import Footer from './components/Footer'
 import Landing from './components/Landing'
 import LanguageSelector from './components/LanguageSelector'
+import Login from './components/Login'
 import PatientForm from './components/PatientForm'
 import PatientsTable from './components/PatientsTable'
 import ReportView from './components/ReportView'
 import { useTranslation } from './i18n/I18nContext'
-import { requestReport } from './lib/api'
+import { clearToken, getToken, requestReport, UNAUTHORIZED_EVENT } from './lib/api'
 
 export default function App() {
   const { t, language } = useTranslation()
+  const [authenticated, setAuthenticated] = useState(() => !!getToken())
   const [view, setView] = useState('landing')
   const [report, setReport] = useState(null)
   const [similarCases, setSimilarCases] = useState([])
   const [submitting, setSubmitting] = useState(false)
   const [error, setError] = useState('')
+
+  useEffect(() => {
+    const handleUnauthorized = () => {
+      setAuthenticated(false)
+      setView('landing')
+    }
+    window.addEventListener(UNAUTHORIZED_EVENT, handleUnauthorized)
+    return () => window.removeEventListener(UNAUTHORIZED_EVENT, handleUnauthorized)
+  }, [])
+
+  const handleEnter = () => {
+    setView(authenticated ? 'workspace' : 'login')
+  }
+
+  const handleLoginSuccess = () => {
+    setAuthenticated(true)
+    setView('workspace')
+  }
 
   const handleSubmit = async ({ reportText, files, topK }) => {
     setSubmitting(true)
@@ -29,19 +50,32 @@ export default function App() {
       setReport(result.report)
       setSimilarCases(result.similar_cases || [])
     } catch (err) {
-      setError(t('app.errorApiContact', { message: err.message }))
+      if (err.message !== 'unauthorized') {
+        setError(t('app.errorApiContact', { message: err.message }))
+      }
     } finally {
       setSubmitting(false)
     }
   }
 
+  const handleLogout = () => {
+    clearToken()
+    setAuthenticated(false)
+    setView('landing')
+  }
+
   if (view === 'landing') {
-    return <Landing onEnter={() => setView('workspace')} />
+    return <Landing onEnter={handleEnter} onLogout={authenticated ? handleLogout : undefined} />
+  }
+
+  if (view === 'login') {
+    return <Login onSuccess={handleLoginSuccess} />
   }
 
   return (
     <>
       <header className="topbar">
+        <div className="topbar-decor" aria-hidden="true"></div>
         <div className="topbar-inner">
           <button type="button" className="back-link" onClick={() => setView('landing')}>
             <ArrowLeft />
@@ -55,6 +89,9 @@ export default function App() {
           </div>
           <div className="topbar-lang">
             <LanguageSelector />
+            <button type="button" className="back-link" title={t('auth.logout')} onClick={handleLogout}>
+              <LogOut />
+            </button>
           </div>
         </div>
         <div className="topbar-badges">
@@ -116,10 +153,7 @@ export default function App() {
         </main>
       )}
 
-      <footer>
-        <ShieldCheck />
-        <span>{t('footer.disclaimer')}</span>
-      </footer>
+      <Footer />
     </>
   )
 }

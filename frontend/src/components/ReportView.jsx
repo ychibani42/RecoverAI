@@ -15,6 +15,7 @@ import {
 } from 'lucide-react'
 import { useTranslation } from '../i18n/I18nContext'
 import { sendAppointmentSms } from '../lib/api'
+import NeighborsMap from './NeighborsMap'
 import SimilarCasesList from './SimilarCasesList'
 
 function Section({ icon: Icon, title, value }) {
@@ -231,7 +232,10 @@ export default function ReportView({ report, similarCases, loading }) {
         </div>
       </div>
 
-      <SmsAppointmentForm report={report} />
+      <div className="report-actions-row">
+        <SmsAppointmentForm report={report} />
+        <NeighborsMap cases={similarCases} />
+      </div>
     </div>
   )
 }

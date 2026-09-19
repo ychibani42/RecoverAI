@@ -1,10 +1,11 @@
 from contextlib import asynccontextmanager
 
-from fastapi import FastAPI
+from fastapi import Depends, FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 
-from recovery_ia.api.routes import patients, query, sms
+from recovery_ia.api.routes import auth, patients, query, sms, transcription
+from recovery_ia.api.security import require_auth
 from recovery_ia.sms import start_reminder_scheduler
 
 
@@ -28,9 +29,11 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-app.include_router(query.router)
-app.include_router(patients.router)
-app.include_router(sms.router)
+app.include_router(auth.router)
+app.include_router(query.router, dependencies=[Depends(require_auth)])
+app.include_router(patients.router, dependencies=[Depends(require_auth)])
+app.include_router(sms.router, dependencies=[Depends(require_auth)])
+app.include_router(transcription.router, dependencies=[Depends(require_auth)])
 
 # Sirve las radiografias indexadas (data/images/xrays, xrays_reales) para que
 # el frontend pueda mostrarlas junto a los casos similares recuperados.

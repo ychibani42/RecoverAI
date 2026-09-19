@@ -57,6 +57,7 @@ def test_clinical_report_diet_and_habits_are_optional():
         resumen_casos_similares="...",
         tratamiento_recomendado="...",
         tiempo_recuperacion_estimado="8-10 semanas",
+        semanas_hasta_revision=8,
         advertencia="Orientacion de apoyo, no sustituye el criterio clinico.",
     )
     assert report.dieta_recomendada is None

@@ -3,6 +3,7 @@ from .query import NewPatientInput, SimilarCaseQuery, SimilarCaseResult
 from .report import ClinicalReport, FactorJustificacion, ReportResponse
 from .report_record import ReportRecord, SimilarCaseRef, case_ref_from
 from .sms import SmsAppointmentRequest, SmsAppointmentResponse
+from .transcription import TranscriptionResponse
 
 __all__ = [
     "PatientCase",
@@ -17,4 +18,5 @@ __all__ = [
     "case_ref_from",
     "SmsAppointmentRequest",
     "SmsAppointmentResponse",
+    "TranscriptionResponse",
 ]

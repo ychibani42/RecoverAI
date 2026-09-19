@@ -16,19 +16,31 @@ CANDIDATE_POOL_MULTIPLIER = 3
 
 
 def _build_structured_filter(query: SimilarCaseQuery) -> Filter | None:
-    """Traduce los factores estructurados de la consulta (tipo de fractura,
-    rango de edad...) en un filtro nativo de Qdrant, aplicado junto a la
-    busqueda semantica sobre la nota diagnostica."""
+    """Traduce los factores estructurados de la consulta (sexo, rango de
+    edad...) en un filtro nativo de Qdrant, aplicado junto a la busqueda
+    semantica sobre la nota diagnostica.
+
+    fractura_tipo no se usa como filtro exacto: el dataset lo almacena como
+    descripcion clinica larga (p.ej. "Fractura de radio distal (Colles)"),
+    mientras que la extraccion produce una etiqueta corta (p.ej.
+    "muneca_colles") para uso interno; un match exacto entre ambos nunca
+    coincide y dejaria el filtro sin resultados. La similitud de tipo de
+    fractura ya la aporta la busqueda semantica sobre diagnostico_texto.
+
+    Los campos estructurados se guardan en Qdrant anidados bajo la clave
+    "metadata" (metadata_payload_key por defecto de QdrantVectorStore), no en
+    la raiz del payload, asi que las condiciones deben apuntar a
+    "metadata.<campo>"."""
     conditions = []
 
-    if query.fractura_tipo:
-        conditions.append(FieldCondition(key="fractura_tipo", match=MatchValue(value=query.fractura_tipo)))
     if query.sexo:
-        conditions.append(FieldCondition(key="sexo", match=MatchValue(value=query.sexo)))
+        conditions.append(FieldCondition(key="metadata.sexo", match=MatchValue(value=query.sexo)))
     if query.edad is not None:
-        conditions.append(FieldCondition(key="edad", range=Range(gte=query.edad - 10, lte=query.edad + 10)))
+        conditions.append(
+            FieldCondition(key="metadata.edad", range=Range(gte=query.edad - 10, lte=query.edad + 10))
+        )
     if query.imc is not None:
-        conditions.append(FieldCondition(key="imc", range=Range(gte=query.imc - 5, lte=query.imc + 5)))
+        conditions.append(FieldCondition(key="metadata.imc", range=Range(gte=query.imc - 5, lte=query.imc + 5)))
 
     return Filter(must=conditions) if conditions else None
 

@@ -6,10 +6,11 @@ from recovery_ia.schemas import NewPatientInput, SimilarCaseQuery
 from .llm import get_llm
 
 EXTRACTION_SYSTEM_PROMPT = """Extrae del informe medico y/o analitica de un paciente nuevo los \
-factores estructurados necesarios para buscar casos similares: edad, sexo (M/F), tipo de \
-fractura (usa una etiqueta corta y consistente, p.ej. "humero_diafisis", "muneca_colles", \
-"femur_diafisis", "cadera_cuello_femoral", "tibia_perone", "tobillo_maleolar", "clavicula", \
-"vertebral_compresion", "costilla"), IMC si se indica o se puede calcular, nivel de actividad \
+factores estructurados necesarios para buscar casos similares: edad, sexo ("Hombre" o \
+"Mujer"), tipo de fractura (usa una etiqueta corta y consistente, p.ej. "humero_diafisis", \
+"muneca_colles", "femur_diafisis", "cadera_cuello_femoral", "tibia_perone", \
+"tobillo_maleolar", "clavicula", "vertebral_compresion", "costilla"), IMC si se indica o se \
+puede calcular, nivel de actividad \
 fisica ("sedentario", "moderado" o "activo"), gravedad de la fractura ("leve", "moderada" o \
 "grave"), si el paciente es deportista (true/false), y lista de comorbilidades relevantes \
 (p.ej. "diabetes", "osteoporosis", "obesidad"). Si un dato no aparece en el texto, dejalo \
