@@ -1,5 +1,6 @@
 import { Activity, AlertTriangle, ClipboardList, Clock, HeartPulse, Salad, Search, Stethoscope } from 'lucide-react'
 import { useTranslation } from '../i18n/I18nContext'
+import SimilarCasesList from './SimilarCasesList'
 
 function Section({ icon: Icon, title, value }) {
   if (!value) return null
@@ -16,7 +17,7 @@ function Section({ icon: Icon, title, value }) {
   )
 }
 
-export default function ReportView({ report, loading }) {
+export default function ReportView({ report, similarCases, loading }) {
   const { t } = useTranslation()
 
   if (loading) {
@@ -44,6 +45,7 @@ export default function ReportView({ report, loading }) {
   return (
     <div>
       <Section icon={Search} title={t('report.summary')} value={report.resumen_casos_similares} />
+      <SimilarCasesList cases={similarCases} />
       <Section icon={Stethoscope} title={t('report.treatment')} value={report.tratamiento_recomendado} />
 
       <div className="report-section">
