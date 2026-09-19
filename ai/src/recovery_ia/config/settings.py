@@ -14,10 +14,10 @@ class Settings(BaseSettings):
     mongodb_db: str = "recovery_ia"
     mongodb_reports_collection: str = "reports"
 
-    anthropic_api_key: str = ""
-    llm_model: str = "claude-sonnet-5"
+    nebius_api_key: str = ""
+    llm_model: str = "Qwen/Qwen3-32B"
 
-    text_embedding_model: str = "sentence-transformers/paraphrase-multilingual-mpnet-base-v2"
+    text_embedding_model: str = "Qwen/Qwen3-Embedding-8B"
 
     api_host: str = "0.0.0.0"
     api_port: int = 8000

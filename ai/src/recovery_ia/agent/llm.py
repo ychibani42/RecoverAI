@@ -1,11 +1,11 @@
 from functools import lru_cache
 
-from langchain_anthropic import ChatAnthropic
+from langchain_nebius import ChatNebius
 
 from recovery_ia.config import get_settings
 
 
 @lru_cache
-def get_llm() -> ChatAnthropic:
+def get_llm() -> ChatNebius:
     settings = get_settings()
-    return ChatAnthropic(model=settings.llm_model, api_key=settings.anthropic_api_key)
+    return ChatNebius(model=settings.llm_model, api_key=settings.nebius_api_key)

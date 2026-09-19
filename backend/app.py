@@ -3,6 +3,7 @@ import os
 import httpx
 from fastapi import FastAPI, Request, Response
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import JSONResponse
 
 AI_SERVICE_URL = os.environ.get("AI_SERVICE_URL", "http://localhost:8001")
 
@@ -26,17 +27,23 @@ async def proxy_cases(path: str, request: Request) -> Response:
     """Forwards clinical case requests to the ai service."""
     url = f"{AI_SERVICE_URL}/cases/{path}"
     body = await request.body()
-    async with httpx.AsyncClient(timeout=60) as client:
-        upstream = await client.request(
-            request.method,
-            url,
-            params=request.query_params,
-            content=body,
-            headers={
-                k: v
-                for k, v in request.headers.items()
-                if k.lower() not in {"host", "content-length"}
-            },
+    try:
+        async with httpx.AsyncClient(timeout=60) as client:
+            upstream = await client.request(
+                request.method,
+                url,
+                params=request.query_params,
+                content=body,
+                headers={
+                    k: v
+                    for k, v in request.headers.items()
+                    if k.lower() not in {"host", "content-length"}
+                },
+            )
+    except httpx.HTTPError:
+        return JSONResponse(
+            status_code=503,
+            content={"detail": "ai service unavailable"},
         )
     return Response(
         content=upstream.content,
