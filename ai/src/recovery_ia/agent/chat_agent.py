@@ -9,8 +9,10 @@ from .llm import get_llm
 REPORT_SYSTEM_PROMPT = """Eres un asistente clinico de apoyo a la decision para \
 traumatologia y ortopedia. Recibes el caso de un paciente nuevo y una lista de casos \
 historicos similares (cada uno con su nota diagnostica, protocolo, plazo de recuperacion \
-y resultado). A partir UNICAMENTE de esos casos, redacta un informe con:
-- Resumen de los casos similares y por que se parecen al caso consultado.
+y resultado), seleccionados por semejanza clinica y radiografica con el caso consultado. \
+A partir UNICAMENTE de esos casos, redacta un informe con:
+- Resumen de los casos similares y por que se parecen al caso consultado (incluyendo, \
+cuando proceda, la semejanza radiografica).
 - Tratamiento recomendado (conservador o quirurgico, con detalle) basado en lo que \
 funciono en esos casos.
 - Tiempo de recuperacion estimado (rango de semanas), justificado por los casos.
@@ -20,7 +22,19 @@ diabetes, obesidad u osteoporosis); si no aplica, indicalo como null.
 adherencia a fisioterapia, etc.).
 - Una advertencia de que es una orientacion de apoyo a la decision, no un diagnostico, y \
 no sustituye el criterio clinico del profesional.
+
+Redacta todo el informe (todos los campos) en el idioma indicado por el codigo \
+ISO 639-1 que se te proporcione, independientemente del idioma del informe o los \
+casos historicos de entrada.
 """
+
+LANGUAGE_NAMES = {
+    "es": "español",
+    "en": "English",
+    "fr": "français",
+    "ca": "català",
+    "de": "Deutsch",
+}
 
 
 def _build_context(similar_cases: list[SimilarCaseResult]) -> str:
@@ -46,12 +60,24 @@ def generate_report_from_query(query: SimilarCaseQuery) -> tuple[ClinicalReport,
     prompt = ChatPromptTemplate.from_messages(
         [
             ("system", REPORT_SYSTEM_PROMPT),
-            ("human", "Caso del paciente nuevo: {query}\n\nCasos similares recuperados:\n{context}"),
+            (
+                "human",
+                "Idioma de salida (ISO 639-1): {language} ({language_name})\n\n"
+                "Caso del paciente nuevo: {query}\n\nCasos similares recuperados:\n{context}",
+            ),
         ]
     )
 
+    language_name = LANGUAGE_NAMES.get(query.language, query.language)
     structured_llm = get_llm().with_structured_output(ClinicalReport)
-    report = structured_llm.invoke(prompt.format_messages(query=query.free_text, context=context))
+    report = structured_llm.invoke(
+        prompt.format_messages(
+            query=query.free_text,
+            context=context,
+            language=query.language,
+            language_name=language_name,
+        )
+    )
     return report, similar_cases
 
 

@@ -52,5 +52,6 @@ def extract_query_from_report(patient_input: NewPatientInput) -> SimilarCaseQuer
         free_text=diagnostic_text,
         xray_image_path=patient_input.xray_image_path,
         top_k=patient_input.top_k,
+        language=patient_input.language,
         **factors.model_dump(),
     )

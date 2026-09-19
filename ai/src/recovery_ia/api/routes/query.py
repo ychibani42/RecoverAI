@@ -57,6 +57,7 @@ async def report(
         default=[], description="Otros archivos de diagnostico: informes de laboratorio, otras pruebas de imagen..."
     ),
     top_k: int = Form(default=5),
+    language: str = Form(default="es", description="Codigo de idioma (ISO 639-1) para el informe generado"),
 ) -> ReportResponse:
     """Pipeline completo: informe medico + analitica (opcional) + archivos de
     diagnostico (radiografia u otros) de un paciente nuevo -> extraccion de
@@ -81,6 +82,7 @@ async def report(
         xray_image_path=xray_image_path,
         additional_file_paths=additional_file_paths,
         top_k=top_k,
+        language=language,
     )
     clinical_report, similar = generate_report_from_patient_input(patient_input)
     _save_report_record(patient_input, clinical_report, similar)

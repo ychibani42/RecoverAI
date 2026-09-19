@@ -21,14 +21,14 @@ services:
     container_name: recovery-ia-backend
     command: uv run uvicorn recovery_ia.api.main:app --host 0.0.0.0 --port 8000 --reload
     env_file:
-      - .env
+      - ./ai/.env
     environment:
       QDRANT_URL: http://qdrant:6333
       MONGODB_URI: mongodb://mongo:27017
     ports:
       - "8000:8000"
     volumes:
-      - ./data:/app/data
+      - ./ai/data:/app/data
     depends_on:
       - qdrant
       - mongo
