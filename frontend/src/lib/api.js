@@ -28,6 +28,21 @@ export async function requestReport({ reportText, files, topK }) {
   return res.json()
 }
 
+export async function sendAppointmentSms({ phone, weeks }) {
+  const res = await fetch(`${API_BASE}/sms/appointment`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ phone, weeks }),
+  })
+
+  if (!res.ok) {
+    const detail = await res.text()
+    throw new Error(detail || `Error ${res.status}`)
+  }
+
+  return res.json()
+}
+
 export async function getPatients() {
   const res = await fetch(`${API_BASE}/patients`, { signal: AbortSignal.timeout(10000) })
   if (!res.ok) {

@@ -22,6 +22,11 @@ class Settings(BaseSettings):
     api_host: str = "0.0.0.0"
     api_port: int = 8000
 
+    # SMS de citas (Vonage Messages API)
+    vonage_api_key: str = ""
+    vonage_api_secret: str = ""
+    vonage_sms_from: str = "RecoverIA"
+
 
 @lru_cache
 def get_settings() -> Settings:

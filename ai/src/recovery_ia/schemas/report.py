@@ -14,6 +14,10 @@ class ClinicalReport(BaseModel):
     tiempo_recuperacion_estimado: str = Field(
         description="Rango de semanas estimado hasta la recuperacion, segun los casos similares."
     )
+    semanas_hasta_revision: int = Field(
+        description="Numero entero de semanas hasta la cita de revision recomendada, coherente con "
+        "tiempo_recuperacion_estimado (ej. si la recuperacion es de 6-8 semanas, un valor razonable es 6, 7 u 8)."
+    )
     dieta_recomendada: str | None = Field(
         default=None,
         description="Recomendaciones dieteticas solo si son relevantes (consolidacion osea, comorbilidades "

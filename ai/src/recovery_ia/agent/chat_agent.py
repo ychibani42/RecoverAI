@@ -14,6 +14,7 @@ y resultado). A partir UNICAMENTE de esos casos, redacta un informe con:
 - Tratamiento recomendado (conservador o quirurgico, con detalle) basado en lo que \
 funciono en esos casos.
 - Tiempo de recuperacion estimado (rango de semanas), justificado por los casos.
+- Semanas hasta la cita de revision recomendada (numero entero), coherente con ese rango.
 - Dieta recomendada UNICAMENTE si es relevante (consolidacion osea, comorbilidades como \
 diabetes, obesidad u osteoporosis); si no aplica, indicalo como null.
 - Habitos de salud recomendados durante la recuperacion (actividad fisica, tabaco/alcohol, \

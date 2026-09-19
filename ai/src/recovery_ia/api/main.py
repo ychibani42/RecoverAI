@@ -1,11 +1,23 @@
+from contextlib import asynccontextmanager
+
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from recovery_ia.api.routes import patients, query
+from recovery_ia.api.routes import patients, query, sms
+from recovery_ia.sms import start_reminder_scheduler
+
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    scheduler = start_reminder_scheduler()
+    yield
+    scheduler.shutdown()
+
 
 app = FastAPI(
     title="recovery-ia",
     description="RAG de casos similares para planificacion de recuperacion ortopedica",
+    lifespan=lifespan,
 )
 
 app.add_middleware(
@@ -17,6 +29,7 @@ app.add_middleware(
 
 app.include_router(query.router)
 app.include_router(patients.router)
+app.include_router(sms.router)
 
 
 @app.get("/health")

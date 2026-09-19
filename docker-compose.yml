@@ -17,7 +17,7 @@ services:
       - ./data/mongo_data:/data/db
 
   backend:
-    build: .
+    build: ./ai
     container_name: recovery-ia-backend
     command: uv run uvicorn recovery_ia.api.main:app --host 0.0.0.0 --port 8000 --reload
     env_file:
@@ -35,10 +35,10 @@ services:
     develop:
       watch:
         - action: sync
-          path: ./src
+          path: ./ai/src
           target: /app/src
         - action: sync
-          path: ./scripts
+          path: ./ai/scripts
           target: /app/scripts
         - action: rebuild
-          path: pyproject.toml
+          path: ./ai/pyproject.toml

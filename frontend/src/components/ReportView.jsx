@@ -1,5 +1,19 @@
-import { Activity, AlertTriangle, ClipboardList, Clock, HeartPulse, Salad, Search, Stethoscope } from 'lucide-react'
+import { useEffect, useState } from 'react'
+import {
+  Activity,
+  AlertCircle,
+  AlertTriangle,
+  CheckCircle2,
+  ClipboardList,
+  Clock,
+  HeartPulse,
+  MessageSquare,
+  Salad,
+  Search,
+  Stethoscope,
+} from 'lucide-react'
 import { useTranslation } from '../i18n/I18nContext'
+import { sendAppointmentSms } from '../lib/api'
 
 function Section({ icon: Icon, title, value }) {
   if (!value) return null
@@ -12,6 +26,119 @@ function Section({ icon: Icon, title, value }) {
         <h3>{title}</h3>
       </div>
       <p>{value}</p>
+    </div>
+  )
+}
+
+function SmsAppointmentForm({ report }) {
+  const { t } = useTranslation()
+  const [open, setOpen] = useState(false)
+  const [phone, setPhone] = useState('')
+  const [weeks, setWeeks] = useState(report.semanas_hasta_revision ?? 6)
+  const [sending, setSending] = useState(false)
+  const [error, setError] = useState('')
+  const [result, setResult] = useState(null)
+
+  useEffect(() => {
+    setOpen(false)
+    setPhone('')
+    setWeeks(report.semanas_hasta_revision ?? 6)
+    setSending(false)
+    setError('')
+    setResult(null)
+  }, [report])
+
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    if (!phone.trim()) {
+      setError(t('report.smsValidationPhone'))
+      return
+    }
+    setSending(true)
+    setError('')
+    try {
+      const res = await sendAppointmentSms({ phone: phone.trim(), weeks: Number(weeks) })
+      setResult(res)
+    } catch (err) {
+      setError(t('report.smsError', { message: err.message }))
+    } finally {
+      setSending(false)
+    }
+  }
+
+  if (!open) {
+    return (
+      <div className="report-section sms-section">
+        <button type="button" className="ghost" onClick={() => setOpen(true)}>
+          <MessageSquare />
+          {t('report.smsButton')}
+        </button>
+      </div>
+    )
+  }
+
+  return (
+    <div className="report-section sms-section">
+      <form className="sms-form" onSubmit={handleSubmit}>
+        <div className="field-row">
+          <div className="field">
+            <label htmlFor="sms-phone">{t('report.smsPhoneLabel')}</label>
+            <input
+              id="sms-phone"
+              type="tel"
+              value={phone}
+              onChange={(e) => setPhone(e.target.value)}
+              placeholder={t('report.smsPhonePlaceholder')}
+            />
+          </div>
+          <div className="field">
+            <label htmlFor="sms-weeks">{t('report.smsWeeksLabel')}</label>
+            <input
+              id="sms-weeks"
+              type="number"
+              min={0}
+              max={52}
+              value={weeks}
+              onChange={(e) => setWeeks(e.target.value)}
+            />
+          </div>
+        </div>
+
+        <div className="actions">
+          <button type="submit" className="primary" disabled={sending}>
+            {sending ? (
+              <>
+                <span className="spinner" />
+                {t('report.smsSending')}
+              </>
+            ) : (
+              <>
+                <MessageSquare />
+                {t('report.smsSubmit')}
+              </>
+            )}
+          </button>
+          <button type="button" className="ghost" onClick={() => setOpen(false)}>
+            {t('report.smsCancel')}
+          </button>
+        </div>
+
+        {error && (
+          <div className="error-box">
+            <AlertCircle />
+            <span>{error}</span>
+          </div>
+        )}
+
+        {result && (
+          <div className="success-box">
+            <CheckCircle2 />
+            <span>
+              {t('report.smsSuccess', { date: new Date(result.appointment_date).toLocaleDateString() })}
+            </span>
+          </div>
+        )}
+      </form>
     </div>
   )
 }
@@ -68,6 +195,8 @@ export default function ReportView({ report, loading }) {
           <span>{report.advertencia}</span>
         </div>
       </div>
+
+      <SmsAppointmentForm report={report} />
     </div>
   )
 }

@@ -17,3 +17,10 @@ def get_reports_collection() -> Collection:
     informe clinico generado, junto con la entrada del paciente que lo origino."""
     settings = get_settings()
     return get_mongo_client()[settings.mongodb_db][settings.mongodb_reports_collection]
+
+
+def get_sms_reminders_collection() -> Collection:
+    """Coleccion de MongoDB con los recordatorios de SMS pendientes de envio
+    (dia anterior y mismo dia de la cita); el scheduler los consulta periodicamente."""
+    settings = get_settings()
+    return get_mongo_client()[settings.mongodb_db]["sms_reminders"]
