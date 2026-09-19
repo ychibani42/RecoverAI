@@ -9,8 +9,8 @@ export function SimilarCasesIllustration({ title }) {
       <svg viewBox="0 0 440 300" role="img" aria-label={title}>
         <defs>
           <linearGradient id="sc-screen" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0%" stopColor="#0c2e2c" />
-            <stop offset="100%" stopColor="#155e56" />
+            <stop offset="0%" stopColor="#9c3138" />
+            <stop offset="100%" stopColor="#e2555a" />
           </linearGradient>
           <linearGradient id="sc-scan" x1="0" y1="0" x2="0" y2="1">
             <stop offset="0%" stopColor="rgba(255,255,255,0)" />
@@ -19,7 +19,7 @@ export function SimilarCasesIllustration({ title }) {
           </linearGradient>
         </defs>
 
-        <rect x="0" y="0" width="440" height="300" rx="28" fill="#0a2523" />
+        <rect x="0" y="0" width="440" height="300" rx="28" fill="#6b1f24" />
         <rect x="10" y="10" width="420" height="280" rx="20" fill="url(#sc-screen)" />
 
         <circle cx="32" cy="32" r="4" fill="#f87171" opacity="0.85" />
@@ -115,8 +115,8 @@ export function VectorEngineIllustration({ title }) {
       <svg viewBox="0 0 440 300" role="img" aria-label={title}>
         <defs>
           <linearGradient id="ve-screen" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0%" stopColor="#0c2e2c" />
-            <stop offset="100%" stopColor="#155e56" />
+            <stop offset="0%" stopColor="#9c3138" />
+            <stop offset="100%" stopColor="#e2555a" />
           </linearGradient>
           <radialGradient id="ve-core" cx="50%" cy="50%" r="50%">
             <stop offset="0%" stopColor="#ccfbf1" />
@@ -124,7 +124,7 @@ export function VectorEngineIllustration({ title }) {
           </radialGradient>
         </defs>
 
-        <rect x="0" y="0" width="440" height="300" rx="28" fill="#0a2523" />
+        <rect x="0" y="0" width="440" height="300" rx="28" fill="#6b1f24" />
         <rect x="10" y="10" width="420" height="280" rx="20" fill="url(#ve-screen)" />
 
         <circle cx="32" cy="32" r="4" fill="#f87171" opacity="0.85" />
@@ -179,12 +179,12 @@ export function ReportIllustration({ title }) {
       <svg viewBox="0 0 440 300" role="img" aria-label={title}>
         <defs>
           <linearGradient id="rp-screen" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0%" stopColor="#0c2e2c" />
-            <stop offset="100%" stopColor="#155e56" />
+            <stop offset="0%" stopColor="#9c3138" />
+            <stop offset="100%" stopColor="#e2555a" />
           </linearGradient>
         </defs>
 
-        <rect x="0" y="0" width="440" height="300" rx="28" fill="#0a2523" />
+        <rect x="0" y="0" width="440" height="300" rx="28" fill="#6b1f24" />
         <rect x="10" y="10" width="420" height="280" rx="20" fill="url(#rp-screen)" />
 
         <circle cx="32" cy="32" r="4" fill="#f87171" opacity="0.85" />
