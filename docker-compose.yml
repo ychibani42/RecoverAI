@@ -6,7 +6,7 @@ services:
       - "6333:6333"   # REST / dashboard (http://localhost:6333/dashboard)
       - "6334:6334"   # gRPC
     volumes:
-      - ./data/qdrant_storage:/qdrant/storage
+      - ./ai/data/qdrant_storage:/qdrant/storage
 
   mongo:
     image: mongo:7
@@ -14,18 +14,28 @@ services:
     ports:
       - "27017:27017"
     volumes:
-      - ./data/mongo_data:/data/db
+      - ./ai/data/mongo_data:/data/db
 
-  backend:
-    build: .
-    container_name: recovery-ia-backend
+  ai:
+    build: ./ai
+    container_name: recovery-ia-ai
     env_file:
-      - .env
+      - ./ai/.env
     environment:
       QDRANT_URL: http://qdrant:6333
       MONGODB_URI: mongodb://mongo:27017
     ports:
-      - "8000:8000"
+      - "8001:8001"
     depends_on:
       - qdrant
       - mongo
+
+  backend:
+    build: ./backend
+    container_name: recovery-ia-backend
+    environment:
+      AI_SERVICE_URL: http://ai:8001
+    ports:
+      - "8000:8000"
+    depends_on:
+      - ai

@@ -1,27 +1,58 @@
-from http.server import BaseHTTPRequestHandler, HTTPServer
-import json
+import os
+
+import httpx
+from fastapi import FastAPI, Request, Response
+from fastapi.middleware.cors import CORSMiddleware
+
+AI_SERVICE_URL = os.environ.get("AI_SERVICE_URL", "http://localhost:8001")
+
+app = FastAPI(title="recovery-ia-backend")
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:8080", "http://127.0.0.1:8080"],
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 
-class HealthHandler(BaseHTTPRequestHandler):
-    def do_GET(self):
-        if self.path == "/health":
-            self.send_response(200)
-            self.send_header("Content-Type", "application/json")
-            self.end_headers()
-            self.wfile.write(json.dumps({"status": "ok"}).encode("utf-8"))
-            return
+@app.get("/health")
+def health() -> dict:
+    return {"status": "ok"}
 
-        self.send_response(404)
-        self.send_header("Content-Type", "application/json")
-        self.end_headers()
-        self.wfile.write(json.dumps({"error": "Not found"}).encode("utf-8"))
+
+@app.api_route("/cases/{path:path}", methods=["GET", "POST"])
+async def proxy_cases(path: str, request: Request) -> Response:
+    """Forwards clinical case requests to the ai service."""
+    url = f"{AI_SERVICE_URL}/cases/{path}"
+    body = await request.body()
+    async with httpx.AsyncClient(timeout=60) as client:
+        upstream = await client.request(
+            request.method,
+            url,
+            params=request.query_params,
+            content=body,
+            headers={
+                k: v
+                for k, v in request.headers.items()
+                if k.lower() not in {"host", "content-length"}
+            },
+        )
+    return Response(
+        content=upstream.content,
+        status_code=upstream.status_code,
+        headers={
+            k: v
+            for k, v in upstream.headers.items()
+            if k.lower() not in {"content-length", "transfer-encoding", "connection"}
+        },
+    )
 
 
 def run(host: str = "127.0.0.1", port: int = 8000):
-    server = HTTPServer((host, port), HealthHandler)
-    print(f"Python backend running on http://{host}:{port}")
-    print("Health check: GET /health")
-    server.serve_forever()
+    import uvicorn
+
+    uvicorn.run(app, host=host, port=port)
 
 
 if __name__ == "__main__":
