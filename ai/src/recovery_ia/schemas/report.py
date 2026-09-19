@@ -3,6 +3,19 @@ from pydantic import BaseModel, Field
 from .query import SimilarCaseResult
 
 
+class FactorJustificacion(BaseModel):
+    """Explica como un factor ponderado del paciente (edad, gravedad...)
+    influyo en la recomendacion, para que el clinico vea el razonamiento."""
+
+    factor: str = Field(description="Nombre del factor ponderado (ej. 'edad', 'gravedad').")
+    valor_paciente: str = Field(description="Valor de ese factor en el paciente nuevo.")
+    peso: float = Field(description="Peso asignado a ese factor (0-1), mayor = mas influyente.")
+    justificacion: str = Field(
+        description="Por que este valor del factor, dado su peso, influyo en la recomendacion "
+        "(ej. 'edad alta (72) con peso 0.9: se prioriza un periodo de reposo mas prolongado')."
+    )
+
+
 class ClinicalReport(BaseModel):
     """Informe final que devuelve el sistema para un paciente nuevo, generado
     por el LLM a partir de los casos similares recuperados de Qdrant."""
@@ -33,6 +46,12 @@ class ClinicalReport(BaseModel):
     advertencia: str = Field(
         description="Aviso de que es una orientacion de apoyo a la decision y no sustituye el criterio "
         "clinico del profesional ni constituye un diagnostico."
+    )
+    factores_clave: list[FactorJustificacion] = Field(
+        default=[],
+        description="Factores ponderados del paciente nuevo (edad, gravedad, comorbilidades, IMC, "
+        "nivel de actividad, deportista) que mas influyeron en la recomendacion, con justificacion "
+        "de por que ese valor, dado su peso, importa para este caso.",
     )
 
 

@@ -9,6 +9,7 @@ import {
   HeartPulse,
   MessageSquare,
   Salad,
+  Scale,
   Search,
   Stethoscope,
 } from 'lucide-react'
@@ -27,6 +28,37 @@ function Section({ icon: Icon, title, value }) {
         <h3>{title}</h3>
       </div>
       <p>{value}</p>
+    </div>
+  )
+}
+
+function KeyFactors({ factors }) {
+  const { t } = useTranslation()
+  if (!factors || factors.length === 0) return null
+
+  return (
+    <div className="report-section key-factors">
+      <div className="report-section-header">
+        <span className="section-icon">
+          <Scale />
+        </span>
+        <h3>{t('report.keyFactorsTitle')}</h3>
+      </div>
+      <p className="card-hint">{t('report.keyFactorsHint')}</p>
+      <ul className="key-factors-list">
+        {factors.map((f) => (
+          <li key={f.factor} className="key-factor-item">
+            <div className="key-factor-header">
+              <strong>{f.factor}</strong>
+              <span className="badge">{f.valor_paciente}</span>
+              <span className="badge key-factor-weight">
+                {t('report.weightLabel')}: {(f.peso * 100).toFixed(0)}%
+              </span>
+            </div>
+            <p>{f.justificacion}</p>
+          </li>
+        ))}
+      </ul>
     </div>
   )
 }
@@ -174,6 +206,7 @@ export default function ReportView({ report, similarCases, loading }) {
       <Section icon={Search} title={t('report.summary')} value={report.resumen_casos_similares} />
       <SimilarCasesList cases={similarCases} />
       <Section icon={Stethoscope} title={t('report.treatment')} value={report.tratamiento_recomendado} />
+      <KeyFactors factors={report.factores_clave} />
 
       <div className="report-section">
         <div className="report-section-header">

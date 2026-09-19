@@ -21,7 +21,7 @@ export default function SimilarCasesList({ cases }) {
       <p className="card-hint">{t('report.similarCasesHint', { count: cases.length })}</p>
 
       <ul className="similar-cases-list">
-        {cases.map(({ case: p, similarity_score: score }, index) => {
+        {cases.map(({ case: p, similarity_score: score, final_score: finalScore }, index) => {
           const id = p.uuid || p.case_id
           const isExpanded = expandedId === id
           return (
@@ -41,6 +41,11 @@ export default function SimilarCasesList({ cases }) {
                   <span className="badge similar-case-score">
                     {t('report.similarityScore')}: {(score * 100).toFixed(1)}%
                   </span>
+                  {finalScore != null && (
+                    <span className="badge similar-case-score similar-case-weighted-score">
+                      {t('report.weightedMatch')}: {(finalScore * 100).toFixed(1)}%
+                    </span>
+                  )}
                   {isExpanded ? <ChevronDown /> : <ChevronRight />}
                 </button>
 

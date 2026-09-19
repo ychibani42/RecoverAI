@@ -40,6 +40,9 @@ class SimilarCaseQuery(BaseModel):
     fractura_tipo: str | None = None
     imc: float | None = None
     nivel_actividad: str | None = None
+    gravedad: str | None = None
+    deportista: bool | None = None
+    comorbilidades: list[str] | None = None
     top_k: int = 5
     language: str = "es"
 
@@ -47,3 +50,5 @@ class SimilarCaseQuery(BaseModel):
 class SimilarCaseResult(BaseModel):
     case: PatientCase
     similarity_score: float
+    structured_distance: float | None = None
+    final_score: float | None = None

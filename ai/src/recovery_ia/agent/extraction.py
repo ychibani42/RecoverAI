@@ -9,8 +9,10 @@ EXTRACTION_SYSTEM_PROMPT = """Extrae del informe medico y/o analitica de un paci
 factores estructurados necesarios para buscar casos similares: edad, sexo (M/F), tipo de \
 fractura (usa una etiqueta corta y consistente, p.ej. "humero_diafisis", "muneca_colles", \
 "femur_diafisis", "cadera_cuello_femoral", "tibia_perone", "tobillo_maleolar", "clavicula", \
-"vertebral_compresion", "costilla"), IMC si se indica o se puede calcular, y nivel de actividad \
-fisica ("sedentario", "moderado" o "deportista"). Si un dato no aparece en el texto, dejalo \
+"vertebral_compresion", "costilla"), IMC si se indica o se puede calcular, nivel de actividad \
+fisica ("sedentario", "moderado" o "activo"), gravedad de la fractura ("leve", "moderada" o \
+"grave"), si el paciente es deportista (true/false), y lista de comorbilidades relevantes \
+(p.ej. "diabetes", "osteoporosis", "obesidad"). Si un dato no aparece en el texto, dejalo \
 vacio/null. No inventes valores que no esten en el texto."""
 
 
@@ -20,6 +22,9 @@ class _ExtractedFactors(BaseModel):
     fractura_tipo: str | None = None
     imc: float | None = None
     nivel_actividad: str | None = None
+    gravedad: str | None = None
+    deportista: bool | None = None
+    comorbilidades: list[str] | None = None
 
 
 def _combined_diagnostic_text(patient_input: NewPatientInput) -> str:

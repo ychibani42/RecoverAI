@@ -1,6 +1,7 @@
 from langchain_core.prompts import ChatPromptTemplate
 
 from recovery_ia.retrieval import find_similar_cases
+from recovery_ia.retrieval.weights import FIELD_WEIGHTS
 from recovery_ia.schemas import ClinicalReport, NewPatientInput, SimilarCaseQuery, SimilarCaseResult
 
 from .extraction import extract_query_from_report
@@ -23,6 +24,13 @@ diabetes, obesidad u osteoporosis); si no aplica, indicalo como null.
 adherencia a fisioterapia, etc.).
 - Una advertencia de que es una orientacion de apoyo a la decision, no un diagnostico, y \
 no sustituye el criterio clinico del profesional.
+- factores_clave: para cada factor ponderado del paciente nuevo que se conozca (edad, \
+gravedad, comorbilidades, IMC, nivel de actividad, deportista), indica su peso ({weights}, \
+de 0 a 1, mayor = mas influyente) y justifica en una frase como ese valor, dado su peso, \
+influyo en tu recomendacion. Por ejemplo: una edad alta con peso alto justifica un periodo \
+de reposo mas prolongado y una progresion de carga mas conservadora; una gravedad alta con \
+peso alto justifica priorizar tratamiento quirurgico sobre conservador. Omite los factores \
+que no se conozcan del paciente nuevo.
 
 Redacta todo el informe (todos los campos) en el idioma indicado por el codigo \
 ISO 639-1 que se te proporcione, independientemente del idioma del informe o los \
@@ -40,13 +48,19 @@ LANGUAGE_NAMES = {
 
 def _build_context(similar_cases: list[SimilarCaseResult]) -> str:
     return "\n\n".join(
-        f"Caso {r.case.case_id} (similitud {r.similarity_score:.2f}): "
-        f"{r.case.diagnostico_texto} Tratamiento: {r.case.tratamiento_detalle}, "
+        f"Caso {r.case.case_id} (similitud {r.similarity_score:.2f}"
+        + (f", distancia ponderada {r.structured_distance:.2f}" if r.structured_distance is not None else "")
+        + f"): {r.case.diagnostico_texto} Tratamiento: {r.case.tratamiento_detalle}, "
         f"recuperacion {r.case.semanas_recuperacion_total} semanas "
         f"(estabilizacion {r.case.semanas_estabilizacion}, fisioterapia {r.case.semanas_fisioterapia}), "
+        f"gravedad: {r.case.gravedad}, edad: {r.case.edad}, comorbilidades: {r.case.comorbilidades}, "
         f"complicaciones: {r.case.complicaciones}. Plan: {r.case.plan_recuperacion_texto}"
         for r in similar_cases
     )
+
+
+def _weights_summary() -> str:
+    return ", ".join(f"{field}={weight}" for field, weight in FIELD_WEIGHTS.items())
 
 
 def generate_report_from_query(query: SimilarCaseQuery) -> tuple[ClinicalReport, list[SimilarCaseResult]]:
@@ -77,6 +91,7 @@ def generate_report_from_query(query: SimilarCaseQuery) -> tuple[ClinicalReport,
             context=context,
             language=query.language,
             language_name=language_name,
+            weights=_weights_summary(),
         )
     )
     return report, similar_cases
