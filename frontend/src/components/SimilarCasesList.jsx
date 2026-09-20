@@ -33,20 +33,44 @@ export default function SimilarCasesList({ cases }) {
                   onClick={() => toggleExpanded(id)}
                   aria-expanded={isExpanded}
                 >
-                  <span className="similar-case-rank">#{index + 1}</span>
-                  <span className="similar-case-summary">
-                    <strong>{p.case_id}</strong> · {p.sexo}, {p.edad} {t('patients.columns.age').toLowerCase()} ·{' '}
-                    {p.fractura_tipo} ({p.fractura_zona}) · {p.tratamiento}
-                  </span>
-                  <span className="badge similar-case-score">
-                    {t('report.similarityScore')}: {(score * 100).toFixed(1)}%
-                  </span>
-                  {finalScore != null && (
-                    <span className="badge similar-case-score similar-case-weighted-score">
-                      {t('report.weightedMatch')}: {(finalScore * 100).toFixed(1)}%
+                  <span className="similar-case-row-top">
+                    <span className="similar-case-rank">#{index + 1}</span>
+                    <span className="similar-case-summary">
+                      <strong>{p.case_id}</strong> · {p.sexo}, {p.edad} {t('patients.columns.age').toLowerCase()} ·{' '}
+                      {p.fractura_tipo} ({p.fractura_zona}) · {p.tratamiento}
                     </span>
-                  )}
-                  {isExpanded ? <ChevronDown /> : <ChevronRight />}
+                    <span className="similar-case-chevron">{isExpanded ? <ChevronDown /> : <ChevronRight />}</span>
+                  </span>
+                  <span className="similar-case-row-scores">
+                    <span className="similar-case-metric">
+                      <span className="similar-case-metric-label">
+                        <span>{t('report.similarityScore')}</span>
+                        <span className="similar-case-metric-value">{(score * 100).toFixed(1)}%</span>
+                      </span>
+                      <span className="similar-case-bar">
+                        <span
+                          className="similar-case-bar-fill"
+                          style={{ width: `${Math.min(score * 100, 100)}%` }}
+                        />
+                      </span>
+                    </span>
+                    {finalScore != null && (
+                      <span className="similar-case-metric">
+                        <span className="similar-case-metric-label">
+                          <span>{t('report.weightedMatch')}</span>
+                          <span className="similar-case-metric-value similar-case-metric-value-weighted">
+                            {(finalScore * 100).toFixed(1)}%
+                          </span>
+                        </span>
+                        <span className="similar-case-bar similar-case-bar-weighted">
+                          <span
+                            className="similar-case-bar-fill similar-case-bar-fill-weighted"
+                            style={{ width: `${Math.min(finalScore * 100, 100)}%` }}
+                          />
+                        </span>
+                      </span>
+                    )}
+                  </span>
                 </button>
 
                 {isExpanded && (

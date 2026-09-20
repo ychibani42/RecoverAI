@@ -58,6 +58,9 @@ function KeyFactors({ factors }) {
                 {t('report.weightLabel')}: {(f.peso * 100).toFixed(0)}%
               </span>
             </div>
+            <div className="key-factor-bar">
+              <div className="key-factor-bar-fill" style={{ width: `${Math.min(f.peso * 100, 100)}%` }} />
+            </div>
             <p>{renderBoldText(f.justificacion)}</p>
           </li>
         ))}
@@ -191,6 +194,7 @@ function DownloadPdfButton({ targetRef }) {
   const handleDownload = async () => {
     if (!targetRef.current || generating) return
     setGenerating(true)
+    targetRef.current.classList.add('pdf-export-mode')
     try {
       const { default: html2pdf } = await import('html2pdf.js')
       await html2pdf()
@@ -205,6 +209,7 @@ function DownloadPdfButton({ targetRef }) {
         .from(targetRef.current)
         .save()
     } finally {
+      targetRef.current?.classList.remove('pdf-export-mode')
       setGenerating(false)
     }
   }
@@ -268,7 +273,7 @@ export default function ReportView({ report, similarCases, loading }) {
             </span>
             <h3>{t('report.recoveryTime')}</h3>
           </div>
-          <span className="badge">
+          <span className="badge recovery-badge">
             <Clock />
             {renderBoldText(report.tiempo_recuperacion_estimado)}
           </span>

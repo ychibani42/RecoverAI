@@ -185,8 +185,8 @@ main {
   width: 38px;
   height: 38px;
   border-radius: 11px;
-  background: var(--brand-light);
-  color: var(--brand-dark);
+  background: var(--pill-bg);
+  color: var(--heading);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -515,8 +515,8 @@ button.icon-action-btn:disabled {
   width: 26px;
   height: 26px;
   border-radius: 8px;
-  background: var(--brand-light);
-  color: var(--brand-dark);
+  background: var(--pill-bg);
+  color: var(--heading);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -533,7 +533,7 @@ button.icon-action-btn:disabled {
   font-size: 0.78rem;
   text-transform: uppercase;
   letter-spacing: 0.04em;
-  color: var(--brand-dark);
+  color: var(--heading);
 }
 
 .report-section p {
@@ -546,20 +546,44 @@ button.icon-action-btn:disabled {
 .report-section p strong,
 .warning-box span strong,
 .key-factor-item p strong {
-  color: var(--brand-dark);
+  color: var(--heading);
   font-weight: 700;
 }
 
 .report-printable {
+  background: var(--surface);
+  color: var(--text);
+}
+
+/* Al exportar a PDF forzamos la paleta clara (papel blanco), solo mientras
+   dura la generación; en pantalla el informe sigue el tema de la app. */
+.report-printable.pdf-export-mode {
   background: #fff;
+  color: #2b1a1a;
+  --bg: #fdf6f5;
+  --surface: #ffffff;
+  --border: #f2dbd9;
+  --text: #2b1a1a;
+  --text-muted: #8a6b6a;
+  --brand-light: #fbe2e0;
+  --input-bg: #fdf1f0;
+  --warn-bg: #fff7ed;
+  --warn-border: #fdba74;
+  --warn-text: #9a3412;
+  --heading: #9c3138;
+  --pill-bg: #fbe2e0;
+  --pill-text: #9c3138;
+  --accent-teal: #0d9488;
+  --accent-teal-bg: #ccfbf1;
+  --accent-teal-text: #0d9488;
 }
 
 .badge {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  background: var(--brand-light);
-  color: var(--brand-dark);
+  background: var(--pill-bg);
+  color: var(--pill-text);
   font-weight: 700;
   padding: 6px 14px;
   border-radius: 999px;
@@ -569,6 +593,16 @@ button.icon-action-btn:disabled {
 .badge svg {
   width: 15px;
   height: 15px;
+}
+
+.recovery-badge {
+  padding: 10px 18px;
+  font-size: 1rem;
+}
+
+.recovery-badge svg {
+  width: 18px;
+  height: 18px;
 }
 
 .warning-box {
@@ -964,7 +998,7 @@ button.icon-action-btn:disabled {
   font-size: 0.76rem;
   text-transform: uppercase;
   letter-spacing: 0.02em;
-  color: var(--brand-dark);
+  color: var(--heading);
 }
 
 .patients-detail-section p {
@@ -992,13 +1026,13 @@ button.icon-action-btn:disabled {
   padding: 0;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 10px;
 }
 
 .similar-case-item {
   border: 1px solid var(--border);
-  border-radius: 10px;
-  background: var(--surface);
+  border-radius: 14px;
+  background: var(--bg);
   overflow: hidden;
 }
 
@@ -1009,9 +1043,9 @@ button.icon-action-btn:disabled {
 .similar-case-toggle {
   width: 100%;
   display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 10px 14px;
+  flex-direction: column;
+  gap: 10px;
+  padding: 14px 16px;
   background: none;
   border: none;
   cursor: pointer;
@@ -1024,34 +1058,109 @@ button.icon-action-btn:disabled {
   background: var(--input-bg);
 }
 
+/* Fila 1: quién es el caso (rango, id, perfil clínico y tratamiento). */
+.similar-case-row-top {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
 .similar-case-rank {
   flex-shrink: 0;
-  font-weight: 700;
-  color: var(--brand-dark);
-  min-width: 26px;
+  width: 28px;
+  height: 28px;
+  border-radius: 9px;
+  background: var(--pill-bg);
+  color: var(--heading);
+  font-weight: 800;
+  font-size: 0.76rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .similar-case-summary {
   flex: 1;
-  font-size: 0.86rem;
+  min-width: 0;
+  font-size: 0.87rem;
   line-height: 1.4;
 }
 
-.similar-case-score {
+.similar-case-chevron {
   flex-shrink: 0;
-  padding: 4px 10px;
-  font-size: 0.78rem;
+  display: flex;
+  color: var(--text-muted);
+}
+
+.similar-case-chevron svg {
+  width: 16px;
+  height: 16px;
+}
+
+/* Fila 2: similitud y coincidencia ponderada, cada una con su propia barra. */
+.similar-case-row-scores {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  padding-left: 40px;
+}
+
+.similar-case-metric {
+  flex: 1;
+  min-width: 150px;
+  max-width: 240px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.similar-case-metric-label {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  font-size: 0.68rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--text-muted);
+}
+
+.similar-case-metric-value {
+  font-size: 0.8rem;
+  font-weight: 800;
+  color: var(--pill-text);
+}
+
+.similar-case-metric-value-weighted {
+  color: var(--accent-teal-text);
+}
+
+.similar-case-bar {
+  height: 6px;
+  border-radius: 999px;
+  background: var(--pill-bg);
+  overflow: hidden;
+}
+
+.similar-case-bar-fill {
+  height: 100%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--brand), var(--brand-dark));
+}
+
+.similar-case-bar-weighted {
+  background: var(--accent-teal-bg);
+}
+
+.similar-case-bar-fill-weighted {
+  background: var(--accent-teal);
 }
 
 .similar-case-item .patients-detail-grid {
   padding: 16px 18px 20px;
-  background: var(--input-bg);
+  background: var(--surface);
   border-top: 1px solid var(--border);
-}
-
-.similar-case-weighted-score {
-  background: var(--brand-light);
-  color: var(--brand-dark);
 }
 
 .key-factors-list {
@@ -1085,8 +1194,22 @@ button.icon-action-btn:disabled {
 }
 
 .key-factor-weight {
-  background: var(--brand-light);
-  color: var(--brand-dark);
+  background: var(--pill-bg);
+  color: var(--pill-text);
+}
+
+.key-factor-bar {
+  height: 5px;
+  border-radius: 999px;
+  background: var(--bg);
+  overflow: hidden;
+  margin: 8px 0 6px;
+}
+
+.key-factor-bar-fill {
+  height: 100%;
+  border-radius: 999px;
+  background: var(--brand);
 }
 
 .similar-case-xray {
