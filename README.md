@@ -6,6 +6,16 @@ Ver [requirements.md](requirements.md) para la propuesta original, y [docs/archi
 
 **Stack**: base de datos vectorial (casos históricos) + orquestación RAG + Claude (LLM) + FastAPI (backend) + MongoDB (persistencia de resultados de salida) + React/Vite (frontend) + uv (gestión del entorno Python) + Docker.
 
+## Capturas de pantalla
+
+| Landing                                  | Acceso profesional                   |
+| ---------------------------------------- | ------------------------------------ |
+| ![Landing](docs/screenshots/landing.png) | ![Login](docs/screenshots/login.png) |
+
+| Nuevo paciente + informe clínico             |
+| -------------------------------------------- |
+| ![Workspace](docs/screenshots/workspace.png) |
+
 ## Estructura del proyecto
 
 ```
