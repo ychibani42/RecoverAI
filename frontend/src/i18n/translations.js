@@ -123,6 +123,8 @@ const es = {
       'Cada punto es un caso similar; cuanto más cerca del centro, mayor coincidencia con el paciente actual.',
     neighborsMapPatient: 'Paciente',
     neighborsMapClose: 'Cerrar detalle',
+    downloadPdfButton: 'Descargar informe en PDF',
+    downloadPdfGenerating: 'Generando PDF…',
   },
   status: {
     ok: 'API conectada',
@@ -320,6 +322,8 @@ const en = {
       'Each point is a similar case; the closer to the center, the closer the match to the current patient.',
     neighborsMapPatient: 'Patient',
     neighborsMapClose: 'Close detail',
+    downloadPdfButton: 'Download report as PDF',
+    downloadPdfGenerating: 'Generating PDF…',
   },
   status: {
     ok: 'API connected',
@@ -468,6 +472,8 @@ const fr = {
       'Chaque point est un cas similaire ; plus il est proche du centre, plus la correspondance avec le patient actuel est forte.',
     neighborsMapPatient: 'Patient',
     neighborsMapClose: 'Fermer le détail',
+    downloadPdfButton: 'Télécharger le rapport en PDF',
+    downloadPdfGenerating: 'Génération du PDF…',
   },
   status: {
     ok: 'API connectée',
@@ -616,6 +622,8 @@ const ca = {
       'Cada punt és un cas similar; com més a prop del centre, més coincidència amb el pacient actual.',
     neighborsMapPatient: 'Pacient',
     neighborsMapClose: 'Tancar el detall',
+    downloadPdfButton: "Descarregar l'informe en PDF",
+    downloadPdfGenerating: 'Generant el PDF…',
   },
   status: {
     ok: 'API connectada',
@@ -764,6 +772,8 @@ const de = {
       'Jeder Punkt ist ein ähnlicher Fall; je näher am Zentrum, desto größer die Übereinstimmung mit dem aktuellen Patienten.',
     neighborsMapPatient: 'Patient',
     neighborsMapClose: 'Detail schließen',
+    downloadPdfButton: 'Bericht als PDF herunterladen',
+    downloadPdfGenerating: 'PDF wird erstellt…',
   },
   status: {
     ok: 'API verbunden',
@@ -912,6 +922,8 @@ const eu = {
       'Puntu bakoitza antzeko kasu bat da; zenbat eta erdigunetik hurbilago egon, orduan eta bat-etortze handiagoa uneko pazientearekin.',
     neighborsMapPatient: 'Pazientea',
     neighborsMapClose: 'Itxi xehetasuna',
+    downloadPdfButton: 'Deskargatu txostena PDF gisa',
+    downloadPdfGenerating: 'PDFa sortzen…',
   },
   status: {
     ok: 'APIa konektatuta',
@@ -1060,6 +1072,8 @@ const gl = {
       'Cada punto é un caso similar; canto máis preto do centro, maior coincidencia co paciente actual.',
     neighborsMapPatient: 'Paciente',
     neighborsMapClose: 'Pechar detalle',
+    downloadPdfButton: 'Descargar informe en PDF',
+    downloadPdfGenerating: 'Xerando o PDF…',
   },
   status: {
     ok: 'API conectada',
@@ -1208,6 +1222,8 @@ const pt = {
       'Cada ponto é um caso semelhante; quanto mais próximo do centro, maior a correspondência com o paciente atual.',
     neighborsMapPatient: 'Paciente',
     neighborsMapClose: 'Fechar detalhe',
+    downloadPdfButton: 'Transferir relatório em PDF',
+    downloadPdfGenerating: 'A gerar o PDF…',
   },
   status: {
     ok: 'API ligada',

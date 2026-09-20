@@ -514,6 +514,17 @@ button.ghost:hover {
   white-space: pre-line;
 }
 
+.report-section p strong,
+.warning-box span strong,
+.key-factor-item p strong {
+  color: var(--brand-dark);
+  font-weight: 700;
+}
+
+.report-printable {
+  background: #fff;
+}
+
 .badge {
   display: inline-flex;
   align-items: center;

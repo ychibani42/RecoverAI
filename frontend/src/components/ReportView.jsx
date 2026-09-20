@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import {
   Activity,
   AlertCircle,
@@ -6,6 +6,7 @@ import {
   CheckCircle2,
   ClipboardList,
   Clock,
+  Download,
   HeartPulse,
   MessageSquare,
   Salad,
@@ -15,6 +16,7 @@ import {
 } from 'lucide-react'
 import { useTranslation } from '../i18n/I18nContext'
 import { sendAppointmentSms } from '../lib/api'
+import { renderBoldText } from '../lib/markdownBold'
 import NeighborsMap from './NeighborsMap'
 import SimilarCasesList from './SimilarCasesList'
 
@@ -28,7 +30,7 @@ function Section({ icon: Icon, title, value }) {
         </span>
         <h3>{title}</h3>
       </div>
-      <p>{value}</p>
+      <p>{renderBoldText(value)}</p>
     </div>
   )
 }
@@ -56,7 +58,7 @@ function KeyFactors({ factors }) {
                 {t('report.weightLabel')}: {(f.peso * 100).toFixed(0)}%
               </span>
             </div>
-            <p>{f.justificacion}</p>
+            <p>{renderBoldText(f.justificacion)}</p>
           </li>
         ))}
       </ul>
@@ -177,8 +179,44 @@ function SmsAppointmentForm({ report }) {
   )
 }
 
+function DownloadPdfButton({ targetRef }) {
+  const { t } = useTranslation()
+  const [generating, setGenerating] = useState(false)
+
+  const handleDownload = async () => {
+    if (!targetRef.current || generating) return
+    setGenerating(true)
+    try {
+      const { default: html2pdf } = await import('html2pdf.js')
+      await html2pdf()
+        .set({
+          margin: 10,
+          filename: `recover-ia-informe-${new Date().toISOString().slice(0, 10)}.pdf`,
+          image: { type: 'jpeg', quality: 0.98 },
+          html2canvas: { scale: 2, useCORS: true },
+          jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
+          pagebreak: { mode: ['avoid-all', 'css', 'legacy'] },
+        })
+        .from(targetRef.current)
+        .save()
+    } finally {
+      setGenerating(false)
+    }
+  }
+
+  return (
+    <div className="report-section pdf-section">
+      <button type="button" className="ghost" onClick={handleDownload} disabled={generating}>
+        {generating ? <span className="spinner" /> : <Download />}
+        {generating ? t('report.downloadPdfGenerating') : t('report.downloadPdfButton')}
+      </button>
+    </div>
+  )
+}
+
 export default function ReportView({ report, similarCases, loading }) {
   const { t } = useTranslation()
+  const printableRef = useRef(null)
 
   if (loading) {
     return (
@@ -204,35 +242,38 @@ export default function ReportView({ report, similarCases, loading }) {
 
   return (
     <div>
-      <Section icon={Search} title={t('report.summary')} value={report.resumen_casos_similares} />
-      <SimilarCasesList cases={similarCases} />
-      <Section icon={Stethoscope} title={t('report.treatment')} value={report.tratamiento_recomendado} />
-      <KeyFactors factors={report.factores_clave} />
+      <div ref={printableRef} className="report-printable">
+        <Section icon={Search} title={t('report.summary')} value={report.resumen_casos_similares} />
+        <SimilarCasesList cases={similarCases} />
+        <Section icon={Stethoscope} title={t('report.treatment')} value={report.tratamiento_recomendado} />
+        <KeyFactors factors={report.factores_clave} />
 
-      <div className="report-section">
-        <div className="report-section-header">
-          <span className="section-icon">
+        <div className="report-section">
+          <div className="report-section-header">
+            <span className="section-icon">
+              <Clock />
+            </span>
+            <h3>{t('report.recoveryTime')}</h3>
+          </div>
+          <span className="badge">
             <Clock />
+            {renderBoldText(report.tiempo_recuperacion_estimado)}
           </span>
-          <h3>{t('report.recoveryTime')}</h3>
         </div>
-        <span className="badge">
-          <Clock />
-          {report.tiempo_recuperacion_estimado}
-        </span>
-      </div>
 
-      <Section icon={Salad} title={t('report.diet')} value={report.dieta_recomendada} />
-      <Section icon={HeartPulse} title={t('report.habits')} value={report.habitos_salud_recomendados} />
+        <Section icon={Salad} title={t('report.diet')} value={report.dieta_recomendada} />
+        <Section icon={HeartPulse} title={t('report.habits')} value={report.habitos_salud_recomendados} />
 
-      <div className="report-section">
-        <div className="warning-box">
-          <AlertTriangle />
-          <span>{report.advertencia}</span>
+        <div className="report-section">
+          <div className="warning-box">
+            <AlertTriangle />
+            <span>{renderBoldText(report.advertencia)}</span>
+          </div>
         </div>
       </div>
 
       <div className="report-actions-row">
+        <DownloadPdfButton targetRef={printableRef} />
         <SmsAppointmentForm report={report} />
         <NeighborsMap cases={similarCases} />
       </div>

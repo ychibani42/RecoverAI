@@ -32,6 +32,14 @@ de reposo mas prolongado y una progresion de carga mas conservadora; una graveda
 peso alto justifica priorizar tratamiento quirurgico sobre conservador. Omite los factores \
 que no se conozcan del paciente nuevo.
 
+En cada campo de texto libre (resumen_casos_similares, tratamiento_recomendado, \
+tiempo_recuperacion_estimado, dieta_recomendada, habitos_salud_recomendados, \
+advertencia y la justificacion de cada factor clave), marca en **negrita** \
+(sintaxis Markdown, con doble asterisco) unicamente las 1-3 frases o datos mas \
+relevantes clinicamente de ese campo (p. ej. el tratamiento elegido, el rango de \
+semanas de recuperacion, un riesgo o advertencia critica). No pongas en negrita \
+el texto completo ni frases genericas.
+
 Redacta todo el informe (todos los campos) en el idioma indicado por el codigo \
 ISO 639-1 que se te proporcione, independientemente del idioma del informe o los \
 casos historicos de entrada.
