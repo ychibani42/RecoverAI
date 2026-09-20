@@ -25,6 +25,14 @@ class Settings(BaseSettings):
     api_host: str = "0.0.0.0"
     api_port: int = 8000
 
+    # Origenes permitidos para CORS (frontend), separados por comas. Anadir
+    # aqui la URL publica del frontend en produccion (ver ai/.env.example).
+    cors_allowed_origins: str = "http://localhost:8080,http://127.0.0.1:8080"
+
+    @property
+    def cors_allowed_origins_list(self) -> list[str]:
+        return [origin.strip() for origin in self.cors_allowed_origins.split(",") if origin.strip()]
+
     # SMS de citas (Vonage Messages API)
     vonage_api_key: str = ""
     vonage_api_secret: str = ""

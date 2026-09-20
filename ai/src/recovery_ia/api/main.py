@@ -6,6 +6,7 @@ from fastapi.staticfiles import StaticFiles
 
 from recovery_ia.api.routes import auth, patients, query, sms, transcription
 from recovery_ia.api.security import require_auth
+from recovery_ia.config.settings import get_settings
 from recovery_ia.sms import start_reminder_scheduler
 
 
@@ -24,7 +25,7 @@ app = FastAPI(
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:8080", "http://127.0.0.1:8080"],
+    allow_origins=get_settings().cors_allowed_origins_list,
     allow_methods=["*"],
     allow_headers=["*"],
 )
