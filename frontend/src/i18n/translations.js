@@ -185,6 +185,17 @@ const es = {
   language: {
     selectorLabel: 'Idioma',
   },
+  menu: {
+    label: 'Menú',
+    home: 'Inicio',
+    login: 'Acceder',
+    logout: 'Salir',
+    settings: 'Configuración',
+    language: 'Idioma',
+    theme: 'Tema',
+    themeLight: 'Claro',
+    themeDark: 'Modo oscuro',
+  },
   auth: {
     title: 'Acceso profesional',
     subtitle: 'Introduce tus credenciales para acceder a la herramienta.',
@@ -320,6 +331,17 @@ const en = {
   },
   language: {
     selectorLabel: 'Language',
+  },
+  menu: {
+    label: 'Menu',
+    home: 'Home',
+    login: 'Log in',
+    logout: 'Log out',
+    settings: 'Settings',
+    language: 'Language',
+    theme: 'Theme',
+    themeLight: 'Light',
+    themeDark: 'Dark mode',
   },
   auth: {
     title: 'Professional access',
@@ -458,6 +480,17 @@ const fr = {
   language: {
     selectorLabel: 'Langue',
   },
+  menu: {
+    label: 'Menu',
+    home: 'Accueil',
+    login: 'Se connecter',
+    logout: 'Se déconnecter',
+    settings: 'Paramètres',
+    language: 'Langue',
+    theme: 'Thème',
+    themeLight: 'Clair',
+    themeDark: 'Mode sombre',
+  },
   auth: {
     title: 'Accès professionnel',
     subtitle: 'Saisissez vos identifiants pour accéder à l’outil.',
@@ -594,6 +627,17 @@ const ca = {
   },
   language: {
     selectorLabel: 'Idioma',
+  },
+  menu: {
+    label: 'Menú',
+    home: 'Inici',
+    login: 'Accedir',
+    logout: 'Sortir',
+    settings: 'Configuració',
+    language: 'Idioma',
+    theme: 'Tema',
+    themeLight: 'Clar',
+    themeDark: 'Mode fosc',
   },
   auth: {
     title: 'Accés professional',
@@ -732,6 +776,17 @@ const de = {
   language: {
     selectorLabel: 'Sprache',
   },
+  menu: {
+    label: 'Menü',
+    home: 'Start',
+    login: 'Anmelden',
+    logout: 'Abmelden',
+    settings: 'Einstellungen',
+    language: 'Sprache',
+    theme: 'Design',
+    themeLight: 'Hell',
+    themeDark: 'Dunkelmodus',
+  },
   auth: {
     title: 'Zugang für Fachpersonal',
     subtitle: 'Gib deine Zugangsdaten ein, um das Tool zu nutzen.',
@@ -868,6 +923,17 @@ const eu = {
   },
   language: {
     selectorLabel: 'Hizkuntza',
+  },
+  menu: {
+    label: 'Menua',
+    home: 'Hasiera',
+    login: 'Sartu',
+    logout: 'Irten',
+    settings: 'Ezarpenak',
+    language: 'Hizkuntza',
+    theme: 'Gaia',
+    themeLight: 'Argia',
+    themeDark: 'Modu iluna',
   },
   auth: {
     title: 'Sarbide profesionala',
@@ -1006,6 +1072,17 @@ const gl = {
   language: {
     selectorLabel: 'Idioma',
   },
+  menu: {
+    label: 'Menú',
+    home: 'Inicio',
+    login: 'Acceder',
+    logout: 'Saír',
+    settings: 'Configuración',
+    language: 'Idioma',
+    theme: 'Tema',
+    themeLight: 'Claro',
+    themeDark: 'Modo escuro',
+  },
   auth: {
     title: 'Acceso profesional',
     subtitle: 'Introduce as túas credenciais para acceder á ferramenta.',
@@ -1142,6 +1219,17 @@ const pt = {
   },
   language: {
     selectorLabel: 'Idioma',
+  },
+  menu: {
+    label: 'Menu',
+    home: 'Início',
+    login: 'Entrar',
+    logout: 'Sair',
+    settings: 'Definições',
+    language: 'Idioma',
+    theme: 'Tema',
+    themeLight: 'Claro',
+    themeDark: 'Modo escuro',
   },
   auth: {
     title: 'Acesso profissional',

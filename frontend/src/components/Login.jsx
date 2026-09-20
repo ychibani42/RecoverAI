@@ -2,10 +2,10 @@ import { useState } from 'react'
 import { AlertCircle, Lock, LogIn, User } from 'lucide-react'
 import { login } from '../lib/api'
 import { useTranslation } from '../i18n/I18nContext'
-import LanguageSelector from './LanguageSelector'
+import TopMenu from './TopMenu'
 import BoneIcon from './icons/BoneIcon'
 
-export default function Login({ onSuccess }) {
+export default function Login({ onSuccess, onHome }) {
   const { t } = useTranslation()
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
@@ -33,7 +33,7 @@ export default function Login({ onSuccess }) {
   return (
     <div className="login-page">
       <div className="login-page-top">
-        <LanguageSelector />
+        <TopMenu authenticated={false} onHome={onHome} onLogin={() => {}} />
       </div>
       <div className="login-card card">
         <div className="login-logo">

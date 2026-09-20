@@ -1,15 +1,15 @@
 import { useEffect, useState } from 'react'
-import { ArrowLeft, ClipboardList, LogOut, UserPlus, Users } from 'lucide-react'
+import { ArrowLeft, ClipboardList, UserPlus, Users } from 'lucide-react'
 import './App.css'
 import './Landing.css'
 import BoneIcon from './components/icons/BoneIcon'
 import Footer from './components/Footer'
 import Landing from './components/Landing'
-import LanguageSelector from './components/LanguageSelector'
 import Login from './components/Login'
 import PatientForm from './components/PatientForm'
 import PatientsTable from './components/PatientsTable'
 import ReportView from './components/ReportView'
+import TopMenu from './components/TopMenu'
 import { useTranslation } from './i18n/I18nContext'
 import { clearToken, getToken, requestReport, UNAUTHORIZED_EVENT } from './lib/api'
 
@@ -65,11 +65,19 @@ export default function App() {
   }
 
   if (view === 'landing') {
-    return <Landing onEnter={handleEnter} onLogout={authenticated ? handleLogout : undefined} />
+    return (
+      <Landing
+        onEnter={handleEnter}
+        authenticated={authenticated}
+        onHome={() => setView('landing')}
+        onLogin={() => setView('login')}
+        onLogout={authenticated ? handleLogout : undefined}
+      />
+    )
   }
 
   if (view === 'login') {
-    return <Login onSuccess={handleLoginSuccess} />
+    return <Login onSuccess={handleLoginSuccess} onHome={() => setView('landing')} />
   }
 
   return (
@@ -88,10 +96,12 @@ export default function App() {
             <p>{t('app.subtitle')}</p>
           </div>
           <div className="topbar-lang">
-            <LanguageSelector />
-            <button type="button" className="back-link" title={t('auth.logout')} onClick={handleLogout}>
-              <LogOut />
-            </button>
+            <TopMenu
+              authenticated={authenticated}
+              onHome={() => setView('landing')}
+              onLogin={() => setView('login')}
+              onLogout={handleLogout}
+            />
           </div>
         </div>
         <div className="topbar-badges">

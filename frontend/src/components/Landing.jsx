@@ -1,14 +1,14 @@
-import { ArrowRight, Brain, Database, LogOut, ScanSearch, ShieldCheck } from 'lucide-react'
+import { ArrowRight, Brain, Database, ScanSearch, ShieldCheck } from 'lucide-react'
 import { useTranslation } from '../i18n/I18nContext'
 import DiagnosticIllustration from './DiagnosticIllustration'
 import { FEATURE_ILLUSTRATIONS } from './FeatureIllustrations'
 import Footer from './Footer'
 import BoneIcon from './icons/BoneIcon'
-import LanguageSelector from './LanguageSelector'
+import TopMenu from './TopMenu'
 
 const FEATURE_ICONS = [ScanSearch, Database, Brain]
 
-export default function Landing({ onEnter, onLogout }) {
+export default function Landing({ onEnter, authenticated, onHome, onLogin, onLogout }) {
   const { t } = useTranslation()
   const features = t('landing.features')
 
@@ -17,12 +17,7 @@ export default function Landing({ onEnter, onLogout }) {
       <header className="landing-hero">
         <div className="landing-hero-decor" aria-hidden="true"></div>
         <div className="landing-hero-top">
-          <LanguageSelector />
-          {onLogout && (
-            <button type="button" className="back-link" title={t('auth.logout')} onClick={onLogout}>
-              <LogOut />
-            </button>
-          )}
+          <TopMenu authenticated={authenticated} onHome={onHome} onLogin={onLogin} onLogout={onLogout} />
         </div>
         <div className="landing-hero-inner">
           <div className="landing-hero-text">
