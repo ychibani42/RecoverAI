@@ -422,6 +422,35 @@ button.ghost:hover {
   color: var(--brand-dark);
 }
 
+button.icon-action-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  padding: 0;
+  background: none;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  color: var(--text-muted);
+  cursor: pointer;
+}
+
+button.icon-action-btn svg {
+  width: 17px;
+  height: 17px;
+}
+
+button.icon-action-btn:hover {
+  border-color: var(--brand);
+  color: var(--brand-dark);
+}
+
+button.icon-action-btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
 .report-empty {
   color: var(--text-muted);
   font-size: 0.9rem;
@@ -627,6 +656,7 @@ button.ghost:hover {
   display: flex;
   flex-wrap: wrap;
   align-items: flex-start;
+  justify-content: flex-end;
   gap: 12px;
 }
 

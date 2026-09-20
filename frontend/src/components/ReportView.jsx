@@ -105,9 +105,14 @@ function SmsAppointmentForm({ report }) {
   if (!open) {
     return (
       <div className="report-section sms-section">
-        <button type="button" className="ghost" onClick={() => setOpen(true)}>
+        <button
+          type="button"
+          className="icon-action-btn"
+          onClick={() => setOpen(true)}
+          title={t('report.smsButton')}
+          aria-label={t('report.smsButton')}
+        >
           <MessageSquare />
-          {t('report.smsButton')}
         </button>
       </div>
     )
@@ -204,11 +209,19 @@ function DownloadPdfButton({ targetRef }) {
     }
   }
 
+  const label = generating ? t('report.downloadPdfGenerating') : t('report.downloadPdfButton')
+
   return (
     <div className="report-section pdf-section">
-      <button type="button" className="ghost" onClick={handleDownload} disabled={generating}>
+      <button
+        type="button"
+        className="icon-action-btn"
+        onClick={handleDownload}
+        disabled={generating}
+        title={label}
+        aria-label={label}
+      >
         {generating ? <span className="spinner" /> : <Download />}
-        {generating ? t('report.downloadPdfGenerating') : t('report.downloadPdfButton')}
       </button>
     </div>
   )

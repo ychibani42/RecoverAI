@@ -35,10 +35,17 @@ que no se conozcan del paciente nuevo.
 En cada campo de texto libre (resumen_casos_similares, tratamiento_recomendado, \
 tiempo_recuperacion_estimado, dieta_recomendada, habitos_salud_recomendados, \
 advertencia y la justificacion de cada factor clave), marca en **negrita** \
-(sintaxis Markdown, con doble asterisco) unicamente las 1-3 frases o datos mas \
-relevantes clinicamente de ese campo (p. ej. el tratamiento elegido, el rango de \
-semanas de recuperacion, un riesgo o advertencia critica). No pongas en negrita \
-el texto completo ni frases genericas.
+(sintaxis Markdown, con doble asterisco) UNICAMENTE palabras o frases cortas \
+(entre 2 y 6 palabras, nunca una frase completa ni una oracion entera) que \
+contengan el dato o termino mas relevante clinicamente: el tipo de tratamiento, \
+un rango de semanas, un riesgo critico o una restriccion importante. Pon en \
+negrita como maximo 1 o 2 fragmentos cortos por campo, y deja el resto del texto \
+sin ningun formato. Por ejemplo, para un campo de habitos escribe: "Se recomienda \
+**evitar tabaco y alcohol** durante la recuperacion. Adherirse al plan de \
+fisioterapia y realizar los ejercicios diariamente. **Evitar carga o impacto en \
+la zona lesionada** hasta la recuperacion completa. Mantener una buena \
+hidratacion y una dieta equilibrada." (nota como solo se resaltan 2 fragmentos \
+cortos, no frases completas ni todo el parrafo).
 
 Redacta todo el informe (todos los campos) en el idioma indicado por el codigo \
 ISO 639-1 que se te proporcione, independientemente del idioma del informe o los \

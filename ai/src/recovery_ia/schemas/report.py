@@ -13,7 +13,8 @@ class FactorJustificacion(BaseModel):
     justificacion: str = Field(
         description="Por que este valor del factor, dado su peso, influyo en la recomendacion "
         "(ej. 'edad alta (72) con peso 0.9: se prioriza un periodo de reposo mas prolongado'). Marca en "
-        "**negrita** (Markdown, doble asterisco) el dato o conclusion mas relevante de la frase."
+        "**negrita** (Markdown, doble asterisco) solo una palabra o frase corta (2-6 palabras) con el dato "
+        "o conclusion mas relevante; nunca la frase completa."
     )
 
 
@@ -23,17 +24,17 @@ class ClinicalReport(BaseModel):
 
     resumen_casos_similares: str = Field(
         description="Resumen de los casos historicos similares encontrados y por que se parecen al caso "
-        "consultado. Marca en **negrita** (Markdown, doble asterisco) las 1-3 frases o datos mas "
-        "relevantes clinicamente; no pongas en negrita el texto completo."
+        "consultado. Marca en **negrita** (Markdown, doble asterisco) 1 o 2 palabras o frases cortas "
+        "(2-6 palabras) con el dato mas relevante; nunca una frase completa ni todo el texto."
     )
     tratamiento_recomendado: str = Field(
         description="Tratamiento sugerido (conservador o quirurgico, con detalles) basado en los casos "
-        "similares. Marca en **negrita** (Markdown, doble asterisco) las 1-3 frases o datos mas relevantes "
-        "clinicamente (p. ej. el tratamiento elegido); no pongas en negrita el texto completo."
+        "similares. Marca en **negrita** (Markdown, doble asterisco) 1 o 2 palabras o frases cortas "
+        "(2-6 palabras), como el tipo de tratamiento elegido; nunca una frase completa ni todo el texto."
     )
     tiempo_recuperacion_estimado: str = Field(
         description="Rango de semanas estimado hasta la recuperacion, segun los casos similares. Marca en "
-        "**negrita** (Markdown, doble asterisco) el rango de semanas."
+        "**negrita** (Markdown, doble asterisco) unicamente el rango de semanas (ej. '**6-8 semanas**')."
     )
     semanas_hasta_revision: int = Field(
         description="Numero entero de semanas hasta la cita de revision recomendada, coherente con "
@@ -42,19 +43,23 @@ class ClinicalReport(BaseModel):
     dieta_recomendada: str | None = Field(
         default=None,
         description="Recomendaciones dieteticas solo si son relevantes (consolidacion osea, comorbilidades "
-        "como diabetes u obesidad); null si no aplica. Marca en **negrita** (Markdown, doble asterisco) las "
-        "1-3 frases o datos mas relevantes clinicamente; no pongas en negrita el texto completo.",
+        "como diabetes u obesidad); null si no aplica. Marca en **negrita** (Markdown, doble asterisco) 1 o "
+        "2 palabras o frases cortas (2-6 palabras) con la recomendacion mas critica; nunca una frase "
+        "completa ni todo el texto.",
     )
     habitos_salud_recomendados: str | None = Field(
         default=None,
         description="Habitos recomendados durante la recuperacion: actividad fisica, tabaco/alcohol, "
-        "adherencia a fisioterapia, etc. Marca en **negrita** (Markdown, doble asterisco) las 1-3 frases o "
-        "datos mas relevantes clinicamente; no pongas en negrita el texto completo.",
+        "adherencia a fisioterapia, etc. Marca en **negrita** (Markdown, doble asterisco) 1 o 2 palabras o "
+        "frases cortas (2-6 palabras) con las restricciones mas criticas (p. ej. 'evitar tabaco y alcohol', "
+        "'evitar carga en la zona lesionada'); nunca una frase completa ni todo el texto, y deja las "
+        "recomendaciones genericas (hidratacion, dieta equilibrada) sin negrita.",
     )
     advertencia: str = Field(
         description="Aviso de que es una orientacion de apoyo a la decision y no sustituye el criterio "
         "clinico del profesional ni constituye un diagnostico. Marca en **negrita** (Markdown, doble "
-        "asterisco) la parte mas critica del aviso."
+        "asterisco) solo una frase corta (2-6 palabras) con la parte mas critica del aviso; nunca la frase "
+        "completa."
     )
     factores_clave: list[FactorJustificacion] = Field(
         default=[],

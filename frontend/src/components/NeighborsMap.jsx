@@ -40,11 +40,18 @@ export default function NeighborsMap({ cases }) {
 
   const selected = points.find((pt) => pt.id === selectedId) || null
 
+  const label = open ? t('report.neighborsMapHide') : t('report.neighborsMapButton')
+
   return (
     <div className="report-section neighbors-map-section">
-      <button type="button" className="ghost" onClick={() => setOpen((v) => !v)}>
+      <button
+        type="button"
+        className="icon-action-btn"
+        onClick={() => setOpen((v) => !v)}
+        title={label}
+        aria-label={label}
+      >
         <Radar />
-        {open ? t('report.neighborsMapHide') : t('report.neighborsMapButton')}
       </button>
 
       {open && (
