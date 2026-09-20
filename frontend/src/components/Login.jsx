@@ -7,8 +7,8 @@ import BoneIcon from './icons/BoneIcon'
 
 export default function Login({ onSuccess, onHome }) {
   const { t } = useTranslation()
-  const [username, setUsername] = useState('')
-  const [password, setPassword] = useState('')
+  const [username, setUsername] = useState('admin')
+  const [password, setPassword] = useState('admin')
   const [submitting, setSubmitting] = useState(false)
   const [error, setError] = useState('')
 
